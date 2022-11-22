@@ -85,7 +85,7 @@ const Allpurchase = ({ resdata, api }) => {
 
 export default Allpurchase
 
-export async function getServerSideProps({ query }) {
+export async function getserversideprops({ query }) {
 
     const res = await fetch(`${process.env.API}Purchase/Getlist`,
         {

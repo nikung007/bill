@@ -297,7 +297,7 @@ const Index = ({ api, pay, recive }) => {
 
 export default Index
 
-export async function getServerSideProps({ query }) {
+export async function getserversideprops({ query }) {
 
     const res = await fetch(`${process.env.API}Uchinapayrec/Paymentparty`,
         {

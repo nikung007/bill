@@ -276,7 +276,7 @@ const Index = ({ resdata, api }) => {
     )
 }
 
-export async function getServerSideProps() {
+export async function getserversideprops() {
 
     const res = await fetch(`${process.env.API}Purchase/GetParty`,
         {

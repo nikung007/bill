@@ -468,7 +468,7 @@ const Index = ({ sell, api }) => {
     )
 }
 
-export async function getServerSideProps() {
+export async function getserversideprops() {
 
     const res = await fetch(`${process.env.API}Sell/Getsell`,
         {

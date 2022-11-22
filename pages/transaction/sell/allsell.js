@@ -85,7 +85,7 @@ const Allsell = ({ resdata, api }) => {
 
 export default Allsell
 
-export async function getServerSideProps({ query }) {
+export async function getserversideprops({ query }) {
 
     const res = await fetch(`${process.env.API}Sell/Getlist`,
         {

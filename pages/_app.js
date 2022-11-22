@@ -68,7 +68,7 @@ function MyApp({ Component, pageProps }) {
         </div>)
 }
 
-// export async function getServerSideProps({ query }) {
+// export async function getserversideprops({ query }) {
 
 //     const getData = JSON.parse(localStorage.getItem("form"));
 //     if (getData == "undefined") {

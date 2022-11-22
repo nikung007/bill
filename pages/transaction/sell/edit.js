@@ -476,7 +476,7 @@ const Edit = ({ resdata, sell, api, id }) => {
 
 export default Edit
 
-export async function getServerSideProps({ query }) {
+export async function getserversideprops({ query }) {
 
     const res_sell = await fetch(`${process.env.API}Sell/Getsell`,
         {

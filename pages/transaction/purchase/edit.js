@@ -252,7 +252,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
 
 export default Edit
 
-export async function getServerSideProps({ query }) {
+export async function getserversideprops({ query }) {
 
     const resP_name = await fetch(`${process.env.API}Purchase/GetParty`,
         {

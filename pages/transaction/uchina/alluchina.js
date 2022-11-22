@@ -73,7 +73,7 @@ const Alluchina = ({ u_list, api }) => {
 
 export default Alluchina
 
-export async function getServerSideProps({ query }) {
+export async function getserversideprops({ query }) {
 
     const res = await fetch(`${process.env.API}Uchina/Getalllist`,
         {

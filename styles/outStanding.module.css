@@ -1,0 +1,25 @@
+.pay_rec_heading h4 {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.pay_rec_filds,
+.pay_rec_filds_pyrc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pay_rec_filds input {
+    margin-left: 10px;
+}
+
+.pay_rec_filds select {
+    margin-left: 10px;
+}
+
+.purchase_filds {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

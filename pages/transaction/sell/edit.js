@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Sell from '../../components/sell';
+import Sell_ok from '../../../components/sell_ok'
 
 const Edit = ({ resdata, sell, api, id }) => {
 
@@ -432,7 +432,7 @@ const Edit = ({ resdata, sell, api, id }) => {
     }
     return (
         <div>
-            <Sell
+            <Sell_ok
                 name="Edit"
                 sell_data={ sell_data }
                 sell_party_list={ sell.party }

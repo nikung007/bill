@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Purchase from '../../components/purchase';
+import Purchase_ok from '../../../components/purchase_ok'
 
 const Edit = ({ id, resdata, party_list, api }) => {
     const router = useRouter()
@@ -220,7 +220,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
     }
     return (
         <div>
-            <Purchase
+            <Purchase_ok
                 name="Edit"
                 difference={ difference }
                 party_name={ party_list.data }

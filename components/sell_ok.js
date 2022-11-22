@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import Sell_Style from '../styles/sell.module.css'
 
-const Sell = (props) => {
+const Sell_ok = (props) => {
    return (
       <div>
          {
@@ -445,4 +445,4 @@ const Sell = (props) => {
    )
 }
 
-export default Sell
+export default Sell_ok

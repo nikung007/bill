@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/router";
-import Purchase from '../../../components/purchase'
+import Purchase_ok from '../../../components/purchase_ok'
 
 const Index = ({ resdata, api }) => {
 
@@ -244,7 +244,7 @@ const Index = ({ resdata, api }) => {
 
     return (
         <div>
-            <Purchase
+            <Purchase_ok
                 name="New"
                 party_name={ resdata.data }
                 lot_list={ lot_list }

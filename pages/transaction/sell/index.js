@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Sell from '../../../components/sell'
+import Sell_ok from '../../../components/sell_ok'
 
 const Index = ({ sell, api }) => {
 
@@ -426,7 +426,7 @@ const Index = ({ sell, api }) => {
 
     return (
         <div>
-            <Sell
+            <Sell_ok
                 name="New"
                 sell_data={ sell_data }
                 sell_party_list={ sell.party }

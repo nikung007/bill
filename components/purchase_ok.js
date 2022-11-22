@@ -3,7 +3,7 @@ import React from 'react'
 import Purchase_Style from '../styles/purchase.module.css'
 // import { Toaster } from 'react-hot-toast';
 
-const Purchase = (props) => {
+const Purchase_ok = (props) => {
 
     return (
         <section>
@@ -273,4 +273,4 @@ const Purchase = (props) => {
     )
 }
 
-export default Purchase
+export default Purchase_ok

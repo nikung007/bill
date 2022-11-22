@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Purchase from '../../../components/Purchase'
 import { useRouter } from "next/router";
-import Router from 'next/router'
 // import toast from 'react-hot-toast';
+import Purchase from '../../components/purchase'
 
 const Index = ({ resdata, api }) => {
 

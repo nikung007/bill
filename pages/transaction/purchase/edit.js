@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Purchase from '../../../components/purchase';
+import Purchase from '../../components/purchase';
 
 const Edit = ({ id, resdata, party_list, api }) => {
     const router = useRouter()

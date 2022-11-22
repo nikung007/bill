@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Sell from '../../../components/sell';
+import Sell from '../../components/sell';
 
 const Edit = ({ resdata, sell, api, id }) => {
 

@@ -10,6 +10,7 @@ export default function Home() {
           <div className={ `card ${Dashboard_Style.dashboard_card}` }>
             <h3 style={ { textAlign: "center" } } >ABCD</h3>
             <h3 style={ { textAlign: "center" } } >120 $</h3>
+            <a href="/master/partymaster">SEnd</a>
           </div>
           <div className={ `card ${Dashboard_Style.dashboard_card}` }>
             <h3 style={ { textAlign: "center" } } >ABCD</h3>

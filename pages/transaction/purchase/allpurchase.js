@@ -59,7 +59,7 @@ const Allpurchase = ({ resdata, api }) => {
                             {
                                 all_purchase.map((ele, index) => {
                                     return (
-                                        <tr>
+                                        <tr key={ index }>
                                             <td>{ ele.p_id }</td>
                                             <td>{ ele.party_name }</td>
                                             <td>{ ele.invoice_date.split("T")[0] }</td>

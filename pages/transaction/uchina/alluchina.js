@@ -45,9 +45,9 @@ const Alluchina = ({ u_list, api }) => {
                         </thead>
                         <tbody>
                             {
-                                list.map((ele) => {
+                                list.map((ele, index) => {
                                     return (
-                                        <tr>
+                                        <tr key={ index }>
                                             <td>{ ele.u_id }</td>
                                             <td>{ ele.partyname }</td>
                                             <td>{ ele.amount }</td>

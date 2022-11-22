@@ -49,9 +49,9 @@ const Allpay_rec = ({ resdata, api }) => {
                         </thead>
                         <tbody>
                             {
-                                all_pay_rec.map((ele) => {
+                                all_pay_rec.map((ele, index) => {
                                     return (
-                                        <tr>
+                                        <tr key={ index }>
                                             <td>{ ele.id }</td>
                                             <td>{ ele.tdate.split("T")[0] }</td>
                                             <td>{ ele.paybankname }</td>

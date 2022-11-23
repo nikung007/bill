@@ -67,55 +67,57 @@ const Out_standing = ({ api, sell, purchase }) => {
         }
     }
 
-    useEffect(() => {
-        if (outStand.transtiontype == "buy") {
-            setParty_list(purchase)
-            if (error_payrec.artical == false &&
-                error_payrec.extra == false &&
-                error_payrec.fromdate == false &&
-                error_payrec.party_name == false &&
-                error_payrec.todate == false &&
-                error_payrec.transtiontype == false &&
-                error_payrec.type == false && outStand.party_name == "all") {
-                async function fetchMyAPI() {
-                    const res = await fetch(`${api}Report/Getdueinvoicedetail`,
-                        {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ ...data })
-                        })
-                    const res_lot = await res.json()
-                    setAll_data(res_lot)
+    if (outStand.transtiontype != "buy") {
+        useEffect(() => {
+            if (outStand.transtiontype == "buy") {
+                setParty_list(purchase)
+                if (error_payrec.artical == false &&
+                    error_payrec.extra == false &&
+                    error_payrec.fromdate == false &&
+                    error_payrec.party_name == false &&
+                    error_payrec.todate == false &&
+                    error_payrec.transtiontype == false &&
+                    error_payrec.type == false && outStand.party_name == "all") {
+                    async function fetchMyAPI() {
+                        const res = await fetch(`${api}Report/Getdueinvoicedetail`,
+                            {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ ...data })
+                            })
+                        const res_lot = await res.json()
+                        setAll_data(res_lot)
+                    }
+                    fetchMyAPI()
                 }
-                fetchMyAPI()
-            }
-        } else if (outStand.transtiontype == "sell") {
-            setParty_list(sell)
-            if (error_payrec.artical == false &&
-                error_payrec.extra == false &&
-                error_payrec.fromdate == false &&
-                error_payrec.party_name == false &&
-                error_payrec.todate == false &&
-                error_payrec.transtiontype == false &&
-                error_payrec.type == false && outStand.party_name == "all") {
-                async function fetchMyAPI() {
-                    const res = await fetch(`${api}Report/Getdueinvoicedetail`,
-                        {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ ...data })
-                        })
-                    const res_lot = await res.json()
-                    setAll_data(res_lot)
+            } else if (outStand.transtiontype == "sell") {
+                setParty_list(sell)
+                if (error_payrec.artical == false &&
+                    error_payrec.extra == false &&
+                    error_payrec.fromdate == false &&
+                    error_payrec.party_name == false &&
+                    error_payrec.todate == false &&
+                    error_payrec.transtiontype == false &&
+                    error_payrec.type == false && outStand.party_name == "all") {
+                    async function fetchMyAPI() {
+                        const res = await fetch(`${api}Report/Getdueinvoicedetail`,
+                            {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ ...data })
+                            })
+                        const res_lot = await res.json()
+                        setAll_data(res_lot)
+                    }
+                    fetchMyAPI()
                 }
-                fetchMyAPI()
             }
-        }
-    }, [outStand])
+        }, [outStand])
+    }
 
     return (
         <section>

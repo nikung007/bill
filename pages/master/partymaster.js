@@ -74,7 +74,7 @@ const Partymaster = ({ party, api, party_all }) => {
     )
 }
 
-export async function getserversideprops() {
+export async function getstaticprops() {
 
     const res = await fetch(`${process.env.API}Party/Getpartyid`,
         {

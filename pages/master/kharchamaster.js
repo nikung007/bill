@@ -158,7 +158,7 @@ const Kharchamaster = ({ api, party_all }) => {
 
 export default Kharchamaster
 
-export async function getserversideprops() {
+export async function getInitialProps() {
     const res = await fetch(`${process.env.API}Kharch/Getkharch`,
         {
             method: 'POST',

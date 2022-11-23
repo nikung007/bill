@@ -291,7 +291,7 @@ const Out_standing = ({ api, sell, purchase }) => {
 
 export default Out_standing
 
-export async function getserversideprops() {
+export async function getInitialProps() {
 
     const res = await fetch(`${process.env.API}Sell/Getsell`,
         {

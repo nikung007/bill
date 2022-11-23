@@ -122,7 +122,7 @@ const Index = ({ api, bank }) => {
 
 export default Index
 
-export async function getstaticprops({ query }) {
+export async function getserversideprops({ query }) {
 
     const res = await fetch(`${process.env.API}Banktransfer/GetBankname`,
         {

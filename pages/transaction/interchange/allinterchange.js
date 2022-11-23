@@ -79,7 +79,7 @@ const Allpay_rec = ({ resdata, api }) => {
 
 export default Allpay_rec
 
-export async function getstaticprops({ query }) {
+export async function getserversideprops({ query }) {
 
     const res = await fetch(`${process.env.API}Banktransfer/Getlist`,
         {

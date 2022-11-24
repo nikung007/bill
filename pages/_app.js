@@ -19,20 +19,4 @@ function MyApp({ Component, pageProps }) {
 
         </div>)
 }
-
-// export async function getServerSideProps({ query }) {
-
-//     const getData = JSON.parse(localStorage.getItem("form"));
-//     if (getData == "undefined") {
-//         localStorage.setItem('name', 'Obaseki Nosa');
-//     }
-//     console.log(getData)
-
-//     return {
-//         props: {
-//             "getData": getData,
-//             // "login": login
-//         },
-//     }
-// }
 export default MyApp

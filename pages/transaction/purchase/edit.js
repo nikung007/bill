@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import Purchase from '../../../components/Purchase'
+import { useRouter } from 'next/router'
+import Purchase from '../../../components/Purchase';
 import toast, { Toaster } from 'react-hot-toast';
+import Something_new from '../../report/something-new';
 
-const Index = ({ resdata, api }) => {
+const Edit = ({ id, resdata, party_list, api }) => {
+    const router = useRouter()
 
-    const [lot_list, setLot_list] = useState([])
+    const [lot_list, setLot_list] = useState(resdata.subpurchase)
+
+
+    const in_date = resdata.purchase.invoice_date.split("T")[0];
 
     const [purchase_data, setPurchase_data] = useState({
-        id: resdata.p_id,
-        invoice_number: resdata.p_id,
-        extra: "",
-        type: "",
-        artical: "",
-        party_name: "",
-        invoice_date: "",
-        terms: "",
-        remark: "",
+        id: resdata.purchase.p_id,
+        invoice_number: resdata.purchase.p_id,
+        extra: resdata.purchase.extra,
+        type: resdata.purchase.type,
+        artical: resdata.purchase.artical,
+        party_name: resdata.purchase.party_name,
+        invoice_date: in_date,
+        terms: resdata.purchase.terms,
+        remark: resdata.purchase.remark,
     })
 
     var days = purchase_data.terms;
@@ -113,13 +119,14 @@ const Index = ({ resdata, api }) => {
         setLot_list(newEditData);
     }
 
+
     const total_carat_now = lot_list.reduce((totalLot, allCarat) => totalLot + Math.round(allCarat.carat * 100) / 100, 0);
     const total_amount_now = lot_list.reduce((totalLot, allAmount) => totalLot + Math.round(allAmount.amount * 100) / 100, 0);
 
     const [disable_diff, setDisable_diff] = useState({ add_diff: false, min_diff: false })
     const [difference, setDifference] = useState({
-        add_difference: "",
-        minus_difference: "",
+        add_difference: resdata.purchase.plus,
+        minus_difference: resdata.purchase.minus,
     })
     const [set_d, setSet_d] = useState(false)
     const set_difference = (e) => {
@@ -139,12 +146,12 @@ const Index = ({ resdata, api }) => {
         }
     }, [difference])
 
-    let final_amount_now = total_amount_now + Math.round(difference.add_difference * 100) / 100 - Math.round(difference.minus_difference * 100) / 100;
+    let final_amount_now = Math.round(total_amount_now * 100) / 100 + Math.round(difference.add_difference * 100) / 100 - Math.round(difference.minus_difference * 100) / 100
 
 
     const all_purchase_data = {
-        p_id: purchase_data.id,
-        invoice_no: parseInt(purchase_data.id),
+        // p_id: purchase_data.id,
+        invoice_no: parseInt(purchase_data.invoice_number),
         extra: purchase_data.extra,
         type: purchase_data.type,
         artical: purchase_data.artical,
@@ -156,31 +163,29 @@ const Index = ({ resdata, api }) => {
         total_amount: total_amount_now,
         plus: Math.round(difference.add_difference * 100) / 100,
         minus: Math.round(difference.minus_difference * 100) / 100,
-        final_amount: Math.round(final_amount_now * 100) / 100,
+        final_amount: final_amount_now,
         remark: purchase_data.remark,
         receive_amount: 0,
-        outstanding_amount: Math.round(final_amount_now * 100) / 100,
+        outstanding_amount: final_amount_now,
         is_delete: false,
-        data: lot_list.map((ele, index) => ({
-            sub_p_id: index + 1,
-            p_id: purchase_data.invoice_number,
-            invoice_no: purchase_data.invoice_number,
-            extra: purchase_data.extra,
-            type: purchase_data.type,
-            artical: purchase_data.artical,
-            party_name: purchase_data.party_name,
-            lot_id: index + 1,
-            carat: Math.round(ele.carat * 100) / 100,
-            price: Math.round(ele.price * 100) / 100,
-            amount: Math.round(ele.amount * 100) / 100,
-            is_delete: false,
-            sell_lot: false,
-        })),
     }
+    const data_lot = lot_list.map((ele, index) => ({
+        sub_p_id: ele.sub_p_id,
+        p_id: purchase_data.invoice_number,
+        invoice_no: purchase_data.invoice_number,
+        extra: purchase_data.extra,
+        type: purchase_data.type,
+        artical: purchase_data.artical,
+        party_name: purchase_data.party_name,
+        lot_id: index + 1,
+        carat: Math.round(ele.carat * 100) / 100,
+        price: ele.price,
+        amount: Math.round(ele.amount * 100) / 100,
+        is_delete: false,
+        sell_lot: false,
+    }))
 
-    // console.log(all_purchase_data);
-    const save_purchase = async (e) => {
-        // toast.success('Here is your toast.');
+    const save_purchase = async () => {
         if (purchase_data.party_name == "") {
             setError({ ...error, error_party_name: true })
         } else if (purchase_data.extra == "") {
@@ -196,17 +201,21 @@ const Index = ({ resdata, api }) => {
         } else if (lot_list.length == 0) {
             setError({ ...error, error_all: true })
         } else {
-            const res = await fetch(`${api}Purchase/Add`,
+            const res = await fetch(`${api}Purchase/update`,
                 {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ ...all_purchase_data })
+                    body: JSON.stringify({
+                        id: id,
+                        lot_data: data_lot,
+                        purchase_data: all_purchase_data
+                    })
                 })
             const resdata = await res.json()
-            if (resdata == "Record Add Successfully") {
-                toast.success(a, {
+            if (resdata == "Record Update Succesfully") {
+                toast.success(resdata, {
                     style: {
                         padding: '16px',
                         color: 'black',
@@ -218,46 +227,18 @@ const Index = ({ resdata, api }) => {
                         secondary: '#ffffff',
                     },
                 });
-                const res = await fetch(`${api}Purchase/GetParty`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            store_url: "ok"
-                        })
-                    })
-                const resetData = await res.json()
-                setPurchase_data({
-                    ...purchase_data,
-                    id: resetData.p_id,
-                    invoice_number: resetData.p_id,
-                    extra: "",
-                    type: "",
-                    artical: "",
-                    party_name: "",
-                    invoice_date: "",
-                    terms: "",
-                    remark: ""
-                })
-                setLot_list([])
-                setDifference({
-                    ...difference,
-                    add_difference: "",
-                    minus_difference: "",
-                })
+                router.push("/transaction/purchase/allpurchase")
             }
         }
+
     }
-
-
     return (
         <div>
             <Toaster position="top-center" reverseOrder={ false } />
             <Purchase
-                name="New"
-                party_name={ resdata.data }
+                name="Edit"
+                difference={ difference }
+                party_name={ party_list.data }
                 lot_list={ lot_list }
                 purchase_data={ purchase_data }
                 change_purchese={ change_purchese }
@@ -271,7 +252,6 @@ const Index = ({ resdata, api }) => {
                 set_edit_lot={ set_edit_lot }
                 add_lot={ add_lot }
                 edit_lot={ edit_lot }
-                difference={ difference }
                 delete_lot={ delete_lot }
                 save_new_lot={ save_new_lot }
                 total_carat_now={ total_carat_now }
@@ -279,15 +259,17 @@ const Index = ({ resdata, api }) => {
                 final_amount_now={ final_amount_now }
                 set_difference={ set_difference }
                 save_purchase={ save_purchase }
-                save="Save"
+                save="Update"
             />
         </div>
     )
 }
 
-export async function getServerSideProps() {
+export default Edit
 
-    const res = await fetch(`${process.env.API}Purchase/GetParty`,
+export async function getServerSideProps({ query }) {
+
+    const resP_name = await fetch(`${process.env.API}Purchase/GetParty`,
         {
             method: 'POST',
             headers: {
@@ -297,16 +279,26 @@ export async function getServerSideProps() {
                 store_url: "ok"
             })
         })
-    const resdata = await res.json()
-    // console.log(resdata);
+    const party_list = await resP_name.json()
 
+    const res = await fetch(`${process.env.API}Purchase/Edit`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: query.id
+            })
+        })
+    const resdata = await res.json()
+    console.log(resdata);
     return {
         props: {
-            "api": process.env.API,
             "resdata": resdata,
+            "id": query.id,
+            "api": process.env.API,
+            "party_list": party_list
         }
     }
 }
-
-export default Index
-

@@ -30,7 +30,7 @@ const Purchase = (props) => {
                                 {
                                     props.party_name.map((ele, index) => {
                                         return (
-                                            <option value={ ele }>{ ele }</option>
+                                            <option key={ index } value={ ele }>{ ele }</option>
                                         )
                                     })
                                 }

@@ -23,9 +23,9 @@ const Add_master = (props) => {
                             </thead>
                             <tbody>
                                 {
-                                    props.party_all.map((ele) => {
+                                    props.party_all.map((ele, index) => {
                                         return (
-                                            <tr>
+                                            <tr key={ index }>
                                                 <td>{ ele.party_id }</td>
                                                 <td>{ ele.party_name }</td>
                                                 <td>{ ele.party_type }</td>

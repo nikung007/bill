@@ -1,0 +1,16 @@
+.add_fild {
+    margin: 0 auto;
+    width: 55% !important;
+    padding: 10px 25px !important;
+}
+
+.add_all_fild {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 0;
+    position: relative;
+}
+
+.add_all_fild label {
+    width: 50%;
+}

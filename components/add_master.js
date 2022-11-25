@@ -7,10 +7,10 @@ const Add_master = (props) => {
         <section>
             {
                 props.all_list ?
-                    <div style={ { width: "auto", margin: "auto" } } className='card'>
+                    <div style={ { width: "75%", margin: "auto" } } className='card'>
                         <input
                             placeholder='Search Purchase Party Name'
-                            style={ { minHeight: "3.6rem", width: "400px" } }
+                            style={ { minHeight: "3.6rem" } }
                             type="search" />
                         <table>
                             <thead>
@@ -23,9 +23,9 @@ const Add_master = (props) => {
                             </thead>
                             <tbody>
                                 {
-                                    props.party_all.map((ele, index) => {
+                                    props.party_all.map((ele) => {
                                         return (
-                                            <tr key={ index }>
+                                            <tr>
                                                 <td>{ ele.party_id }</td>
                                                 <td>{ ele.party_name }</td>
                                                 <td>{ ele.party_type }</td>

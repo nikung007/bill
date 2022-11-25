@@ -7,10 +7,10 @@ function Kharcha(props) {
         <section>
             {
                 props.all_list ?
-                    <div style={ { width: "auto", margin: "auto" } } className='card'>
+                    <div style={ { width: "65%", margin: "auto" } } className='card'>
                         <input
                             placeholder='Search Purchase Party Name'
-                            style={ { minHeight: "3.6rem", width: "400px" } }
+                            style={ { minHeight: "3.6rem" } }
                             type="search" />
                         <table>
                             <thead>

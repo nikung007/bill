@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import Add_master from '../../components/add_master'
 
 const Partymaster = ({ party, api, party_all }) => {
 
-    const [party_master, setParty_master] = useState({
+    const [partyMaster, setPartyMaster] = useState({
         id: party.party_id,
         party_type: "",
         party_name: "",
-    })
-    const party_change = (e) => {
-        setParty_master({ ...party_master, [e.target.name]: e.target.value })
-    }
-    const [all_list, setAll_list] = useState(false)
-    const click_show_list = () => {
-        setAll_list(true)
-    }
-    const close_list = () => {
-        setAll_list(false)
-    }
-
+    });
+    const [allList, setAllList] = useState(false);
     const [party_list, setParty_list] = useState(party_all);
-    const search_change = (e) => {
+
+    const click_show_list = () => {
+        setAllList(true);
+    };
+
+    const partyChange = (e) => {
+        setPartyMaster({ ...partyMaster, [e.target.name]: e.target.value });
+    };
+
+    const close_list = () => {
+        setAllList(false);
+    };
+
+    const searchChange = (e) => {
         const searchingData = [];
         if (e.target.value) {
             const data = party_all.filter((item) => {
@@ -34,16 +37,15 @@ const Partymaster = ({ party, api, party_all }) => {
         setParty_list(searchingData);
     }
 
-
-
     const data = {
-        party_id: party_master.id,
-        party_type: party_master.party_type,
-        party_name: party_master.party_name,
+        party_id: partyMaster.id,
+        party_type: partyMaster.party_type,
+        party_name: partyMaster.party_name,
         is_delete: false,
-    }
+    };
+
     const save_data = async () => {
-        if (party_master.party_type != "" && party_master.party_name != "") {
+        if (partyMaster.party_type != "" && partyMaster.party_name != "") {
             const res = await fetch(`${api}Party/Add`,
                 {
                     method: 'POST',
@@ -51,8 +53,8 @@ const Partymaster = ({ party, api, party_all }) => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ ...data })
-                })
-            const resdata = await res.json()
+                });
+            const resdata = await res.json();
             if (resdata == "Party Add Successfully") {
                 toast.success(resdata, {
                     style: {
@@ -75,29 +77,30 @@ const Partymaster = ({ party, api, party_all }) => {
                         body: JSON.stringify({
                             store_url: "ok"
                         })
-                    })
-                const party_new = await res.json()
-                setParty_master({
+                    });
+                const party_new = await res.json();
+                setPartyMaster({
                     id: party_new.party_id,
                     party_type: "",
                     party_name: "",
-                })
+                });
             }
         }
-    }
+    };
+
     return (
         <div>
             <h1>Party master</h1>
             <Toaster position="top-center" reverseOrder={ false } />
             <Add_master
-                party_master={ party_master }
-                party_change={ party_change }
-                all_list={ all_list }
+                partyMaster={ partyMaster }
+                partyChange={ partyChange }
+                allList={ allList }
                 click_show_list={ click_show_list }
                 close_list={ close_list }
                 save_data={ save_data }
                 party_all={ party_list }
-                search_change={ search_change }
+                searchChange={ searchChange }
             />
         </div>
     )
@@ -115,7 +118,7 @@ export async function getServerSideProps() {
                 store_url: "ok"
             })
         })
-    const party = await res.json()
+    const party = await res.json();
 
     const res_all_data = await fetch(`${process.env.API}Party/Getallparty`,
         {
@@ -127,7 +130,7 @@ export async function getServerSideProps() {
                 store_url: "ok"
             })
         })
-    const party_all = await res_all_data.json()
+    const party_all = await res_all_data.json();
 
 
     return {

@@ -5,53 +5,49 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Kharchamaster = ({ api, party_all }) => {
 
-    const [party_list, setParty_list] = useState(party_all || [])
-
-    const [party_master, setParty_master] = useState({
-        id: party_list.length + 1,
+    const [partyList, setPartyList] = useState(party_all || []);
+    const [partyMaster, setPartyMaster] = useState({
+        id: partyList.length + 1,
         group_name: "",
         party_name: "",
-    })
-    const party_change = (e) => {
-        setParty_master({ ...party_master, [e.target.name]: e.target.value })
-    }
-    const [all_list, setAll_list] = useState(false)
+    });
+    const [allList, setAllList] = useState(false);
+    const [kharchaList, setKharchaList] = useState(party_all);
+
+    const partyChange = (e) => {
+        setPartyMaster({ ...partyMaster, [e.target.name]: e.target.value });
+    };
     const click_show_list = () => {
-        setAll_list(true)
-    }
+        setAllList(true);
+    };
     const close_list = () => {
-        setAll_list(false)
-    }
+        setAllList(false);
+    };
+    const [edit, setEdit] = useState(false);
 
     const data = {
-        id: party_master.id,
-        kharcha_group: party_master.group_name,
-        kharcha_name: party_master.party_name,
+        id: partyMaster.id,
+        kharcha_group: partyMaster.group_name,
+        kharcha_name: partyMaster.party_name,
         is_delete: false,
     }
 
-
-    const [kharcha_list, setKharcha_list] = useState(party_all);
-    const search_change = (e) => {
+    const searchChange = (e) => {
         const searchingData = [];
         if (e.target.value) {
-            const data = kharcha_list.filter((item) => {
+            const data = kharchaList.filter((item) => {
                 return Object.values(item?.kharcha_name.toLowerCase()).join("").includes(e.target.value.toLowerCase());
             });
             data.map((dataItem) => searchingData.push(dataItem));
         } else {
             party_all.map((dataItem) => searchingData.push(dataItem));
         }
-        setKharcha_list(searchingData);
-    }
+        setKharchaList(searchingData);
+    };
 
-
-    const [edit, setEdit] = useState(false)
-
-    const save_data = async () => {
+    const saveData = async () => {
         if (edit == false) {
-
-            if (party_master.group_name != "" && party_master.party_name != "") {
+            if (partyMaster.group_name != "" && partyMaster.party_name != "") {
                 const res = await fetch(`${api}Kharch/Add`,
                     {
                         method: 'POST',
@@ -59,8 +55,8 @@ const Kharchamaster = ({ api, party_all }) => {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({ ...data })
-                    })
-                const resdata = await res.json()
+                    });
+                const resdata = await res.json();
 
                 if (resdata == "Add Succesfully") {
                     toast.success(resdata, {
@@ -82,20 +78,20 @@ const Kharchamaster = ({ api, party_all }) => {
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({ data: "ok" })
-                        })
-                    const party_all = await res.json()
+                        });
+                    const party_all = await res.json();
 
-                    setParty_list(party_all)
-                    setParty_master({
-                        ...party_master,
+                    setPartyList(party_all);
+                    setPartyMaster({
+                        ...partyMaster,
                         id: party_all.length + 1,
                         group_name: "",
                         party_name: "",
-                    })
+                    });
                 }
             }
         } else {
-            if (party_master.group_name != "" && party_master.party_name != "") {
+            if (partyMaster.group_name != "" && partyMaster.party_name != "") {
                 const res = await fetch(`${api}Kharch/Update`,
                     {
                         method: 'POST',
@@ -103,8 +99,8 @@ const Kharchamaster = ({ api, party_all }) => {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({ ...data })
-                    })
-                const resdata = await res.json()
+                    });
+                const resdata = await res.json();
 
                 if (resdata == "Khanrchname Update") {
                     toast.success(resdata, {
@@ -126,31 +122,31 @@ const Kharchamaster = ({ api, party_all }) => {
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({ data: "ok" })
-                        })
-                    const party_all = await res_n.json()
-                    setEdit(false)
-                    setParty_list(party_all)
-                    setParty_master({
-                        ...party_master,
+                        });
+                    const party_all = await res_n.json();
+                    setEdit(false);
+                    setPartyList(party_all);
+                    setPartyMaster({
+                        ...partyMaster,
                         id: party_all.length + 1,
                         group_name: "",
                         party_name: "",
-                    })
+                    });
                 }
             }
         }
-    }
+    };
 
-    const delete_data = async (e) => {
+    const deleteData = async (e) => {
         const res = await fetch(`${api}Kharch/Delete`,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ delete_data_id: e })
-            })
-        const resdata = await res.json()
+                body: JSON.stringify({ deleteData_id: e })
+            });
+        const resdata = await res.json();
 
         if (resdata == "Delete Succesfully") {
             toast.success(toast, {
@@ -165,15 +161,13 @@ const Kharchamaster = ({ api, party_all }) => {
                     secondary: '#ffffff',
                 },
             });
-            setParty_list(party_list.filter(item => item.id !== e));
+            setPartyList(partyList.filter(item => item.id !== e));
         }
-    }
+    };
 
-
-
-    const edit_data = async (e) => {
-        setAll_list(false)
-        setEdit(true)
+    const editData = async (e) => {
+        setAllList(false);
+        setEdit(true);
         const res = await fetch(`${api}Kharch/Edit`,
             {
                 method: 'POST',
@@ -181,31 +175,32 @@ const Kharchamaster = ({ api, party_all }) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ id: e })
-            })
-        const resdata = await res.json()
-        setParty_master({
-            ...party_master,
+            });
+        const resdata = await res.json();
+        setPartyMaster({
+            ...partyMaster,
             id: resdata.id,
             group_name: resdata.kharcha_group,
             party_name: resdata.kharcha_name,
-        })
-    }
+        });
+    };
+
     return (
         <div>
             <h1>Kharcha Master</h1>
             <Toaster position="top-center" reverseOrder={ false } />
             <Kharcha
-                party_master={ party_master }
-                party_change={ party_change }
-                all_list={ all_list }
+                partyMaster={ partyMaster }
+                partyChange={ partyChange }
+                allList={ allList }
                 click_show_list={ click_show_list }
                 close_list={ close_list }
-                save_data={ save_data }
-                party_list={ kharcha_list }
-                delete_data={ delete_data }
-                edit_data={ edit_data }
+                saveData={ saveData }
+                partyList={ kharchaList }
+                deleteData={ deleteData }
+                editData={ editData }
                 edit={ edit }
-                search_change={ search_change }
+                searchChange={ searchChange }
             />
         </div>
     )

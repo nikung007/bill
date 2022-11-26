@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
-import Silder_Style from '../styles/silder.module.css'
+import styles from '../styles/silder.module.css'
 
 const Slider = () => {
     const [arco, setArco] = useState("")
@@ -9,23 +9,23 @@ const Slider = () => {
     }
     return (
         <div>
-            <div className={ `card ${Silder_Style.silder_main}` }>
+            <div className={ `card ${styles.silder_Main}` }>
                 <h2>Mor Gems</h2>
                 <Link href="/">
                     <div onClick={ () => arco_Change("") }>
-                        <h5 style={ { margin: "5px 0 5px 12px", cursor: "pointer", textAlign: "left" } }>Dashbord</h5>
+                        <h5 className={ `card ${styles.silder_Main_Heading}` } >Dashbord</h5>
                     </div>
                 </Link>
-                <div className={ `${Silder_Style.silder_arcoding}` }>
+                <div className={ `${styles.silder_Arcoding}` }>
                     <hr style={ { margin: "auto" } } />
-                    <div onClick={ () => arco_Change("master") } className={ `${Silder_Style.silder_arcoding_heading}` }>
+                    <div onClick={ () => arco_Change("master") } className={ `${styles.silder_Arcoding_Heading}` }>
                         <h5>Master</h5>
                         <i style={ { transform: "rotate(270deg)" } } className="icon-prev"></i>
                     </div>
                     <hr style={ { margin: "auto" } } />
                     {
                         arco == "master" ?
-                            <div className={ `${Silder_Style.silder_arcoding_button}` }>
+                            <div className={ `${styles.silder_Arcoding_Button}` }>
                                 <div>
                                     <Link href="/master/partymaster">
                                         <button className="link">Party Master</button>
@@ -45,16 +45,16 @@ const Slider = () => {
                     }
 
                 </div>
-                <div className={ `${Silder_Style.silder_arcoding}` }>
+                <div className={ `${styles.silder_Arcoding}` }>
                     <hr style={ { margin: "auto" } } />
-                    <div onClick={ () => arco_Change("transaction") } className={ `${Silder_Style.silder_arcoding_heading}` }>
+                    <div onClick={ () => arco_Change("transaction") } className={ `${styles.silder_Arcoding_Heading}` }>
                         <h5>Transaction</h5>
                         <i style={ { transform: "rotate(270deg)" } } className="icon-prev"></i>
                     </div>
                     <hr style={ { margin: "auto" } } />
                     {
                         arco == "transaction" ?
-                            <div className={ `${Silder_Style.silder_arcoding_button}` }>
+                            <div className={ `${styles.silder_Arcoding_Button}` }>
                                 <div>
                                     <Link href="/transaction/purchase">
                                         <button className="link">Purchase</button>
@@ -90,16 +90,16 @@ const Slider = () => {
                     }
 
                 </div>
-                <div className={ `${Silder_Style.silder_arcoding}` }>
+                <div className={ `${styles.silder_Arcoding}` }>
                     <hr style={ { margin: "auto" } } />
-                    <div onClick={ () => arco_Change("report") } className={ `${Silder_Style.silder_arcoding_heading}` }>
+                    <div onClick={ () => arco_Change("report") } className={ `${styles.silder_Arcoding_Heading}` }>
                         <h5>Report</h5>
                         <i style={ { transform: "rotate(270deg)" } } className="icon-prev"></i>
                     </div>
                     <hr style={ { margin: "auto" } } />
                     {
                         arco == "report" ?
-                            <div className={ `${Silder_Style.silder_arcoding_button}` }>
+                            <div className={ `${styles.silder_Arcoding_Button}` }>
                                 <div>
                                     <Link href="/report/out-standing">
                                         <button className="link">Out Standing</button>
@@ -114,7 +114,7 @@ const Slider = () => {
                     }
 
                 </div>
-                <div className={ `${Silder_Style.silder_arcoding_button_logout}` }>
+                <div className={ `${styles.silder_Arcoding_Button_logout}` }>
                     <button className='secondary'>Log Out</button>
                 </div>
 

@@ -6,7 +6,7 @@ const Add_master = (props) => {
     return (
         <section>
             {
-                props.all_list ?
+                props.allList ?
                     <div style={ { width: "75%", margin: "auto" } } className='card'>
                         <input
                             placeholder='Search Purchase Party Name'
@@ -42,7 +42,7 @@ const Add_master = (props) => {
                             </tbody>
                         </table>
                         <button
-                            onClick={ props.close_list }
+                            onClick={ props.closeList }
                             style={ {
                                 margin: "auto",
                                 display: "flex",
@@ -54,15 +54,15 @@ const Add_master = (props) => {
                         <div className={ `${Add_Master_Style.add_all_fild}` }>
                             <label>Id</label>
                             <input
-                                value={ props.party_master.id }
+                                value={ props.partyMaster.id }
                                 disabled
                                 type="text" />
                         </div>
                         <div className={ `${Add_Master_Style.add_all_fild}` }>
                             <label>Party type</label>
                             <select
-                                value={ props.party_master.party_type }
-                                onChange={ props.party_change }
+                                value={ props.partyMaster.party_type }
+                                onChange={ props.partyChange }
                                 name='party_type'>
                                 <option value="">SELECT PARTY TYPE</option>
                                 <option value="BUYER">BUYER</option>
@@ -73,10 +73,10 @@ const Add_master = (props) => {
                         <div className={ `${Add_Master_Style.add_all_fild}` }>
                             <label>Party name</label>
                             <input
-                                value={ props.party_master.party_name }
+                                value={ props.partyMaster.party_name }
                                 placeholder='Enter a party name'
                                 name='party_name'
-                                onChange={ props.party_change }
+                                onChange={ props.partyChange }
                                 type="text" />
                         </div>
                         <div
@@ -84,7 +84,7 @@ const Add_master = (props) => {
                             className={ `${Add_Master_Style.add_all_fild}` }>
                             <button onClick={ props.save_data }>Save</button>
                             <button
-                                onClick={ props.click_show_list }
+                                onClick={ props.clickshowList }
                                 className='secondary'>All List</button>
                             <Link href="/">
                                 <button className='warning'>Close</button>

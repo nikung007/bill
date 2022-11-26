@@ -1,4 +1,4 @@
-.silder_main {
+.silder_Main {
     /* width: 290px !important; */
     position: sticky;
     top: 0;
@@ -7,37 +7,43 @@
     background-color: #11191e;
 }
 
-.silder_main h5 {
+.silder_Main h5 {
     font-size: 17px;
 }
 
-.silder_arcoding_heading {
+.silder_Arcoding_Heading {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
     margin-left: 12px;
 }
 
-.silder_arcoding_button {
+.silder_Arcoding_Button {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.silder_arcoding_button_logout {
+.silder_Arcoding_Button_logout {
     position: absolute;
     bottom: 0;
 }
 
-.silder_arcoding_button button {
+.silder_Arcoding_Button button {
     color: #cbcbcb !important;
     font-size: 15px;
 }
 
-.silder_arcoding_heading i {
+.silder_Arcoding_Heading i {
     margin-right: 20px;
 }
 
-.silder_arcoding h5 {
+.silder_Arcoding h5 {
     margin: 5px 0;
+}
+
+.silder_Main_Heading {
+    margin: 5px 0 5px 12px;
+    cursor: pointer;
+    text-align: left
 }

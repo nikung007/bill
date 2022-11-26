@@ -427,7 +427,7 @@ const Edit = ({ resdata, sell, api, id }) => {
                 })
             const resdata = await res.json()
             if (resdata == "Record Update Succesfully") {
-                toast.success(a, {
+                toast.success(resdata, {
                     style: {
                         padding: '16px',
                         color: 'black',
@@ -515,7 +515,7 @@ export async function getServerSideProps({ query }) {
             })
         })
     const resdata = await res.json()
-    console.log(resdata);
+
     return {
         props: {
             "resdata": resdata,

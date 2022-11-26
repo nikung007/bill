@@ -96,7 +96,7 @@ const Index = ({ api, bank }) => {
                 })
             const resdata = await res.json()
             if (resdata == "Add data Succesfully") {
-                toast.success(a, {
+                toast.success(resdata, {
                     style: {
                         padding: '16px',
                         color: 'black',

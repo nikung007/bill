@@ -133,10 +133,10 @@ const Index = (
     })
 
     const [payrec_data, setPayrec_data] = useState([])
-    console.log(payrec_data);
+
     const radio_value = async (e, sub_p) => {
         const invoice = all_invoice.find(id => id.s_p_id == sub_p);
-        console.log("okkkkkkk", invoice);
+
         if (e.target.checked == true) {
             const res = await fetch(`${api}Payrec/Getselectedinvoice`,
                 {
@@ -147,7 +147,7 @@ const Index = (
                     body: JSON.stringify({ "p_s_id": invoice.s_p_id })
                 })
             const res_lot = await res.json()
-            console.log(res_lot);
+
             setPayrec_data(res_lot)
             setShow_data(false)
             setShow_invoice(true)
@@ -238,7 +238,7 @@ const Index = (
                     body: JSON.stringify({ "delete_data_id": del })
                 })
             const res_lot = await res.json()
-            console.log(res_lot);
+
             if (res_lot == "Record Delete") {
                 setPayrec_data([])
                 setParty_rec({
@@ -313,7 +313,7 @@ const Index = (
                     body: JSON.stringify({ ...data })
                 })
             const sell = await save.json()
-            // console.log(sell);
+
             if (sell == "Record save") {
                 toast.success(sell, {
                     style: {

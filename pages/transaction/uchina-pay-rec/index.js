@@ -43,7 +43,7 @@ const Index = ({ api, pay, recive }) => {
                     })
                 })
             const resdata = await res.json()
-            console.log("+++>", resdata);
+
             setAll_invoice(resdata)
         }
     }
@@ -88,7 +88,7 @@ const Index = ({ api, pay, recive }) => {
                 })
             const res_lot = await res.json()
             setPayrec_data(res_lot)
-            console.log(res_lot);
+
         }
     }
 
@@ -175,7 +175,7 @@ const Index = ({ api, pay, recive }) => {
                     body: JSON.stringify({ "delete_data_id": del })
                 })
             const res_lot = await res.json()
-            console.log(res_lot);
+
             if (res_lot == "Record Delete") {
                 setParty_rec({
                     party_name: "",
@@ -240,7 +240,7 @@ const Index = ({ api, pay, recive }) => {
             const sell = await save.json()
 
             if (sell == "Record Saved") {
-                toast.success(a, {
+                toast.success(sell, {
                     style: {
                         padding: '16px',
                         color: 'black',

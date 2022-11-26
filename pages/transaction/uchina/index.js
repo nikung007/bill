@@ -57,7 +57,7 @@ const Index = ({ party, api, bank }) => {
                     body: JSON.stringify({ ...data })
                 })
             const resdata = await res.json()
-            console.log(resdata);
+
             if (resdata == "Record save") {
                 toast.success(resdata, {
                     style: {

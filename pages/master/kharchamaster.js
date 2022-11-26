@@ -30,6 +30,22 @@ const Kharchamaster = ({ api, party_all }) => {
         is_delete: false,
     }
 
+
+    const [kharcha_list, setKharcha_list] = useState(party_all);
+    const search_change = (e) => {
+        const searchingData = [];
+        if (e.target.value) {
+            const data = kharcha_list.filter((item) => {
+                return Object.values(item?.kharcha_name.toLowerCase()).join("").includes(e.target.value.toLowerCase());
+            });
+            data.map((dataItem) => searchingData.push(dataItem));
+        } else {
+            party_all.map((dataItem) => searchingData.push(dataItem));
+        }
+        setKharcha_list(searchingData);
+    }
+
+
     const [edit, setEdit] = useState(false)
 
     const save_data = async () => {
@@ -45,7 +61,7 @@ const Kharchamaster = ({ api, party_all }) => {
                         body: JSON.stringify({ ...data })
                     })
                 const resdata = await res.json()
-                console.log(resdata);
+
                 if (resdata == "Add Succesfully") {
                     toast.success(resdata, {
                         style: {
@@ -89,7 +105,7 @@ const Kharchamaster = ({ api, party_all }) => {
                         body: JSON.stringify({ ...data })
                     })
                 const resdata = await res.json()
-                console.log(resdata);
+
                 if (resdata == "Khanrchname Update") {
                     toast.success(resdata, {
                         style: {
@@ -185,10 +201,11 @@ const Kharchamaster = ({ api, party_all }) => {
                 click_show_list={ click_show_list }
                 close_list={ close_list }
                 save_data={ save_data }
-                party_list={ party_list }
+                party_list={ kharcha_list }
                 delete_data={ delete_data }
                 edit_data={ edit_data }
                 edit={ edit }
+                search_change={ search_change }
             />
         </div>
     )

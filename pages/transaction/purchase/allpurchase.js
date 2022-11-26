@@ -7,7 +7,21 @@ import { useRouter } from 'next/router'
 const Allpurchase = ({ resdata, api }) => {
     const router = useRouter()
 
-    const [all_purchase, setAll_purchase] = useState(resdata)
+    const [all_purchase, setAll_purchase] = useState(resdata);
+
+    const search_change = (e) => {
+        const searchingData = [];
+        if (e.target.value) {
+            const data = all_purchase.filter((item) => {
+                return Object.values(item?.party_name.toLowerCase()).join("").includes(e.target.value.toLowerCase());
+            });
+            data.map((dataItem) => searchingData.push(dataItem));
+        } else {
+            resdata.map((dataItem) => searchingData.push(dataItem));
+        }
+        setAll_purchase(searchingData);
+    }
+
     const click_delete = async (e) => {
 
         const res_del = await fetch(`${api}Purchase/Delete`,
@@ -37,6 +51,8 @@ const Allpurchase = ({ resdata, api }) => {
             setAll_purchase(all_purchase.filter(item => item.p_id !== e));
         }
     }
+
+
 
     const click_edit = async (e) => {
         const res = await fetch(`${api}Purchase/Edit`,
@@ -73,16 +89,17 @@ const Allpurchase = ({ resdata, api }) => {
         <div>
             <Toaster position="top-center" reverseOrder={ false } />
             <section>
-                <div style={ { display: "flex", alignItems: "center" } }>
+                <div style={ { display: "flex", alignItems: "center", width: "100%" } }>
                     <div style={ { marginTop: "20px" } }>
                         <Link href="/transaction/purchase">
                             <button style={ { background: "#0B3ACC" } }>New Purchase Form</button>
                         </Link>
                     </div>
-                    <div style={ { margin: "20px 0 0 20px" } }>
+                    <div style={ { margin: "20px 0 0 20px", width: "100%" } }>
                         <input
+                            onChange={ search_change }
                             placeholder='Search Purchase Party Name'
-                            style={ { minHeight: "3.6rem", width: "400px" } }
+                            style={ { minHeight: "3.6rem" } }
                             type="search" />
                     </div>
                 </div>

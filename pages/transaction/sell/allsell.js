@@ -8,6 +8,20 @@ const Allsell = ({ resdata, api }) => {
     const router = useRouter()
 
     const [all_sell, setAll_sell] = useState(resdata)
+
+    const search_change = (e) => {
+        const searchingData = [];
+        if (e.target.value) {
+            const data = all_sell.filter((item) => {
+                return Object.values(item?.party_name.toLowerCase()).join("").includes(e.target.value.toLowerCase());
+            });
+            data.map((dataItem) => searchingData.push(dataItem));
+        } else {
+            resdata.map((dataItem) => searchingData.push(dataItem));
+        }
+        setAll_sell(searchingData);
+    }
+
     const click_delete = async (e) => {
 
         const res_del = await fetch(`${api}Sell/Delete`,
@@ -21,7 +35,7 @@ const Allsell = ({ resdata, api }) => {
                 })
             })
         const resdelete = await res_del.json()
-        console.log(resdelete);
+
         if (resdelete == "Record Delete Succesfully") {
             toast.success(resdelete, {
                 style: {
@@ -76,16 +90,17 @@ const Allsell = ({ resdata, api }) => {
         <div>
             <Toaster position="top-center" reverseOrder={ false } />
             <section>
-                <div style={ { display: "flex", alignItems: "center" } }>
+                <div style={ { display: "flex", alignItems: "center", width: "100%" } }>
                     <div style={ { marginTop: "20px" } }>
                         <Link href="/transaction/sell">
                             <button style={ { background: "#0B3ACC" } }>New Sell Form</button>
                         </Link>
                     </div>
-                    <div style={ { margin: "20px 0 0 20px" } }>
+                    <div style={ { margin: "20px 0 0 20px", width: "100%" } }>
                         <input
+                            onChange={ search_change }
                             placeholder='Search Sell Party Name'
-                            style={ { minHeight: "3.6rem", width: "350px" } }
+                            style={ { minHeight: "3.6rem" } }
                             type="search" />
                     </div>
                 </div>

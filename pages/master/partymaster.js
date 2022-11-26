@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import Add_master from '../../components/add_master'
 
 const Partymaster = ({ party, api, party_all }) => {
-
-    console.log(party_all);
 
     const [party_master, setParty_master] = useState({
         id: party.party_id,
@@ -21,6 +19,22 @@ const Partymaster = ({ party, api, party_all }) => {
     const close_list = () => {
         setAll_list(false)
     }
+
+    const [party_list, setParty_list] = useState(party_all);
+    const search_change = (e) => {
+        const searchingData = [];
+        if (e.target.value) {
+            const data = party_all.filter((item) => {
+                return Object.values(item?.party_name.toLowerCase()).join("").includes(e.target.value.toLowerCase());
+            });
+            data.map((dataItem) => searchingData.push(dataItem));
+        } else {
+            party_all.map((dataItem) => searchingData.push(dataItem));
+        }
+        setParty_list(searchingData);
+    }
+
+
 
     const data = {
         party_id: party_master.id,
@@ -82,7 +96,8 @@ const Partymaster = ({ party, api, party_all }) => {
                 click_show_list={ click_show_list }
                 close_list={ close_list }
                 save_data={ save_data }
-                party_all={ party_all }
+                party_all={ party_list }
+                search_change={ search_change }
             />
         </div>
     )

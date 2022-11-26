@@ -3,7 +3,22 @@ import toast, { Toaster } from 'react-hot-toast';
 import React, { useState } from 'react'
 
 const Alluchina = ({ u_list, api }) => {
+
     const [list, setList] = useState(u_list)
+
+    const search_change = (e) => {
+        const searchingData = [];
+        if (e.target.value) {
+            const data = list.filter((item) => {
+                return Object.values(item?.partyname.toLowerCase()).join("").includes(e.target.value.toLowerCase());
+            });
+            data.map((dataItem) => searchingData.push(dataItem));
+        } else {
+            u_list.map((dataItem) => searchingData.push(dataItem));
+        }
+        setList(searchingData);
+    }
+
     const click_delete = async (e) => {
         const res_del = await fetch(`${api}Uchina/Delete`,
             {
@@ -16,7 +31,7 @@ const Alluchina = ({ u_list, api }) => {
                 })
             })
         const resdelete = await res_del.json()
-        console.log(resdelete);
+
         if (resdelete == "Record Delete") {
             toast.success(resdelete, {
                 style: {
@@ -44,14 +59,15 @@ const Alluchina = ({ u_list, api }) => {
                     <h1 style={ { margin: "0" } }>All Uchina Balance</h1>
                     <div></div>
                 </div>
-                <input
-                    placeholder='Search Purchase Party Name'
-                    style={ { minHeight: "3.6rem", width: "400px" } }
-                    type="search" />
             </section>
 
             <section>
                 <div className="card">
+                    <input
+                        onChange={ search_change }
+                        placeholder='Search Purchase Party Name'
+                        style={ { minHeight: "3.6rem" } }
+                        type="search" />
                     <table>
                         <thead>
                             <tr>
@@ -64,9 +80,9 @@ const Alluchina = ({ u_list, api }) => {
                         </thead>
                         <tbody>
                             {
-                                list.map((ele, index) => {
+                                list.map((ele) => {
                                     return (
-                                        <tr key={ index }>
+                                        <tr>
                                             <td>{ ele.u_id }</td>
                                             <td>{ ele.partyname }</td>
                                             <td>{ ele.amount }</td>

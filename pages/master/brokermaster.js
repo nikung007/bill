@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+// import toast, { Toaster } from 'react-hot-toast';
 import Add_master from '../../components/add_master'
 
 const Brokermaster = () => {
@@ -26,6 +27,7 @@ const Brokermaster = () => {
                 all_list={ all_list }
                 click_show_list={ click_show_list }
                 close_list={ close_list }
+                party_all={ [] }
             />
         </div>
     )

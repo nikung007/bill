@@ -5,6 +5,9 @@ import React, { useState } from 'react'
 const Allpay_rec = ({ resdata, api }) => {
 
     const [all_pay_rec, setAll_pay_rec] = useState(resdata)
+
+
+
     const click_delete = async (e) => {
 
         const res_del = await fetch(`${api}Banktransfer/Delete`,
@@ -47,10 +50,6 @@ const Allpay_rec = ({ resdata, api }) => {
                     <div></div>
                 </div>
             </section>
-            <input
-                placeholder='Search Purchase Party Name'
-                style={ { minHeight: "3.6rem", width: "400px" } }
-                type="search" />
             <section>
                 <div className="card">
                     <table>
@@ -67,9 +66,9 @@ const Allpay_rec = ({ resdata, api }) => {
                         </thead>
                         <tbody>
                             {
-                                all_pay_rec.map((ele, index) => {
+                                all_pay_rec.map((ele) => {
                                     return (
-                                        <tr key={ index }>
+                                        <tr>
                                             <td>{ ele.id }</td>
                                             <td>{ ele.tdate.split("T")[0] }</td>
                                             <td>{ ele.paybankname }</td>

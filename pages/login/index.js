@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import Log_in_Style from '../../styles/login.module.css'
+import styles from '../../styles/login.module.css'
 
 const Index = (props) => {
     return (
         <div>
             <section>
-                <div className={ `card ${Log_in_Style.login_main}` }>
+                <div className={ `card ${styles.login_Main}` }>
                     <h1>Log In</h1>
                     <label>Username</label>
                     <input
@@ -29,7 +29,7 @@ const Index = (props) => {
                             <label style={ { color: "red", top: "320px" } }>Enter a Password / Valid password</label>
                             : null
                     }
-                    <div className={ `${Log_in_Style.log_button}` }>
+                    <div className={ `${styles.log_button}` }>
                         <button onClick={ props.loginSubmit }>Submit</button>
                         <button className='secondary'>Cancel</button>
                     </div>

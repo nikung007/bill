@@ -143,7 +143,7 @@ const Index = ({ resdata, api }) => {
         }
     }, [difference])
 
-    let final_amount_now = total_amount_now + Math.round(difference.add_difference * 100) / 100 - Math.round(difference.minus_difference * 100) / 100
+    let final_amount_now = Math.round((total_amount_now + Math.round(difference.add_difference * 100) / 100 - Math.round(difference.minus_difference * 100) / 100) * 100) / 100
 
 
     const all_purchase_data = {

@@ -6,7 +6,7 @@ import '../styles/uptown.css'
 
 function MyApp({ Component, pageProps }) {
 
-    const [login, setLogin] = useState(1)
+    const [login, setLogin] = useState(0)
 
     const [log_In_data, setLog_In_data] = useState({
         username: "",

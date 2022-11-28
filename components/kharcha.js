@@ -6,10 +6,10 @@ function Kharcha(props) {
     return (
         <section>
             {
-                props.allList ?
+                props.all_list ?
                     <div style={ { width: "65%", margin: "auto" } } className='card'>
                         <input
-                            onChange={ props.searchChange }
+                            onChange={ props.search_change }
                             placeholder='Search Purchase Party Name'
                             style={ { minHeight: "3.6rem" } }
                             type="search" />
@@ -24,17 +24,17 @@ function Kharcha(props) {
                             </thead>
                             <tbody>
                                 {
-                                    props.partyList.map((ele, index) => {
+                                    props.party_list.map((ele, index) => {
                                         return (
                                             <tr key={ index }>
                                                 <td>{ ele.id }</td>
                                                 <td>{ ele.kharcha_name }</td>
                                                 <td>{ ele.kharcha_group }</td>
                                                 <td style={ { padding: "0" } }>
-                                                    <button onClick={ () => props.deleteData(ele.id) } className='warning'>Delete</button>
+                                                    <button onClick={ () => props.delete_data(ele.id) } className='warning'>Delete</button>
                                                 </td>
                                                 <td style={ { padding: "10px" } }>
-                                                    <button onClick={ () => props.editData(ele.id) }>Edit</button>
+                                                    <button onClick={ () => props.edit_data(ele.id) }>Edit</button>
                                                 </td>
                                             </tr>
                                         )
@@ -55,7 +55,7 @@ function Kharcha(props) {
                         <div className={ `${Add_Master_Style.add_all_fild}` }>
                             <label>Id</label>
                             <input
-                                value={ props.partyMaster.id }
+                                value={ props.party_master.id }
                                 disabled
                                 type="text" />
                         </div>
@@ -63,27 +63,27 @@ function Kharcha(props) {
                         <div className={ `${Add_Master_Style.add_all_fild}` }>
                             <label>Khata name</label>
                             <input
-                                value={ props.partyMaster.party_name }
+                                value={ props.party_master.party_name }
                                 placeholder='Enter a party name'
                                 name='party_name'
-                                onChange={ props.partyChange }
+                                onChange={ props.party_change }
                                 type="text" />
                         </div>
 
                         <div className={ `${Add_Master_Style.add_all_fild}` }>
                             <label>Group</label>
                             <input
-                                value={ props.partyMaster.group_name }
+                                value={ props.party_master.group_name }
                                 placeholder='Enter a group name'
                                 name='group_name'
-                                onChange={ props.partyChange }
+                                onChange={ props.party_change }
                                 type="text" />
                         </div>
 
                         <div
                             style={ { margin: "0" } }
                             className={ `${Add_Master_Style.add_all_fild}` }>
-                            <button onClick={ props.saveData }>{ props.edit ? "Update" : "Save" }</button>
+                            <button onClick={ props.save_data }>{ props.edit ? "Update" : "Save" }</button>
                             <button
                                 onClick={ props.click_show_list }
                                 className='secondary'>All List</button>

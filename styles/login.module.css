@@ -1,36 +1,26 @@
-.login_Main {
+.login_main {
     padding: 15px !important;
     width: 350px !important;
     margin: auto !important;
     margin-top: 100px !important;
 }
 
-.login_Main label {
+.login_main label {
     margin: 7px 0;
     font-size: 18px;
 }
 
-.login_Main h1 {
+.login_main h1 {
     text-align: center;
 }
 
-.login_Main input {
+.login_main input {
     margin: 5px 0 20px 0;
 }
 
-.log_Button {
+.log_button {
     margin-top: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.error_Username {
-    color: red;
-    top: 240px;
-}
-
-.error_Password {
-    color: red;
-    top: 320px;
 }

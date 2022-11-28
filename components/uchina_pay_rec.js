@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import Pay_Rec_Style from '../styles/paymentReceive.module.css'
 
@@ -207,7 +208,9 @@ const Uchina_pay_rec = (props) => {
                                     onClick={ props.save_data }>Save</button>
                             </div>
                             <div className={ `${Pay_Rec_Style.purchase_filds}` }>
-                                <button className='secondary'>Cancel</button>
+                                <Link href="/">
+                                    <button className='secondary'>Close</button>
+                                </Link>
                             </div>
                         </div>
 

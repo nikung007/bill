@@ -3,12 +3,14 @@ import React from 'react'
 import Add_Master_Style from '../styles/add_master.module.css'
 
 const Add_master = (props) => {
+
     return (
         <section>
             {
-                props.allList ?
+                props.all_list ?
                     <div style={ { width: "75%", margin: "auto" } } className='card'>
                         <input
+                            onChange={ props.search_change }
                             placeholder='Search Purchase Party Name'
                             style={ { minHeight: "3.6rem" } }
                             type="search" />
@@ -18,7 +20,7 @@ const Add_master = (props) => {
                                     <th>Id</th>
                                     <th>Party type</th>
                                     <th>Party name</th>
-                                    <th style={ { textAlign: "center" } } colSpan="2">Action</th>
+                                    <th style={ { textAlign: "center" } } >Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,7 +32,7 @@ const Add_master = (props) => {
                                                 <td>{ ele.party_name }</td>
                                                 <td>{ ele.party_type }</td>
                                                 <td style={ { padding: "0" } }>
-                                                    <button className='warning'>Delete</button>
+                                                    <button onClick={ () => props.delete_party(ele.party_id) } className='warning'>Delete</button>
                                                 </td>
                                                 <td style={ { padding: "10px" } }>
                                                     <button>Edit</button>
@@ -42,7 +44,7 @@ const Add_master = (props) => {
                             </tbody>
                         </table>
                         <button
-                            onClick={ props.closeList }
+                            onClick={ props.close_list }
                             style={ {
                                 margin: "auto",
                                 display: "flex",
@@ -54,15 +56,15 @@ const Add_master = (props) => {
                         <div className={ `${Add_Master_Style.add_all_fild}` }>
                             <label>Id</label>
                             <input
-                                value={ props.partyMaster.id }
+                                value={ props.party_master.id }
                                 disabled
                                 type="text" />
                         </div>
                         <div className={ `${Add_Master_Style.add_all_fild}` }>
                             <label>Party type</label>
                             <select
-                                value={ props.partyMaster.party_type }
-                                onChange={ props.partyChange }
+                                value={ props.party_master.party_type }
+                                onChange={ props.party_change }
                                 name='party_type'>
                                 <option value="">SELECT PARTY TYPE</option>
                                 <option value="BUYER">BUYER</option>
@@ -73,10 +75,10 @@ const Add_master = (props) => {
                         <div className={ `${Add_Master_Style.add_all_fild}` }>
                             <label>Party name</label>
                             <input
-                                value={ props.partyMaster.party_name }
+                                value={ props.party_master.party_name }
                                 placeholder='Enter a party name'
                                 name='party_name'
-                                onChange={ props.partyChange }
+                                onChange={ props.party_change }
                                 type="text" />
                         </div>
                         <div
@@ -84,7 +86,7 @@ const Add_master = (props) => {
                             className={ `${Add_Master_Style.add_all_fild}` }>
                             <button onClick={ props.save_data }>Save</button>
                             <button
-                                onClick={ props.clickshowList }
+                                onClick={ props.click_show_list }
                                 className='secondary'>All List</button>
                             <Link href="/">
                                 <button className='warning'>Close</button>

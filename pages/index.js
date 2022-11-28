@@ -1,42 +1,38 @@
-import React from 'react';
-
-import styles from '../styles/dashborad.module.css'
-
+import Dashboard_Style from '../styles/dashborad.module.css'
 export default function Home() {
-
-   return (
-      <div>
-         <section>
-            <h1 className={ `${styles.dashboard_Main_Heading}` }>Dashboard</h1>
-         </section>
-         <section>
-            <div className={ `${styles.dashboard_Main}` }>
-               <div className={ `card ${styles.dashboard_Card}` }>
-                  <h3>ABCD</h3>
-                  <h3>120 $</h3>
-               </div>
-               <div className={ `card ${styles.dashboard_Card}` }>
-                  <h3>ABCD</h3>
-                  <h3>120 $</h3>
-               </div>
-               <div className={ `card ${styles.dashboard_Card}` }>
-                  <h3>ABCD</h3>
-                  <h3>120 $</h3>
-               </div>
-               <div className={ `card ${styles.dashboard_Card}` }>
-                  <h3>ABCD</h3>
-                  <h3>120 $</h3>
-               </div>
-               <div className={ `card ${styles.dashboard_Card}` }>
-                  <h3>ABCD</h3>
-                  <h3>120 $</h3>
-               </div>
-               <div className={ `card ${styles.dashboard_Card}` }>
-                  <h3>ABCD</h3>
-                  <h3>120 $</h3>
-               </div>
-            </div>
-         </section>
-      </div>
-   )
+  return (
+    <div>
+      <section>
+        <h1 style={ { margin: "20px auto" } }>Dashboard</h1>
+      </section>
+      <section>
+        <div className={ `${Dashboard_Style.dashboard_main}` }>
+          <div className={ `card ${Dashboard_Style.dashboard_card}` }>
+            <h3 style={ { textAlign: "center" } } >ABCD</h3>
+            <h3 style={ { textAlign: "center" } } >120 $</h3>
+          </div>
+          <div className={ `card ${Dashboard_Style.dashboard_card}` }>
+            <h3 style={ { textAlign: "center" } } >ABCD</h3>
+            <h3 style={ { textAlign: "center" } } >120 $</h3>
+          </div>
+          <div className={ `card ${Dashboard_Style.dashboard_card}` }>
+            <h3 style={ { textAlign: "center" } } >ABCD</h3>
+            <h3 style={ { textAlign: "center" } } >120 $</h3>
+          </div>
+          <div className={ `card ${Dashboard_Style.dashboard_card}` }>
+            <h3 style={ { textAlign: "center" } } >ABCD</h3>
+            <h3 style={ { textAlign: "center" } } >120 $</h3>
+          </div>
+          <div className={ `card ${Dashboard_Style.dashboard_card}` }>
+            <h3 style={ { textAlign: "center" } } >ABCD</h3>
+            <h3 style={ { textAlign: "center" } } >120 $</h3>
+          </div>
+          <div className={ `card ${Dashboard_Style.dashboard_card}` }>
+            <h3 style={ { textAlign: "center" } } >ABCD</h3>
+            <h3 style={ { textAlign: "center" } } >120 $</h3>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
 }

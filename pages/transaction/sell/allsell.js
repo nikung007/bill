@@ -79,7 +79,6 @@ const Allsell = ({ resdata, api }) => {
                     secondary: '#ffffff',
                 },
             });
-            alert("invoice use transaction")
         } else {
             var link_red = router.asPath.replace("allsell", `edit?id=${e}`)
             router.push(link_red)

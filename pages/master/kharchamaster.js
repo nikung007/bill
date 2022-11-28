@@ -16,7 +16,17 @@ const Kharchamaster = ({ api, party_all }) => {
         setParty_master({ ...party_master, [e.target.name]: e.target.value })
     }
     const [all_list, setAll_list] = useState(false)
-    const click_show_list = () => {
+    const click_show_list = async () => {
+        const res = await fetch(`${api}Kharch/Getkharch`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ data: "ok" })
+            })
+        const par = await res.json()
+        setParty_list(par)
         setAll_list(true)
     }
     const close_list = () => {

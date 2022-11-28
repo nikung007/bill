@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Purchase from '../../../components/purchase'
+import Purchase from '../../../components/Purchase'
 import { useRouter } from "next/router";
 import toast, { Toaster } from 'react-hot-toast';
 // import toast from 'react-hot-toast';

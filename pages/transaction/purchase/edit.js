@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Purchase from '../../../components/purchase';
+import Purchase from '../../../components/Purchase';
 import toast, { Toaster } from 'react-hot-toast';
 import Something_new from '../../report/something-new';
 

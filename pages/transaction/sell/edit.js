@@ -201,8 +201,8 @@ const Edit = ({ resdata, sell, api, id }) => {
                         sell_lot: ok.sell_lot,
                         sub_p_id: ok.sub_p_id,
                         type: ok.type,
+                        new_price: ok.price,
                         new_amount: ok.amount,
-                        new_price: ok.price
                     }]);
                 setAll_lot_data(current =>
                     current.map(obj => {
@@ -288,7 +288,7 @@ const Edit = ({ resdata, sell, api, id }) => {
                     return {
                         ...obj,
                         new_amount: Math.floor(obj.price * obj.carat * 100) / 100,
-                        new_price: Math.floor(obj.price * obj.carat * 100) / 100
+                        new_price: Math.floor(obj.price * 100) / 100
                     };
                 }),
             );

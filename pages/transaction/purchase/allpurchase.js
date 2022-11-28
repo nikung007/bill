@@ -59,7 +59,7 @@ const Allpurchase = ({ resdata, api }) => {
             {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     id: e
@@ -152,12 +152,10 @@ export async function getServerSideProps({ query }) {
 
     const res = await fetch(`${process.env.API}Purchase/Getlist`,
         {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            }, body: JSON.stringify({
-                id: "e"
-            })
+            }
         })
     const resdata = await res.json()
     return {

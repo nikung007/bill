@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import Add_master from '../../components/add_master'
 
-const Partymaster = ({ party, api, party_all }) => {
+const Partymaster = ({ party, api, party_all, Token_get }) => {
 
     const [party_master, setParty_master] = useState({
         id: party.party_id,
@@ -154,11 +154,24 @@ export async function getServerSideProps() {
         })
     const party_all = await res_all_data.json()
 
+    const Token = await fetch(`${process.env.API}token`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+            })
+        })
+    const Token_get = await Token.json()
+    console.log(Token_get);
+
     return {
         props: {
             "api": process.env.API,
             "party": party,
             "party_all": party_all,
+            "Token_get": Token_get
         }
     }
 }

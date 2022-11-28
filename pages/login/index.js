@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Log_in_Style from '../../styles/login.module.css'
 
 const Index = (props) => {

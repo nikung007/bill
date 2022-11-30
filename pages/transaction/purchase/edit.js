@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Purchase from '../../../components/purchase';
 import toast, { Toaster } from 'react-hot-toast';
-import Something_new from '../../report/something-new';
 
 const Edit = ({ id, resdata, party_list, api }) => {
     const router = useRouter()
@@ -293,12 +292,14 @@ export async function getServerSideProps({ query }) {
         })
     const resdata = await res.json()
 
+
+
     return {
         props: {
             "resdata": resdata,
             "id": query.id,
             "api": process.env.API,
-            "party_list": party_list
+            "party_list": party_list,
         }
     }
 }

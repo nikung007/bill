@@ -246,18 +246,6 @@ const Pay_rec = (props) => {
                         </div>
                     </article>
                     <article>
-                        <div className={ `column two ${Pay_Rec_Style.button_submit}` }>
-                            <div className={ `${Pay_Rec_Style.purchase_filds}` }>
-                                <button
-                                    onClick={ props.save_data }>Save</button>
-                            </div>
-                            <div className={ `${Pay_Rec_Style.purchase_filds}` }>
-                                <Link href="/">
-                                    <button className='secondary'>Close</button>
-                                </Link>
-                            </div>
-                        </div>
-
                         <div className={ `column two` }></div>
                         <div className={ `column two` }></div>
                         <div className={ `column two` }>
@@ -290,6 +278,43 @@ const Pay_rec = (props) => {
                         </div>
                     </article>
                     <hr />
+                    <article>
+                        <div className={ `column three ${Pay_Rec_Style.button_submit}` }>
+                            <div className={ `${Pay_Rec_Style.purchase_filds}` }>
+                                <button
+                                    onClick={ props.save_data }>Save</button>
+                            </div>
+                            <div className={ `${Pay_Rec_Style.purchase_filds}` }>
+                                <Link href="/">
+                                    <button className='secondary'>Close</button>
+                                </Link>
+                            </div>
+                        </div>
+                        <div className={ `column two ${Pay_Rec_Style.purchase_vaya}` }>
+                            <label>Vaya Party</label>
+                            <input value={ props.invoice_selected.vai_1 } type="text" disabled />
+                            <label>Price</label>
+                            <input value={ props.invoice_selected.vai_1_amount } type="text" disabled />
+                        </div>
+                        <div className={ `column two ${Pay_Rec_Style.purchase_vaya}` }>
+                            <label>Vaya Party</label>
+                            <input value={ props.invoice_selected.vai_2 } type="text" disabled />
+                            <label>Price</label>
+                            <input value={ props.invoice_selected.vai_2_amount } type="text" disabled />
+                        </div>
+                        <div className={ `column two ${Pay_Rec_Style.purchase_vaya}` }>
+                            <label>Vaya Party</label>
+                            <input value={ props.invoice_selected.vai_3 } type="text" disabled />
+                            <label>Price</label>
+                            <input value={ props.invoice_selected.vai_3_amount } type="text" disabled />
+                        </div>
+                        <div className={ `column two ${Pay_Rec_Style.purchase_vaya}` }>
+                            <label>Vaya Party</label>
+                            <input value={ props.invoice_selected.vai_4 } type="text" disabled />
+                            <label>Price</label>
+                            <input value={ props.invoice_selected.vai_4_amount } type="text" disabled />
+                        </div>
+                    </article>
                     <article>
                         <table>
                             <thead>

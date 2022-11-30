@@ -110,6 +110,14 @@ const Index = (
                         extra: ok.extra,
                         type: ok.type,
                         artical: ok.artical,
+                        vai_1: ok.vai_1,
+                        vai_1_amount: ok.vai_1_amount,
+                        vai_2: ok.vai_2,
+                        vai_2_amount: ok.vai_2_amount,
+                        vai_3: ok.vai_3,
+                        vai_3_amount: ok.vai_3_amount,
+                        vai_4: ok.vai_4,
+                        vai_4_amount: ok.vai_4_amount,
                     })))
                 }
 
@@ -130,8 +138,16 @@ const Index = (
         extra: "",
         type: "",
         artical: "",
+        vai_1: "",
+        vai_1_amount: "",
+        vai_2: "",
+        vai_2_amount: "",
+        vai_3: "",
+        vai_3_amount: "",
+        vai_4: "",
+        vai_4_amount: "",
     })
-
+    // console.log(invoice_selected);
     const [payrec_data, setPayrec_data] = useState([])
 
     const radio_value = async (e, sub_p) => {
@@ -289,8 +305,16 @@ const Index = (
         invoice_amount: invoice_selected.final_amount,
         tmode: party_rec.transition,
         outstandingamount: o_amount,
+        vai_1: invoice_selected.vai_1,
+        vai_1_amount: invoice_selected.vai_1_amount,
+        vai_2: invoice_selected.vai_2,
+        vai_2_amount: invoice_selected.vai_2_amount,
+        vai_3: invoice_selected.vai_3,
+        vai_3_amount: invoice_selected.vai_3_amount,
+        vai_4: invoice_selected.vai_4,
+        vai_4_amount: invoice_selected.vai_4_amount,
     }
-
+    console.log(data);
     const save_data = async () => {
         if (trans_data.tdate == "") {
             setError_tdata({ ...error_tdata, tdate: true });
@@ -350,6 +374,14 @@ const Index = (
                     extra: "",
                     type: "",
                     artical: "",
+                    vai_1: "",
+                    vai_1_amount: "",
+                    vai_2: "",
+                    vai_2_amount: "",
+                    vai_3: "",
+                    vai_3_amount: "",
+                    vai_4: "",
+                    vai_4_amount: "",
                 })
                 setTrans_data({
                     tdate: "",

@@ -57,6 +57,18 @@ const Uchina_pay_rec = (props) => {
                 <div className={ `card ${Pay_Rec_Style.pay_rec_heading}` }>
                     <h4> {/* props.name */ } Uchina Receive Form</h4>
                     <article>
+                        <label style={ { width: "10%" } }>Uchina Type</label>
+                        <div className={ `column two` }>
+                            <select
+                                value={ props.party_rec.alluchinapayrec }
+                                name='alluchinapayrec'
+                                onChange={ props.party_rec_change }>
+                                <option value="">Select</option>
+                                <option value="guchina">GamUchina</option>
+                                <option value="tuchina">TradingUchina</option>
+                                <option value="vuchina">ViaUchina</option>
+                            </select>
+                        </div>
                         <div className={ `column three` }>
                             <div className={ `${Pay_Rec_Style.pay_rec_filds_pyrc}` }>
                                 <label style={ { width: "80%" } }>Transtion Type</label>

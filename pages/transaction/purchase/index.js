@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Purchase from '../../../components/purchase'
 import { useRouter } from "next/router";
 import toast, { Toaster } from 'react-hot-toast';
-// import toast from 'react-hot-toast';
 
 const Index = ({ resdata, api }) => {
 

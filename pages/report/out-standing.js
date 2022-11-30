@@ -13,8 +13,8 @@ const Out_standing = ({ api, sell, purchase }) => {
         party_name: "",
         fromdate: "2022-01-01",
         todate: "2024-01-01",
+        remark: "",
     })
-
     const [error_payrec, setError_payrec] = useState({
         extra: false,
         type: false,
@@ -61,6 +61,7 @@ const Out_standing = ({ api, sell, purchase }) => {
             setAll_data(res_lot)
         }
     }
+    console.log(all_data);
 
     const checkbox_change = (e) => {
         if (e.target.checked == true) {
@@ -220,6 +221,7 @@ const Out_standing = ({ api, sell, purchase }) => {
                                 <th>Teams</th>
                                 <th>Due Date</th>
                                 <th>Due Days</th>
+                                <th>Remark</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -235,6 +237,7 @@ const Out_standing = ({ api, sell, purchase }) => {
                                             <td>{ ele.terms }</td>
                                             <td>{ ele.duedate.split("T")[0] }</td>
                                             <td>{ ele.dueday }</td>
+                                            <td>{ ele.remark }</td>
                                         </tr>
                                     )
                                 })

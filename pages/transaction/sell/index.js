@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Sell from '../../../components/sell'
 import toast, { Toaster } from 'react-hot-toast';
 
-const Index = ({ sell, api }) => {
+const Index = ({ sell, api, allParty }) => {
 
     const [sell_data, setSell_data] = useState({
         invoice_number: sell.s_id,
@@ -45,14 +45,17 @@ const Index = ({ sell, api }) => {
     const [set_d, setSet_d] = useState(false)
     const [vaya, setVaya] = useState({
         vaya1_name: "",
-        vaya1_value: "",
+        vaya1_value: 0,
         vaya2_name: "",
-        vaya2_value: "",
+        vaya2_value: 0,
         vaya3_name: "",
-        vaya3_value: "",
+        vaya3_value: 0,
         vaya4_name: "",
-        vaya4_value: "",
+        vaya4_value: 0,
     })
+    const vaya_change = (e) => {
+        setVaya({ ...vaya, [e.target.name]: e.target.value });
+    }
 
     const edit_disable = false;
 
@@ -295,10 +298,6 @@ const Index = ({ sell, api }) => {
         }
     }, [difference])
 
-    const vaya_change = (e) => {
-        setVaya({ ...vaya, [e.target.name]: e.target.value })
-    }
-
     const click_save_lot = () => {
         setLot_show(true)
         setShow_lot(false)
@@ -448,6 +447,7 @@ const Index = ({ sell, api }) => {
                 error_sell_data={ error_sell_data }
                 error_get_lot={ error_get_lot }
                 sell_change={ sell_change }
+                allParty={ allParty }
                 show_button={ show_button }
                 due_date_now={ due_date_now }
                 get_lot={ get_lot }
@@ -495,12 +495,24 @@ export async function getServerSideProps() {
             })
         })
     const sell = await res.json()
+    const res_allparty = await fetch(`${process.env.API}Party/allparty`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: "ok"
+            })
+        })
+    const allParty = await res_allparty.json()
 
 
     return {
         props: {
             "api": process.env.API,
             "sell": sell,
+            "allParty": allParty
         }
     }
 }

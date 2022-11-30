@@ -285,14 +285,22 @@ const Sell = (props) => {
                <article style={ { marginTop: "10px" } }>
                   <div className={ `column four` }>
                      <label style={ { width: "40%", textAlign: "center" } }>Vaya 1</label>
-                     <div >
-                        <input
+                     <div>
+                        <select
                            value={ props.vaya.vaya1_name }
-                           name='vaya1_name'
                            onChange={ props.vaya_change }
-                           placeholder='Enter a vaya'
                            style={ { width: "80%", margin: "10px 0" } }
-                           type="text" />
+                           name='vaya1_name'>
+                           <option value="">Select Party Name</option>
+                           {
+                              props.allParty.map((ele, index) => {
+                                 return (
+                                    <option key={ index } value={ ele }>{ ele }</option>
+                                 )
+                              })
+                           }
+
+                        </select>
                         <input
                            value={ props.vaya.vaya1_value }
                            name='vaya1_value'
@@ -306,13 +314,21 @@ const Sell = (props) => {
                   <div className={ `column four` }>
                      <label style={ { width: "40%", textAlign: "center" } }>Vaya 2</label>
                      <div >
-                        <input
-                           value={ props.vaya.vaya2_name }
-                           name='vaya2_name'
+                        <select
                            onChange={ props.vaya_change }
-                           placeholder='Enter a vaya'
+                           value={ props.vaya.vaya2_name }
                            style={ { width: "80%", margin: "10px 0" } }
-                           type="text" />
+                           name='vaya2_name'>
+                           <option value="">Select Party Name</option>
+                           {
+                              props.allParty.map((ele, index) => {
+                                 return (
+                                    <option key={ index } value={ ele }>{ ele }</option>
+                                 )
+                              })
+                           }
+
+                        </select>
                         <input
                            value={ props.vaya.vaya2_value }
                            name='vaya2_value'
@@ -326,13 +342,21 @@ const Sell = (props) => {
                   <div className={ `column four` }>
                      <label style={ { width: "40%", textAlign: "center" } }>Vaya 3</label>
                      <div >
-                        <input
+                        <select
                            value={ props.vaya.vaya3_name }
-                           name='vaya3_name'
                            onChange={ props.vaya_change }
-                           placeholder='Enter a vaya'
                            style={ { width: "80%", margin: "10px 0" } }
-                           type="text" />
+                           name='vaya3_name'>
+                           <option value="">Select Party Name</option>
+                           {
+                              props.allParty.map((ele, index) => {
+                                 return (
+                                    <option key={ index } value={ ele }>{ ele }</option>
+                                 )
+                              })
+                           }
+
+                        </select>
                         <input
                            value={ props.vaya.vaya3_value }
                            name='vaya3_value'
@@ -345,14 +369,22 @@ const Sell = (props) => {
                   </div>
                   <div className={ `column four` }>
                      <label style={ { width: "40%", textAlign: "center" } }>Vaya 4</label>
-                     <div >
-                        <input
+                     <div>
+                        <select
                            value={ props.vaya.vaya4_name }
-                           name='vaya4_name'
                            onChange={ props.vaya_change }
-                           placeholder='Enter a vaya'
                            style={ { width: "80%", margin: "10px 0" } }
-                           type="text" />
+                           name='vaya4_name'>
+                           <option value="">Select Party Name</option>
+                           {
+                              props.allParty.map((ele, index) => {
+                                 return (
+                                    <option key={ index } value={ ele }>{ ele }</option>
+                                 )
+                              })
+                           }
+
+                        </select>
                         <input
                            value={ props.vaya.vaya4_value }
                            name='vaya4_value'

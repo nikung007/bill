@@ -7,6 +7,7 @@ const Index = ({ api, pay, recive }) => {
     const [party_rec, setParty_rec] = useState({
         party_name: "",
         transition: "",
+        alluchinapayrec: "",
     })
     const [transationtype, setTransationtype] = useState("")
 
@@ -39,7 +40,8 @@ const Index = ({ api, pay, recive }) => {
                     },
                     body: JSON.stringify({
                         transactiontype: party_rec.transition,
-                        partyname: party_rec.party_name
+                        partyname: party_rec.party_name,
+                        alluchinapayrec: party_rec.alluchinapayrec
                     })
                 })
             const resdata = await res.json()
@@ -214,6 +216,7 @@ const Index = ({ api, pay, recive }) => {
         amount: Math.round((trans_data.tamount) * 100) / 100,
         u_id: invoice_selected.u_id,
         outstandingamount: o_amount,
+        alluchinapayrec: trans_data.alluchinapayrec
     }
 
     const save_data = async () => {

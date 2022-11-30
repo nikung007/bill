@@ -65,3 +65,8 @@
 .show_button_pyrec {
     margin-left: 15px;
 }
+
+.purchase_vaya label {
+    margin: 2px 0;
+    text-align: center;
+}

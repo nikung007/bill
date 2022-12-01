@@ -81,8 +81,8 @@ const Slider = () => {
                                     </Link>
                                 </div>
                                 <div>
-                                    <Link href="/transaction/uchina-pay-rec">
-                                        <button className="link">Uchina-pay-rec</button>
+                                    <Link href="/transaction/all-uchina-pay-rec">
+                                        <button className="link">All-Uchina-pay-rec</button>
                                     </Link>
                                 </div>
 
@@ -103,6 +103,11 @@ const Slider = () => {
                                 <div>
                                     <Link href="/report/out-standing">
                                         <button className="link">Out Standing</button>
+                                    </Link>
+                                </div>
+                                <div>
+                                    <Link href="/report/all-uchina">
+                                        <button className="link">All Uchina</button>
                                     </Link>
                                 </div>
                                 <div>

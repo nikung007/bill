@@ -55,7 +55,7 @@ const Uchina_pay_rec = (props) => {
             }
             <section>
                 <div className={ `card ${Pay_Rec_Style.pay_rec_heading}` }>
-                    <h4> {/* props.name */ } Uchina Receive Form</h4>
+                    <h4> {/* props.name */ }All Uchina Receive Form</h4>
                     <article>
                         <label style={ { width: "10%" } }>Uchina Type</label>
                         <div className={ `column two` }>

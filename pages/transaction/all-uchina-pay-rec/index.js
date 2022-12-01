@@ -54,29 +54,25 @@ const Index = ({ api }) => {
     useEffect(() => {
         if (party_rec.transition == "Receive") {
             setTransationtype("Payment")
-            if (party_rec.alluchinapayrec != "" && party_rec.transition != "") {
-                async function fetchMyAPI() {
-                    const res = await fetch(`${api}Alluchinapayrec/Getparty`,
-                        {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                transactiontype: party_rec.transition,
-                                alluchinapayrec: party_rec.alluchinapayrec
-                            })
-                        })
-                    const res_lot = await res.json()
-                    setPart_list(res_lot)
-                }
-                fetchMyAPI()
-            }
         } else if (party_rec.transition == "Payment") {
             setTransationtype("Receive")
-
         }
-
+        async function fetchMyAPI() {
+            const res = await fetch(`${api}Alluchinapayrec/Getparty`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        transactiontype: party_rec.transition,
+                        alluchinapayrec: party_rec.alluchinapayrec
+                    })
+                })
+            const res_lot = await res.json()
+            setPart_list(res_lot)
+        }
+        fetchMyAPI()
     }, [party_rec])
 
     const [show_invoice, setShow_invoice] = useState(false)
@@ -105,13 +101,23 @@ const Index = ({ api }) => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ "u_id": invoice.u_id })
+                    body: JSON.stringify({
+                        "u_id": party_rec.alluchinapayrec == "guchina" ?
+                            invoice.u_id : party_rec.alluchinapayrec == "tuchina" ?
+                                invoice.t_id : party_rec.alluchinapayrec == "vuchina" ?
+                                    invoice.v_id : null
+                    })
                 })
             const res_lot = await res.json()
             setPayrec_data(res_lot)
 
         }
     }
+
+    // party_rec.alluchinapayrec == "tuchina" ?
+    //     "u_id" : invoice.t_id :
+    // party_rec.alluchinapayrec == "vuchina" ?
+    //     "u_id" : invoice.v_id : null
 
     const [trans_data, setTrans_data] = useState({
         tdate: new Date().toISOString().split('T')[0],
@@ -230,12 +236,18 @@ const Index = ({ api }) => {
     {
         tdate: trans_data.tdate,
         partyname: party_rec.party_name,
-        bankname: trans_data.bank.toString(),
         transactiontype: transationtype,
+        bankname: trans_data.bank.toString(),
         amount: Math.round((trans_data.tamount) * 100) / 100,
-        u_id: invoice_selected.u_id,
+        all_id: party_rec.alluchinapayrec == "guchina" ?
+            invoice.u_id :
+            party_rec.alluchinapayrec == "tuchina" ?
+                invoice.t_id :
+                party_rec.alluchinapayrec == "vuchina" ?
+                    invoice.v_id : null,
         outstandingamount: o_amount,
-        alluchinapayrec: trans_data.alluchinapayrec
+        alluchinapayrec: trans_data.alluchinapayrec,
+        uchina_type: party_rec.alluchinapayrec,
     }
 
     const save_data = async () => {

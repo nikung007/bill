@@ -6,6 +6,154 @@ const Uchina_pay_rec = (props) => {
     return (
         <div>
             {
+                props.show_data == true && props.party_rec.alluchinapayrec == "guchina" ?
+                    <div className={ `${Pay_Rec_Style.sell_list}` }>
+                        <article>
+                            <h2 style={ { color: "white" } }>Lot List</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Partyname</th>
+                                        <th>T-Date</th>
+                                        <th>T-type</th>
+                                        <th>R-Amount</th>
+                                        <th>Bankname</th>
+                                        <th>Amount</th>
+                                        <th>O-amount</th>
+                                        <th>Remark</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        props.all_invoice.map((ele, index) => {
+                                            return (
+                                                <tr key={ index }>
+                                                    <td>{ ele.u_id }</td>
+                                                    <td>{ ele.partyname }</td>
+                                                    <td>{ ele.tdate.split("T")[0] }</td>
+                                                    <td>{ ele.transactiontype }</td>
+                                                    <td>{ ele.receive_amount }</td>
+                                                    <td>{ ele.bankname }</td>
+                                                    <td>{ ele.amount }</td>
+                                                    <td>{ ele.outstanding_amount }</td>
+                                                    <td>{ ele.remark }</td>
+                                                    <td><input
+                                                        name='Radio'
+                                                        onChange={ (e) => props.radio_value(e, ele.u_id) }
+                                                        defaultChecked={ ele.check }
+                                                        type="radio" /></td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </article>
+                        <div className={ `${Pay_Rec_Style.lot_save_cansal}` }>
+                            <button
+                                onClick={ props.click_cansal }
+                                className='warning'>Close</button>
+                        </div>
+                    </div> : null
+            }
+            {
+                props.show_data == true && props.party_rec.alluchinapayrec == "tuchina" ?
+                    <div className={ `${Pay_Rec_Style.sell_list}` }>
+                        <article>
+                            <h2 style={ { color: "white" } }>Lot List</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Partyname</th>
+                                        <th>T-type</th>
+                                        <th>R-Amount</th>
+                                        <th>O-amount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        props.all_invoice.map((ele, index) => {
+                                            return (
+                                                <tr key={ index }>
+                                                    <td>{ ele.t_id }</td>
+                                                    <td>{ ele.buypartyname }</td>
+                                                    <td>{ ele.transactiontype }</td>
+                                                    <td>{ ele.recamount }</td>
+                                                    <td>{ ele.outstandingamount }</td>
+                                                    <td><input
+                                                        name='Radio'
+                                                        onChange={ (e) => props.radio_value(e, ele.u_id) }
+                                                        defaultChecked={ ele.check }
+                                                        type="radio" /></td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </article>
+                        <div className={ `${Pay_Rec_Style.lot_save_cansal}` }>
+                            <button
+                                onClick={ props.click_cansal }
+                                className='warning'>Close</button>
+                        </div>
+                    </div>
+                    : null
+            }
+            {
+                props.show_data == true && props.party_rec.alluchinapayrec == "vuchina" ?
+                    <div className={ `${Pay_Rec_Style.sell_list}` }>
+                        <article>
+                            <h2 style={ { color: "white" } }>Lot List</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>VayaPartyname</th>
+                                        <th>T-type</th>
+                                        <th>Partyname</th>
+                                        <th>R-Amount</th>
+                                        <th>PayAmount</th>
+                                        <th>O-amount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        props.all_invoice.map((ele, index) => {
+                                            return (
+                                                <tr key={ index }>
+                                                    <td>{ ele.v_id }</td>
+                                                    <td>{ ele.vaipartyname == "0" ? "-" : ele.vaipartyname }</td>
+                                                    <td>{ ele.transactiontype }</td>
+                                                    <td>{ ele.partyname }</td>
+                                                    <td>{ ele.recamount }</td>
+                                                    <td>{ ele.payamount }</td>
+                                                    <td>{ ele.outstandingamount }</td>
+                                                    <td><input
+                                                        name='Radio'
+                                                        onChange={ (e) => props.radio_value(e, ele.u_id) }
+                                                        defaultChecked={ ele.check }
+                                                        type="radio" /></td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </article>
+                        <div className={ `${Pay_Rec_Style.lot_save_cansal}` }>
+                            <button
+                                onClick={ props.click_cansal }
+                                className='warning'>Close</button>
+                        </div>
+                    </div> : null
+            }
+            {/* {
                 props.show_data ?
                     <div className={ `${Pay_Rec_Style.sell_list}` }>
                         <article>
@@ -52,7 +200,7 @@ const Uchina_pay_rec = (props) => {
                         </div>
                     </div>
                     : null
-            }
+            } */}
             <section>
                 <div className={ `card ${Pay_Rec_Style.pay_rec_heading}` }>
                     <h4> {/* props.name */ }All Uchina Receive Form</h4>
@@ -117,30 +265,104 @@ const Uchina_pay_rec = (props) => {
                     <hr />
                     <article>
                         {
-                            props.show_invoice ?
+                            props.show_invoice == true && props.party_rec.alluchinapayrec == "guchina" ?
                                 <table>
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Uchina Date</th>
-                                            <th>Party Name</th>
+                                            <th>Partyname</th>
+                                            <th>T-Date</th>
+                                            <th>T-type</th>
+                                            <th>R-Amount</th>
+                                            <th>Bankname</th>
                                             <th>Amount</th>
-                                            <th>Receive</th>
-                                            <th>Outstanding</th>
+                                            <th>O-amount</th>
+                                            <th>Remark</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>{ props.invoice_selected.u_id }</td>
-                                            <td>{ props.invoice_selected.tdate.split("T")[0] }</td>
-                                            <td>{ props.invoice_selected.partyname }</td>
-                                            <td>{ props.invoice_selected.amount }</td>
-                                            <td>{ props.invoice_selected.receive_amount }</td>
-                                            <td>{ props.invoice_selected.outstanding_amount }</td>
-                                        </tr>
+                                        {
+                                            props.all_invoice.map((ele, index) => {
+                                                return (
+                                                    <tr key={ index }>
+                                                        <td>{ ele.u_id }</td>
+                                                        <td>{ ele.partyname }</td>
+                                                        <td>{ ele.tdate.split("T")[0] }</td>
+                                                        <td>{ ele.transactiontype }</td>
+                                                        <td>{ ele.receive_amount }</td>
+                                                        <td>{ ele.bankname }</td>
+                                                        <td>{ ele.amount }</td>
+                                                        <td>{ ele.outstanding_amount }</td>
+                                                        <td>{ ele.remark }</td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
                                     </tbody>
                                 </table>
                                 : null
+                        }
+                        {
+                            props.show_invoice == true && props.party_rec.alluchinapayrec == "tuchina" ?
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Partyname</th>
+                                            <th>T-type</th>
+                                            <th>R-Amount</th>
+                                            <th>O-amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            props.all_invoice.map((ele, index) => {
+                                                return (
+                                                    <tr key={ index }>
+                                                        <td>{ ele.t_id }</td>
+                                                        <td>{ ele.buypartyname }</td>
+                                                        <td>{ ele.transactiontype }</td>
+                                                        <td>{ ele.recamount }</td>
+                                                        <td>{ ele.outstandingamount }</td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+                                    </tbody>
+                                </table> : null
+                        }
+                        {
+                            props.show_invoice == true && props.party_rec.alluchinapayrec == "vuchina" ?
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>VayaPartyname</th>
+                                            <th>T-type</th>
+                                            <th>Partyname</th>
+                                            <th>R-Amount</th>
+                                            <th>PayAmount</th>
+                                            <th>O-amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            props.all_invoice.map((ele, index) => {
+                                                return (
+                                                    <tr key={ index }>
+                                                        <td>{ ele.v_id }</td>
+                                                        <td>{ ele.vaipartyname == "0" ? "-" : ele.vaipartyname }</td>
+                                                        <td>{ ele.transactiontype }</td>
+                                                        <td>{ ele.partyname }</td>
+                                                        <td>{ ele.recamount }</td>
+                                                        <td>{ ele.payamount }</td>
+                                                        <td>{ ele.outstandingamount }</td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+                                    </tbody>
+                                </table> : null
                         }
                     </article>
                     <hr />

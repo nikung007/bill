@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import Uchina_pay_rec from '../../../components/uchina_pay_rec'
 
-const Index = ({ api }) => {
+const Index = ({ api, res_lot }) => {
 
     const [party_rec, setParty_rec] = useState({
         party_name: "",
@@ -15,7 +15,7 @@ const Index = ({ api }) => {
         party_name: false,
         transition: false
     })
-    const [part_list, setPart_list] = useState([])
+    const [part_list, setPart_list] = useState(res_lot)
 
     const party_rec_change = (e) => {
         setParty_rec({ ...party_rec, [e.target.name]: e.target.value })
@@ -32,7 +32,6 @@ const Index = ({ api }) => {
         } else if (party_rec.party_name == "") {
             setError_payrec({ ...error_payrec, party_name: true })
         } else {
-            setShow_data(true)
             const res = await fetch(`${api}Alluchinapayrec/Getalluchinalist`,
                 {
                     method: 'POST',
@@ -46,6 +45,7 @@ const Index = ({ api }) => {
                     })
                 })
             const resdata = await res.json()
+            setShow_data(true)
 
             setAll_invoice(resdata)
         }
@@ -57,34 +57,10 @@ const Index = ({ api }) => {
         } else if (party_rec.transition == "Payment") {
             setTransationtype("Receive")
         }
-        async function fetchMyAPI() {
-            const res = await fetch(`${api}Alluchinapayrec/Getparty`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        transactiontype: party_rec.transition,
-                        alluchinapayrec: party_rec.alluchinapayrec
-                    })
-                })
-            const res_lot = await res.json()
-            setPart_list(res_lot)
-        }
-        fetchMyAPI()
     }, [party_rec])
 
     const [show_invoice, setShow_invoice] = useState(false)
-    const [invoice_selected, setInvoice_selected] = useState({
-        check: false,
-        u_id: "",
-        invoice_date: "",
-        total_carat: "",
-        final_amount: "",
-        receive_amount: "",
-        outstanding_amount: "",
-    })
+    const [invoice_selected, setInvoice_selected] = useState({})
 
     const [payrec_data, setPayrec_data] = useState([])
 
@@ -95,29 +71,28 @@ const Index = ({ api }) => {
             setShow_data(false)
             setShow_invoice(true)
             setInvoice_selected(invoice);
-            const res = await fetch(`${api}Uchinapayrec/Getselectedinvoice`,
+            const res = await fetch(`${api}Alluchinapayrec/Getuchinaalltransaction`,
                 {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        "u_id": party_rec.alluchinapayrec == "guchina" ?
-                            invoice.u_id : party_rec.alluchinapayrec == "tuchina" ?
-                                invoice.t_id : party_rec.alluchinapayrec == "vuchina" ?
-                                    invoice.v_id : null
+                        "all_id": party_rec.alluchinapayrec == "guchina" ?
+                            parseInt(invoice.u_id)
+                            : party_rec.alluchinapayrec == "tuchina" ?
+                                parseInt(invoice.t_id)
+                                : party_rec.alluchinapayrec == "vuchina" ?
+                                    parseInt(invoice.v_id) : null,
+                        "alluchinapayrec": party_rec.alluchinapayrec,
                     })
                 })
             const res_lot = await res.json()
-            setPayrec_data(res_lot)
+            console.log(res_lot);
+            // setPayrec_data(res_lot)
 
         }
     }
-
-    // party_rec.alluchinapayrec == "tuchina" ?
-    //     "u_id" : invoice.t_id :
-    // party_rec.alluchinapayrec == "vuchina" ?
-    //     "u_id" : invoice.v_id : null
 
     const [trans_data, setTrans_data] = useState({
         tdate: new Date().toISOString().split('T')[0],
@@ -152,7 +127,7 @@ const Index = ({ api }) => {
     }
 
     useEffect(() => {
-        if (party_rec.transition == "buy") {
+        if (party_rec.alluchinapayrec == "guchina") {
             if (trans_data.tamount != 0) {
                 setO_amount(Math.round((invoice_selected.outstanding_amount - trans_data.tamount) * 100) / 100)
                 if (invoice_selected.outstanding_amount >= trans_data.tamount) {
@@ -171,13 +146,41 @@ const Index = ({ api }) => {
             } else {
                 setO_amount(0)
             }
-        } else {
+        }
+        else if (party_rec.alluchinapayrec == "guchina") {
             if (trans_data.tamount != 0) {
-                setO_amount(Math.round((invoice_selected.outstanding_amount - trans_data.tamount) * 100) / 100)
-                if (invoice_selected.outstanding_amount >= trans_data.tamount) {
-                    setError_bank({ ...error_bank, o_error: false })
+                setO_amount(Math.round((invoice_selected.outstandingamount - trans_data.tamount) * 100) / 100)
+                if (invoice_selected.outstandingamount >= trans_data.tamount) {
+                    if (trans_data.bank >= trans_data.tamount) {
+                        setError_bank({ ...error_bank, b_error: false, o_error: false })
+                    } else {
+                        setError_bank({ ...error_bank, b_error: true, o_error: false })
+                    }
                 } else {
-                    setError_bank({ ...error_bank, o_error: true })
+                    if (trans_data.bank >= trans_data.tamount) {
+                        setError_bank({ ...error_bank, b_error: false, o_error: true })
+                    } else {
+                        setError_bank({ ...error_bank, b_error: true, o_error: true })
+                    }
+                }
+            } else {
+                setO_amount(0)
+            }
+        } else if (party_rec.alluchinapayrec == "vuchina") {
+            if (trans_data.tamount != 0) {
+                setO_amount(Math.round((invoice_selected.outstandingamount - trans_data.tamount) * 100) / 100)
+                if (invoice_selected.outstandingamount >= trans_data.tamount) {
+                    if (trans_data.bank >= trans_data.tamount) {
+                        setError_bank({ ...error_bank, b_error: false, o_error: false })
+                    } else {
+                        setError_bank({ ...error_bank, b_error: true, o_error: false })
+                    }
+                } else {
+                    if (trans_data.bank >= trans_data.tamount) {
+                        setError_bank({ ...error_bank, b_error: false, o_error: true })
+                    } else {
+                        setError_bank({ ...error_bank, b_error: true, o_error: true })
+                    }
                 }
             } else {
                 setO_amount(0)
@@ -193,7 +196,7 @@ const Index = ({ api }) => {
     const click_delte = async () => {
         if (payrec_data.length != 0) {
             const del = payrec_data[0].u_id;
-            const res = await fetch(`${api}Uchinapayrec/Delete`,
+            const res = await fetch(`${api}Alluchinapayrec/Delete`,
                 {
                     method: 'POST',
                     headers: {
@@ -232,6 +235,7 @@ const Index = ({ api }) => {
         }
     }
 
+
     const data =
     {
         tdate: trans_data.tdate,
@@ -239,12 +243,10 @@ const Index = ({ api }) => {
         transactiontype: transationtype,
         bankname: trans_data.bank.toString(),
         amount: Math.round((trans_data.tamount) * 100) / 100,
-        all_id: show_invoice ? party_rec.alluchinapayrec == "guchina" ?
-            invoice.u_id :
-            party_rec.alluchinapayrec == "tuchina" ?
-                invoice.t_id :
-                party_rec.alluchinapayrec == "vuchina" ?
-                    invoice.v_id : null : null,
+        all_id: show_invoice ?
+            party_rec.alluchinapayrec == "guchina" ? invoice_selected.u_id :
+                party_rec.alluchinapayrec == "tuchina" ? invoice_selected.t_id :
+                    party_rec.alluchinapayrec == "vuchina" ? invoice_selected.v_id : null : null,
         outstandingamount: o_amount,
         alluchinapayrec: trans_data.alluchinapayrec,
         uchina_type: party_rec.alluchinapayrec,
@@ -263,7 +265,7 @@ const Index = ({ api }) => {
             trans_data.tamount != "" &&
             trans_data.tdate != "" &&
             invoice_selected != {}) {
-            const save = await fetch(`${api}Uchinapayrec/Add`,
+            const save = await fetch(`${api}Alluchinapayrec/Add`,
                 {
                     method: 'POST',
                     headers: {
@@ -346,30 +348,22 @@ const Index = ({ api }) => {
 export default Index
 
 export async function getServerSideProps({ query }) {
-
-    // const res = await fetch(`${process.env.API}Uchinapayrec/Paymentparty`,
-    //     {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    // const pay = await res.json()
-
-    // const res_bank = await fetch(`${process.env.API}Uchinapayrec/Receiveparty`,
-    //     {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    // const recive = await res_bank.json()
+    const res = await fetch(`${process.env.API}Alluchinapayrec/Getparty`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ok: "ok"
+            })
+        })
+    const res_lot = await res.json()
 
     return {
         props: {
             "api": process.env.API,
-            // "pay": pay,
-            // "recive": recive
+            "res_lot": res_lot,
         }
     }
 }

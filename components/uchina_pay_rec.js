@@ -281,23 +281,17 @@ const Uchina_pay_rec = (props) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {
-                                            props.all_invoice.map((ele, index) => {
-                                                return (
-                                                    <tr key={ index }>
-                                                        <td>{ ele.u_id }</td>
-                                                        <td>{ ele.partyname }</td>
-                                                        <td>{ ele.tdate.split("T")[0] }</td>
-                                                        <td>{ ele.transactiontype }</td>
-                                                        <td>{ ele.receive_amount }</td>
-                                                        <td>{ ele.bankname }</td>
-                                                        <td>{ ele.amount }</td>
-                                                        <td>{ ele.outstanding_amount }</td>
-                                                        <td>{ ele.remark }</td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
+                                        <tr>
+                                            <td>{ props.invoice_selected.u_id }</td>
+                                            <td>{ props.invoice_selected.partyname }</td>
+                                            <td>{ props.invoice_selected.tdate.split("T")[0] }</td>
+                                            <td>{ props.invoice_selected.transactiontype }</td>
+                                            <td>{ props.invoice_selected.receive_amount }</td>
+                                            <td>{ props.invoice_selected.bankname }</td>
+                                            <td>{ props.invoice_selected.amount }</td>
+                                            <td>{ props.invoice_selected.outstanding_amount }</td>
+                                            <td>{ props.invoice_selected.remark }</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 : null
@@ -315,19 +309,13 @@ const Uchina_pay_rec = (props) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {
-                                            props.all_invoice.map((ele, index) => {
-                                                return (
-                                                    <tr key={ index }>
-                                                        <td>{ ele.t_id }</td>
-                                                        <td>{ ele.buypartyname }</td>
-                                                        <td>{ ele.transactiontype }</td>
-                                                        <td>{ ele.recamount }</td>
-                                                        <td>{ ele.outstandingamount }</td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
+                                        <tr>
+                                            <td>{ props.invoice_selected.t_id }</td>
+                                            <td>{ props.invoice_selected.buypartyname }</td>
+                                            <td>{ props.invoice_selected.transactiontype }</td>
+                                            <td>{ props.invoice_selected.recamount }</td>
+                                            <td>{ props.invoice_selected.outstandingamount }</td>
+                                        </tr>
                                     </tbody>
                                 </table> : null
                         }
@@ -346,21 +334,15 @@ const Uchina_pay_rec = (props) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {
-                                            props.all_invoice.map((ele, index) => {
-                                                return (
-                                                    <tr key={ index }>
-                                                        <td>{ ele.v_id }</td>
-                                                        <td>{ ele.vaipartyname == "0" ? "-" : ele.vaipartyname }</td>
-                                                        <td>{ ele.transactiontype }</td>
-                                                        <td>{ ele.partyname }</td>
-                                                        <td>{ ele.recamount }</td>
-                                                        <td>{ ele.payamount }</td>
-                                                        <td>{ ele.outstandingamount }</td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
+                                        <tr>
+                                            <td>{ props.invoice_selected.v_id }</td>
+                                            <td>{ props.invoice_selected.vaipartyname == "0" ? "-" : props.invoice_selected.vaipartyname }</td>
+                                            <td>{ props.invoice_selected.transactiontype }</td>
+                                            <td>{ props.invoice_selected.partyname }</td>
+                                            <td>{ props.invoice_selected.recamount }</td>
+                                            <td>{ props.invoice_selected.payamount }</td>
+                                            <td>{ props.invoice_selected.outstandingamount }</td>
+                                        </tr>
                                     </tbody>
                                 </table> : null
                         }
@@ -429,7 +411,9 @@ const Uchina_pay_rec = (props) => {
                             <div className={ `${Pay_Rec_Style.purchase_filds}` }>
                                 <label>Total Amount</label>
                                 <input
-                                    value={ props.invoice_selected.outstanding_amount }
+                                    value={ props.party_rec.alluchinapayrec == "guchina" ? props.invoice_selected.outstanding_amount :
+                                        props.party_rec.alluchinapayrec == "tuchina" ? props.invoice_selected.outstandingamount :
+                                            props.party_rec.alluchinapayrec == "vuchina" ? props.invoice_selected.outstandingamount : 0 }
                                     disabled
                                     type="number" />
                             </div>
@@ -450,15 +434,7 @@ const Uchina_pay_rec = (props) => {
 
                         <div className={ `column two` }></div>
                         <div className={ `column two` }></div>
-                        <div className={ `column two` }>
-                            <div className={ `${Pay_Rec_Style.purchase_filds}` }>
-                                <label>Total carat</label>
-                                <input
-                                    value={ props.invoice_selected.total_carat }
-                                    disabled
-                                    type="number" />
-                            </div>
-                        </div>
+                        <div className={ `column two` }></div>
                         <div className={ `column two` }>
                             <div className={ `${Pay_Rec_Style.purchase_filds}` }>
                                 <label>Outstanding Amount</label>

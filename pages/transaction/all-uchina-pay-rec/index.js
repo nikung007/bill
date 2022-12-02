@@ -239,12 +239,12 @@ const Index = ({ api }) => {
         transactiontype: transationtype,
         bankname: trans_data.bank.toString(),
         amount: Math.round((trans_data.tamount) * 100) / 100,
-        all_id: party_rec.alluchinapayrec == "guchina" ?
+        all_id: show_invoice ? party_rec.alluchinapayrec == "guchina" ?
             invoice.u_id :
             party_rec.alluchinapayrec == "tuchina" ?
                 invoice.t_id :
                 party_rec.alluchinapayrec == "vuchina" ?
-                    invoice.v_id : null,
+                    invoice.v_id : null : null,
         outstandingamount: o_amount,
         alluchinapayrec: trans_data.alluchinapayrec,
         uchina_type: party_rec.alluchinapayrec,

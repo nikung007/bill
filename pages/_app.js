@@ -46,31 +46,31 @@ function MyApp({ Component, pageProps }) {
         }
     }
     return (
-        <Head>
-            <title>MyGems</title>
-            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-            <div>
-                {
-                    login == 0
-                        ?
-                        <Login
-                            log_In_data={ log_In_data }
-                            log_in_error={ log_in_error }
-                            logIn_change={ logIn_change }
-                            log_In_submit={ log_In_submit }
-                        />
-                        :
-                        <div>
-                            <div className="columns two">
-                                <Slider />
-                            </div>
-                            <div className="columns ten">
-                                <Component { ...pageProps } />
-                            </div>
+        <div>
+            <Head>
+                <title>MyGems</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
+            {
+                login == 0
+                    ?
+                    <Login
+                        log_In_data={ log_In_data }
+                        log_in_error={ log_in_error }
+                        logIn_change={ logIn_change }
+                        log_In_submit={ log_In_submit }
+                    />
+                    :
+                    <div>
+                        <div className="columns two">
+                            <Slider />
                         </div>
-                }
-            </div>
-        </Head>
+                        <div className="columns ten">
+                            <Component { ...pageProps } />
+                        </div>
+                    </div>
+            }
+        </div>
     )
 }
 

@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <div>
             <Head>
-                <title>MyGems</title>
+                <title>Mor-Infotech</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             {

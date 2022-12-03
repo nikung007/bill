@@ -4,7 +4,7 @@ import Error from '../../../components/error'
 import toast, { Toaster } from 'react-hot-toast';
 
 const Index = (
-    { api, sell, purchase }
+    { api, sell, purchase, bank_name }
 ) => {
 
     const [party_rec, setParty_rec] = useState({
@@ -147,7 +147,7 @@ const Index = (
         vai_4: "",
         vai_4_amount: "",
     })
-    // console.log(invoice_selected);
+
     const [payrec_data, setPayrec_data] = useState([])
 
     const radio_value = async (e, sub_p) => {
@@ -173,10 +173,10 @@ const Index = (
 
     const [trans_data, setTrans_data] = useState({
         tdate: "",
-        bank: "",
+        bankName: "",
         tamount: "",
     })
-
+    const [bank, setBank] = useState(0)
     const [error_tdata, setError_tdata] = useState({
         tdate: false,
         bank: false,
@@ -194,8 +194,8 @@ const Index = (
         if (e.target.name == "tdate") {
             setTrans_data({ ...trans_data, [e.target.name]: e.target.value })
             setError_tdata({ ...error_tdata, tdate: false })
-        } else if (e.target.name == "bank") {
-            setTrans_data({ ...trans_data, [e.target.name]: Math.round(((e.target.value) * 100) / 100) })
+        } else if (e.target.name == "bankName") {
+            setTrans_data({ ...trans_data, [e.target.name]: e.target.value })
             setError_tdata({ ...error_tdata, bank: false })
         } else if (e.target.name == "tamount") {
             setTrans_data({ ...trans_data, [e.target.name]: e.target.value })
@@ -204,17 +204,33 @@ const Index = (
     }
 
     useEffect(() => {
+        if (trans_data.bankName != "") {
+            async function fetchMyAPI() {
+                const res = await fetch(`${api}Bank/Bankbalance`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ bankname: trans_data.bankName })
+                    })
+                const res_lot = await res.json()
+                setBank(res_lot);
+
+            }
+            fetchMyAPI()
+        }
         if (party_rec.transition == "buy") {
             if (trans_data.tamount != 0) {
                 setO_amount(Math.round((invoice_selected.outstanding_amount - trans_data.tamount) * 100) / 100)
                 if (invoice_selected.outstanding_amount >= trans_data.tamount) {
-                    if (trans_data.bank >= trans_data.tamount) {
+                    if (bank >= trans_data.tamount) {
                         setError_bank({ ...error_bank, b_error: false, o_error: false })
                     } else {
                         setError_bank({ ...error_bank, b_error: true, o_error: false })
                     }
                 } else {
-                    if (trans_data.bank >= trans_data.tamount) {
+                    if (bank >= trans_data.tamount) {
                         setError_bank({ ...error_bank, b_error: false, o_error: true })
                     } else {
                         setError_bank({ ...error_bank, b_error: true, o_error: true })
@@ -299,7 +315,7 @@ const Index = (
         partyname: party_rec.party_name,
         p_s_id: invoice_selected.s_p_id,
         tdate: trans_data.tdate,
-        bankname: "icici",
+        bankname: trans_data.bankName,
         amount: trans_data.tamount,
         carat: invoice_selected.total_carat,
         invoice_amount: invoice_selected.final_amount,
@@ -314,17 +330,17 @@ const Index = (
         vai_4: invoice_selected.vai_4,
         vai_4_amount: invoice_selected.vai_4_amount,
     }
-    console.log(data);
+
     const save_data = async () => {
         if (trans_data.tdate == "") {
             setError_tdata({ ...error_tdata, tdate: true });
-        } else if (trans_data.bank == "") {
+        } else if (bank == "") {
             setError_tdata({ ...error_tdata, bank: true });
         } else if (trans_data.tamount == "") {
             setError_tdata({ ...error_tdata, tamount: true });
         } else if (error_bank.b_error == false &&
             error_bank.o_error == false &&
-            trans_data.bank != "" &&
+            bank != "" &&
             trans_data.tamount != "" &&
             trans_data.tdate != "" &&
             invoice_selected != {}) {
@@ -386,7 +402,7 @@ const Index = (
                 })
                 setTrans_data({
                     tdate: "",
-                    bank: "",
+                    bankName: "",
                     tamount: "",
                 })
                 setO_amount(0)
@@ -402,6 +418,8 @@ const Index = (
                 error_payrec={ error_payrec }
                 party_rec_change={ party_rec_change }
                 show_data={ show_data }
+                bank_name={ bank_name }
+                bank={ bank }
                 click_show={ click_show }
                 show_invoice={ show_invoice }
                 transationtype={ transationtype }
@@ -451,12 +469,23 @@ export async function getServerSideProps() {
         })
     const resdata = await res_party.json()
 
-
+    const res_bank = await fetch(`${process.env.API}Bank/Getbankname`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ok: "ok"
+            })
+        })
+    const bank_name = await res_bank.json()
     return {
         props: {
             "api": process.env.API,
             "sell": sell.party,
-            "purchase": resdata.data
+            "purchase": resdata.data,
+            "bank_name": bank_name
         }
     }
 }

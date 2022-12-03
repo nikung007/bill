@@ -192,15 +192,18 @@ const Pay_rec = (props) => {
                             <div className={ `${Pay_Rec_Style.purchase_filds}` }>
                                 <label>Bank</label>
                                 <select
-                                    name='bank'
+                                    name='bankName'
                                     onChange={ props.trans_change }
-                                    value={ props.trans_data.bank }
+                                    value={ props.trans_data.bankName }
                                 >
                                     <option value="">Select</option>
-                                    <option value="100000">Dhiram</option>
-                                    <option value="200000">Dhiram1</option>
-                                    <option value="300000">Dhiram2</option>
-                                    <option value="400000">Dhiram3</option>
+                                    {
+                                        props.bank_name.map((ele, index) => {
+                                            return (
+                                                <option key={ index } value={ ele }>{ ele }</option>
+                                            )
+                                        })
+                                    }
                                 </select>
                                 { props.error_tdata.bank ? <span style={ { color: "red", position: "absolute" } }>Bank select</span> : null }
                             </div>
@@ -209,7 +212,7 @@ const Pay_rec = (props) => {
                             <div className={ `${Pay_Rec_Style.purchase_filds}` }>
                                 <label>Bank Balance</label>
                                 <input
-                                    value={ props.trans_data.bank }
+                                    value={ props.bank }
                                     disabled
                                     type="text" />
                             </div>

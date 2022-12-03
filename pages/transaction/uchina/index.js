@@ -2,7 +2,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import React, { useState } from 'react'
 import Uchi from '../../../components/Uchi';
 
-const Index = ({ party, api, bank }) => {
+const Index = ({ party, api, bank, bank_name }) => {
 
     const [uchina, setUchina] = useState({
         tdate: "",
@@ -83,11 +83,11 @@ const Index = ({ party, api, bank }) => {
         }
 
     }
-
     return (
         <div>
             <Toaster position="top-center" reverseOrder={ false } />
             <Uchi
+                bank_name={ bank_name }
                 party={ party }
                 bank={ bank.bankname }
                 uchina={ uchina }
@@ -114,7 +114,7 @@ export async function getServerSideProps({ query }) {
         })
     const party = await res.json()
 
-    const res_bank = await fetch(`${process.env.API}Banktransfer/GetBankname`,
+    const res_bank_old = await fetch(`${process.env.API}Banktransfer/GetBankname`,
         {
             method: 'POST',
             headers: {
@@ -124,13 +124,24 @@ export async function getServerSideProps({ query }) {
                 store_url: "ok"
             })
         })
-    const bank = await res_bank.json()
-
+    const bank = await res_bank_old.json()
+    const res_bank = await fetch(`${process.env.API}Bank/Getbankname`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ok: "ok"
+            })
+        })
+    const bank_name = await res_bank.json()
     return {
         props: {
             "api": process.env.API,
             "party": party,
-            "bank": bank
+            "bank": bank,
+            "bank_name": bank_name
         }
     }
 }

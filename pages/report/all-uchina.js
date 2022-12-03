@@ -6,7 +6,7 @@ const All_uchina = ({ api }) => {
         alluchinapayrec: "",
         party_name: "",
     })
-    console.log(allUchina);
+
     const [part_list, setPart_list] = useState([])
     const [error_allUchina, setError_allUchina] = useState({
         alluchinapayrec: false,
@@ -59,7 +59,7 @@ const All_uchina = ({ api }) => {
                     party_name: allUchina.party_name,
                 })
             })
-        console.log(res_lot);
+
         const res_lot = await res.json()
         setAll_data(res_lot)
 

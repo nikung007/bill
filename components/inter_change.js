@@ -37,9 +37,9 @@ const Inter_change = (props) => {
                             name='pay_bank'
                             onChange={ interchange_change }
                             value={ interchange.pay_bank }>
-                            <option value="">Select bank</option>
+                            <option value="">Select</option>
                             {
-                                bank.bankname.map((ele, index) => {
+                                props.bank_name.map((ele, index) => {
                                     return (
                                         <option key={ index } value={ ele }>{ ele }</option>
                                     )
@@ -67,9 +67,9 @@ const Inter_change = (props) => {
                             onChange={ interchange_change }
                             value={ interchange.rec_bank }
                         >
-                            <option value="">Select bank</option>
+                            <option value="">Select</option>
                             {
-                                bank.bankname.map((ele, index) => {
+                                props.bank_name.map((ele, index) => {
                                     return (
                                         <option key={ index } value={ ele }>{ ele }</option>
                                     )
@@ -99,7 +99,7 @@ const Inter_change = (props) => {
                             onChange={ interchange_change }
                             type="number" />
                         {
-                            interchange_error.amount ?
+                            interchange_error.pay_amount ?
                                 <span style={ {
                                     display: "flex",
                                     justifyContent: "center",

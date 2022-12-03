@@ -153,54 +153,7 @@ const Uchina_pay_rec = (props) => {
                         </div>
                     </div> : null
             }
-            {/* {
-                props.show_data ?
-                    <div className={ `${Pay_Rec_Style.sell_list}` }>
-                        <article>
-                            <h2 style={ { color: "white" } }>Lot List</h2>
-                            <table style={ { width: "80%", margin: "auto" } }>
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Uchina Date</th>
-                                        <th>Party Name</th>
-                                        <th>Amount</th>
-                                        <th>Receive</th>
-                                        <th>Outstanding</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        props.all_invoice.map((ele, index) => {
-                                            return (
-                                                <tr key={ index }>
-                                                    <td>{ ele.u_id }</td>
-                                                    <td>{ ele.tdate.split("T")[0] }</td>
-                                                    <td>{ ele.partyname }</td>
-                                                    <td>{ ele.amount }</td>
-                                                    <td>{ ele.receive_amount }</td>
-                                                    <td>{ ele.outstanding_amount }</td>
-                                                    <td><input
-                                                        name='Radio'
-                                                        onChange={ (e) => props.radio_value(e, ele.u_id) }
-                                                        defaultChecked={ ele.check }
-                                                        type="radio" /></td>
-                                                </tr>
-                                            )
-                                        })
-                                    }
-                                </tbody>
-                            </table>
-                        </article>
-                        <div className={ `${Pay_Rec_Style.lot_save_cansal}` }>
-                            <button
-                                onClick={ props.click_cansal }
-                                className='warning'>Close</button>
-                        </div>
-                    </div>
-                    : null
-            } */}
+
             <section>
                 <div className={ `card ${Pay_Rec_Style.pay_rec_heading}` }>
                     <h4> {/* props.name */ }All Uchina Receive Form</h4>
@@ -364,15 +317,18 @@ const Uchina_pay_rec = (props) => {
                             <div className={ `${Pay_Rec_Style.purchase_filds}` }>
                                 <label>Bank</label>
                                 <select
-                                    name='bank'
+                                    name='bankName'
                                     onChange={ props.trans_change }
-                                    value={ props.trans_data.bank }
+                                    value={ props.bankName }
                                 >
                                     <option value="">Select</option>
-                                    <option value="100000">Dhiram</option>
-                                    <option value="200000">Dhiram1</option>
-                                    <option value="300000">Dhiram2</option>
-                                    <option value="400000">Dhiram3</option>
+                                    {
+                                        props.bank_name.map((ele, index) => {
+                                            return (
+                                                <option key={ index } value={ ele }>{ ele }</option>
+                                            )
+                                        })
+                                    }
                                 </select>
                                 { props.error_tdata.bank ? <span style={ { color: "red", position: "absolute" } }>Bank select</span> : null }
                             </div>
@@ -381,7 +337,7 @@ const Uchina_pay_rec = (props) => {
                             <div className={ `${Pay_Rec_Style.purchase_filds}` }>
                                 <label>Bank Balance</label>
                                 <input
-                                    value={ props.trans_data.bank }
+                                    value={ props.bank }
                                     disabled
                                     type="text" />
                             </div>
@@ -470,7 +426,7 @@ const Uchina_pay_rec = (props) => {
                                     props.payrec_data.map((ele, index) => {
                                         return (
                                             <tr key={ index }>
-                                                <td>{ ele.u_id }</td>
+                                                <td>{ ele.all_id }</td>
                                                 <td>{ ele.partyname }</td>
                                                 <td>{ ele.tdate.split("T")[0] }</td>
                                                 <td>{ ele.amount }</td>

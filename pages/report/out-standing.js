@@ -61,7 +61,6 @@ const Out_standing = ({ api, sell, purchase }) => {
             setAll_data(res_lot)
         }
     }
-    console.log(all_data);
 
     const checkbox_change = (e) => {
         if (e.target.checked == true) {

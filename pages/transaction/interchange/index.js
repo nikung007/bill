@@ -3,7 +3,7 @@ import Inter_change from '../../../components/inter_change'
 import toast, { Toaster } from 'react-hot-toast';
 
 
-const Index = ({ api, bank }) => {
+const Index = ({ api, bank, bank_name }) => {
 
     const [interchange, setInterchange] = useState({
         date_today: "",
@@ -18,7 +18,7 @@ const Index = ({ api, bank }) => {
         date_today: false,
         pay_bank: false,
         rec_bank: false,
-        amount: false,
+        pay_amount: false,
         remark: false,
     })
 
@@ -27,6 +27,7 @@ const Index = ({ api, bank }) => {
             const val = e.target.value.split('-')[1];
             const rate = bank.exRate[0].diramexrate;
             const pay_b = interchange.pay_bank.split('-')[1];
+            setInterchange_error({ ...interchange_error, [e.target.name]: false })
             if (val == "DIRAM" && pay_b == "DOLLAR") {
                 setInterchange({ ...interchange, rec_bank: e.target.value, rec_amount: Math.round(((Math.round((interchange.pay_amount) * 100) / 100) * rate) * 100) / 100 })
             } else if (val == "DOLLAR" && pay_b == "DIRAM") {
@@ -40,6 +41,7 @@ const Index = ({ api, bank }) => {
             const val = e.target.value.split('-')[1];
             const rate = bank.exRate[0].diramexrate;
             const rec_b = interchange.rec_bank.split('-')[1];
+            setInterchange_error({ ...interchange_error, [e.target.name]: false })
             if (val == "DIRAM" && rec_b == "DOLLAR") {
                 setInterchange({ ...interchange, pay_bank: e.target.value, rec_amount: Math.round(((Math.round((interchange.rec_bank) * 100) / 100) * rate) * 100) / 100 })
             } else if (val == "DOLLAR" && rec_b == "DIRAM") {
@@ -53,6 +55,7 @@ const Index = ({ api, bank }) => {
             const val = interchange.rec_bank.split('-')[1];
             const rate = bank.exRate[0].diramexrate;
             const rec_b = interchange.pay_bank.split('-')[1];
+            setInterchange_error({ ...interchange_error, [e.target.name]: false })
             if (val == "DIRAM" && rec_b == "DOLLAR") {
                 setInterchange({ ...interchange, pay_amount: e.target.value, rec_amount: Math.round(((Math.round((e.target.value) * 100) / 100) * rate) * 100) / 100 })
             } else if (val == "DOLLAR" && rec_b == "DIRAM") {
@@ -83,8 +86,8 @@ const Index = ({ api, bank }) => {
             setInterchange_error({ ...interchange_error, pay_bank: true })
         } else if (interchange.rec_bank == "") {
             setInterchange_error({ ...interchange_error, rec_bank: true })
-        } else if (interchange.amount == "") {
-            setInterchange_error({ ...interchange_error, amount: true })
+        } else if (interchange.pay_amount == "" && interchange.pay_amount == 0) {
+            setInterchange_error({ ...interchange_error, pay_amount: true })
         } else {
             const res = await fetch(`${api}Banktransfer/add`,
                 {
@@ -127,6 +130,7 @@ const Index = ({ api, bank }) => {
                 interchange={ interchange }
                 interchange_error={ interchange_error }
                 bank={ bank }
+                bank_name={ bank_name }
                 interchange_change={ interchange_change }
                 save_data={ save_data }
             />
@@ -151,10 +155,22 @@ export async function getServerSideProps({ query }) {
         })
     const bank = await res.json()
 
+    const res_bank = await fetch(`${process.env.API}Bank/Getbankname`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ok: "ok"
+            })
+        })
+    const bank_name = await res_bank.json()
     return {
         props: {
             "api": process.env.API,
-            "bank": bank
+            "bank": bank,
+            "bank_name": bank_name
         }
     }
 }

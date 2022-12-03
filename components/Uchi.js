@@ -39,7 +39,7 @@ const Uchi = (props) => {
                             onChange={ props.uchina_change }
                             value={ props.uchina.partyname }
                         >
-                            <option value="">Select bank</option>
+                            <option value="">Select</option>
                             {
                                 props.party.map((ele, index) => {
                                     return (
@@ -69,9 +69,9 @@ const Uchi = (props) => {
                             onChange={ props.uchina_change }
                             value={ props.uchina.bankname }
                         >
-                            <option value="">Select bank</option>
+                            <option value="">Select</option>
                             {
-                                props.bank.map((ele, index) => {
+                                props.bank_name.map((ele, index) => {
                                     return (
                                         <option key={ index } value={ ele }>{ ele }</option>
                                     )

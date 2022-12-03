@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useState } from 'react'
 import Slider from '../components/slider'
 import Login from '../pages/login/index'
@@ -45,27 +46,32 @@ function MyApp({ Component, pageProps }) {
         }
     }
     return (
-        <div>
-            {
-                login == 0
-                    ?
-                    <Login
-                        log_In_data={ log_In_data }
-                        log_in_error={ log_in_error }
-                        logIn_change={ logIn_change }
-                        log_In_submit={ log_In_submit }
-                    />
-                    :
-                    <div>
-                        <div className="columns two">
-                            <Slider />
+        <Head>
+            <title>My page title</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            <div>
+                {
+                    login == 0
+                        ?
+                        <Login
+                            log_In_data={ log_In_data }
+                            log_in_error={ log_in_error }
+                            logIn_change={ logIn_change }
+                            log_In_submit={ log_In_submit }
+                        />
+                        :
+                        <div>
+                            <div className="columns two">
+                                <Slider />
+                            </div>
+                            <div className="columns ten">
+                                <Component { ...pageProps } />
+                            </div>
                         </div>
-                        <div className="columns ten">
-                            <Component { ...pageProps } />
-                        </div>
-                    </div>
-            }
-        </div>)
+                }
+            </div>
+        </Head>
+    )
 }
 
 export default MyApp

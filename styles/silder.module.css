@@ -1,43 +1,105 @@
-.silder_main {
-    /* width: 290px !important; */
-    position: sticky;
-    top: 0;
-    color: #ffffff;
-    height: 100vh;
-    background-color: #11191e;
+.main_nav {
+    margin-bottom: 10px;
 }
 
-.silder_main h5 {
+.bg_dark {
+    background-color: #2b2d42;
+    color: #fff;
+    padding: 0;
+}
+
+.container {
+    max-width: 1140px;
+    margin: auto;
+}
+
+.logo img {
+    width: 100px;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main_menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.main_menu a {
+    color: white;
+    text-decoration: none;
+}
+
+.main_menu {
+    display: flex;
+    list-style: none;
+}
+
+.main_menu li {
+    position: relative;
+}
+
+.main_menu li+li {
+    border-left: 1px solid white;
+}
+
+.main_menu li a {
+    padding: 15px 25px;
+    display: block;
     font-size: 17px;
 }
 
-.silder_arcoding_heading {
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-    margin-left: 12px;
-}
-
-.silder_arcoding_button {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.silder_arcoding_button_logout {
+.sub_menu {
+    background-color: #212529;
     position: absolute;
-    bottom: 0;
+    top: 100%;
+    left: 0;
+    width: 180px;
+    padding: 10px 0;
+    border-radius: 0 0 10px 10px;
+    display: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+    z-index: 99;
 }
 
-.silder_arcoding_button button {
-    color: #cbcbcb !important;
-    font-size: 15px;
+.sub_menu li a {
+    padding: 10px 30px;
+    transition: .2s;
 }
 
-.silder_arcoding_heading i {
-    margin-right: 20px;
+.main_menu li:hover>a {
+    background-color: #e5e5e5;
+    color: #000;
 }
 
-.silder_arcoding h5 {
-    margin: 5px 0;
+.sub_menu li:hover>a {
+    background-color: #faf5f6;
+}
+
+.sub_menu li+li {
+    border-top: 1px solid white;
+}
+
+.main_menu li:hover .sub_menu {
+    display: block;
+    /* hide object to show */
+}
+
+
+.icon {
+    color: red;
+}
+
+.icon-right {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    transition: .2s;
+}
+
+.sub_menu li:hover .icon-right {
+    right: 20px;
 }

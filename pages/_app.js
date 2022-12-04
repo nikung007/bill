@@ -62,15 +62,11 @@ function MyApp({ Component, pageProps }) {
                     />
                     :
                     <div>
-                        <div className="columns two">
-                            <Slider />
-                        </div>
-                        <div className="columns ten">
-                            <Component { ...pageProps } />
-                        </div>
+                        <Slider />
+                        <Component { ...pageProps } />
                     </div>
             }
-        </div>
+        </div >
     )
 }
 

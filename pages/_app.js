@@ -3,12 +3,9 @@ import Slider from '../components/slider'
 import Login from '../pages/login/index'
 import '../styles/globals.css'
 import '../styles/uptown.css'
-import { useRouter } from 'next/router'
 
 
 function MyApp({ Component, pageProps }) {
-
-    const router = useRouter()
 
 
     const [login, setLogin] = useState(1)
@@ -31,8 +28,6 @@ function MyApp({ Component, pageProps }) {
             if (log_In_data.username == "admin" && log_In_data.password == "1234") {
 
                 setLogin(1);
-
-                // router.push('/auth');
             }
             else {
                 if (log_In_data.username != "admin") {

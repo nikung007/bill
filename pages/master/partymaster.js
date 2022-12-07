@@ -13,14 +13,26 @@ const Partymaster = ({ party, api, party_all }) => {
         setParty_master({ ...party_master, [e.target.name]: e.target.value })
     }
     const [all_list, setAll_list] = useState(false)
-    const click_show_list = () => {
+    const [party_list, setParty_list] = useState(party_all);
+    const click_show_list = async () => {
         setAll_list(true)
+        const res_all_data = await fetch(`${process.env.API}Party/Getallparty`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    store_url: "ok"
+                })
+            })
+        const party_all = await res_all_data.json()
+        setParty_list(party_all)
     }
     const close_list = () => {
         setAll_list(false)
     }
 
-    const [party_list, setParty_list] = useState(party_all);
     const search_change = (e) => {
         const searchingData = [];
         if (e.target.value) {
@@ -91,23 +103,41 @@ const Partymaster = ({ party, api, party_all }) => {
             {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    // 'Authorization': getData
                 },
                 body: JSON.stringify({ delete_data_id: e })
             })
         const resdata = await res.json()
-        toast.success(resdata, {
-            style: {
-                padding: '16px',
-                color: 'black',
-                fontWeight: "700",
-                fontSize: "22px"
-            },
-            iconTheme: {
-                primary: 'green',
-                secondary: '#ffffff',
-            },
-        });
+        console.log(resdata);
+        if (resdata == "Record Delete SuccesfullY") {
+            toast.success(resdata, {
+                style: {
+                    padding: '16px',
+                    color: 'black',
+                    fontWeight: "700",
+                    fontSize: "22px"
+                },
+                iconTheme: {
+                    primary: 'green',
+                    secondary: '#ffffff',
+                },
+            });
+            setParty_list(party_list.filter(item => item.party_id !== e));
+        } else {
+            toast.success(resdata, {
+                style: {
+                    padding: '16px',
+                    color: 'black',
+                    fontWeight: "700",
+                    fontSize: "22px"
+                },
+                iconTheme: {
+                    primary: 'green',
+                    secondary: '#ffffff',
+                },
+            });
+        }
     }
     return (
         <div>

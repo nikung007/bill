@@ -1,13 +1,17 @@
-import Head from 'next/head'
 import { useState } from 'react'
 import Slider from '../components/slider'
 import Login from '../pages/login/index'
 import '../styles/globals.css'
 import '../styles/uptown.css'
+import { useRouter } from 'next/router'
+
 
 function MyApp({ Component, pageProps }) {
 
-    const [login, setLogin] = useState(0)
+    const router = useRouter()
+
+
+    const [login, setLogin] = useState(1)
 
     const [log_In_data, setLog_In_data] = useState({
         username: "",
@@ -21,11 +25,14 @@ function MyApp({ Component, pageProps }) {
         setLog_In_data({ ...log_In_data, [e.target.name]: e.target.value })
         setLog_in_error({ ...log_in_error, [`${e.target.name}_error`]: false })
     }
-    const log_In_submit = () => {
+    const log_In_submit = async () => {
         if (log_In_data.username != "" && log_In_data.password != "") {
+
             if (log_In_data.username == "admin" && log_In_data.password == "1234") {
-                // alert("Log In Succsesful")
-                setLogin(1)
+
+                setLogin(1);
+
+                // router.push('/auth');
             }
             else {
                 if (log_In_data.username != "admin") {
@@ -47,10 +54,6 @@ function MyApp({ Component, pageProps }) {
     }
     return (
         <div>
-            <Head>
-                <title>Mor-Infotech</title>
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-            </Head>
             {
                 login == 0
                     ?
@@ -62,12 +65,15 @@ function MyApp({ Component, pageProps }) {
                     />
                     :
                     <div>
-                        <Slider />
-                        <Component { ...pageProps } />
+                        <div className="columns two">
+                            <Slider />
+                        </div>
+                        <div className="columns ten">
+                            <Component { ...pageProps } />
+                        </div>
                     </div>
             }
-        </div >
-    )
+        </div>)
 }
 
 export default MyApp

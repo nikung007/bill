@@ -91,7 +91,7 @@ const Index = ({ api, res_lot, bank_name }) => {
                     })
                 })
             const res_lot = await res.json()
-            console.log(res_lot)
+            // console.log(res_lot)
             setPayrec_data(res_lot)
 
         }
@@ -166,7 +166,7 @@ const Index = ({ api, res_lot, bank_name }) => {
                 setO_amount(0)
             }
         }
-        else if (party_rec.alluchinapayrec == "guchina") {
+        else if (party_rec.alluchinapayrec == "tuchina") {
             if (trans_data.tamount != 0) {
                 setO_amount(Math.round((invoice_selected.outstandingamount - trans_data.tamount) * 100) / 100)
                 if (invoice_selected.outstandingamount >= trans_data.tamount) {
@@ -260,7 +260,7 @@ const Index = ({ api, res_lot, bank_name }) => {
         tdate: trans_data.tdate,
         partyname: party_rec.party_name,
         transactiontype: transationtype,
-        bankname: bank.toString(),
+        bankname: trans_data.bankName,
         amount: Math.round((trans_data.tamount) * 100) / 100,
         all_id: show_invoice ?
             party_rec.alluchinapayrec == "guchina" ? invoice_selected.u_id :
@@ -294,7 +294,7 @@ const Index = ({ api, res_lot, bank_name }) => {
                 })
             const sell = await save.json()
 
-            if (sell == "Record Saved") {
+            if (sell == "Saved") {
                 toast.success(sell, {
                     style: {
                         padding: '16px',

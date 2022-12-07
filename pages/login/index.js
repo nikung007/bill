@@ -2,6 +2,7 @@ import React from 'react'
 import Log_in_Style from '../../styles/login.module.css'
 
 const Index = (props) => {
+
     return (
         <div>
             <section>
@@ -40,3 +41,39 @@ const Index = (props) => {
 }
 
 export default Index
+
+// export async function getServerSideProps() {
+
+//     var data = {
+//         username: "admin",
+//         password: "admin",
+//         grant_type: "password"
+//     };
+
+//     var formBody = [];
+
+//     for (var property in data) {
+//         var encodedKey = encodeURIComponent(property);
+//         var encodedValue = encodeURIComponent(data[property]);
+//         formBody.push(encodedKey + "=" + encodedValue);
+//     }
+//     formBody = formBody.join("&");
+
+//     const res = await fetch(`https://5f29-103-232-127-55.in.ngrok.io/token`,
+//         {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/x-www-form-urlencoded',
+//             },
+//             body: formBody
+//         })
+//     const resdata = await res.json()
+
+//     console.log("==>>", resdata);
+
+//     return {
+//         props: {
+//             "api": process.env.API
+//         }
+//     }
+// }

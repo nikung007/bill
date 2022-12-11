@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
     const log_In_submit = async () => {
         if (log_In_data.username != "" && log_In_data.password != "") {
 
-            if (log_In_data.username == "admin" && log_In_data.password == "1234") {
+            if (log_In_data.username == "admin" && log_In_data.password == "nimda") {
 
                 setLogin(1);
             }
@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }) {
                 if (log_In_data.username != "admin") {
                     setLog_in_error({ ...log_in_error, username_error: true })
                 }
-                else if (log_In_data.password != "1234") {
+                else if (log_In_data.password != "nimda") {
                     setLog_in_error({ ...log_in_error, password_error: true })
                 }
             }

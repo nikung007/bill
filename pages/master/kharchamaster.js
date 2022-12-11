@@ -211,7 +211,7 @@ const Kharchamaster = ({ api, party_all }) => {
                 click_show_list={ click_show_list }
                 close_list={ close_list }
                 save_data={ save_data }
-                party_list={ kharcha_list }
+                party_list={ party_list }
                 delete_data={ delete_data }
                 edit_data={ edit_data }
                 edit={ edit }

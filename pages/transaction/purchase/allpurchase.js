@@ -49,6 +49,19 @@ const Allpurchase = ({ resdata, api }) => {
                 },
             });
             setAll_purchase(all_purchase.filter(item => item.p_id !== e));
+        } else {
+            toast.success(resdelete, {
+                style: {
+                    padding: '16px',
+                    color: 'black',
+                    fontWeight: "700",
+                    fontSize: "22px"
+                },
+                iconTheme: {
+                    primary: 'green',
+                    secondary: '#ffffff',
+                },
+            });
         }
     }
 

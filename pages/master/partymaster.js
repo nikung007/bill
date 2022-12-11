@@ -16,7 +16,7 @@ const Partymaster = ({ party, api, party_all }) => {
     const [party_list, setParty_list] = useState(party_all);
     const click_show_list = async () => {
         setAll_list(true)
-        const res_all_data = await fetch(`${process.env.API}Party/Getallparty`,
+        const res_all_data = await fetch(`${api}Party/Getallparty`,
             {
                 method: 'POST',
                 headers: {

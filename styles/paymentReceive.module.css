@@ -42,6 +42,7 @@
     margin: auto;
     z-index: 15;
     background-color: rgba(0, 0, 0, 0.8);
+    padding: 0 50px;
 }
 
 .sell_list th,

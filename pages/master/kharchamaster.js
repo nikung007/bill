@@ -163,7 +163,7 @@ const Kharchamaster = ({ api, party_all }) => {
         const resdata = await res.json()
 
         if (resdata == "Delete Succesfully") {
-            toast.success(toast, {
+            toast.success(resdata, {
                 style: {
                     padding: '16px',
                     color: 'black',

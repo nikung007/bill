@@ -13,6 +13,7 @@ const Purchase = (props) => {
                     <div className={ `column two ${Purchase_Style.purchase_filds}` }>
                         <label>Invoice</label>
                         <input
+                            disabled
                             name='invoice_number'
                             onChange={ props.change_purchese }
                             value={ props.purchase_data.invoice_number }

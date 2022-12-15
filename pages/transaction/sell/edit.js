@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import Sell from '../../../components/sell';
 
-const Edit = ({ resdata, sell, api, id }) => {
+const Edit = ({ resdata, sell, api, id, allParty }) => {
 
     const router = useRouter()
     const edit_disable = true;
@@ -480,6 +480,7 @@ const Edit = ({ resdata, sell, api, id }) => {
                 set_difference={ set_difference }
                 vaya={ vaya }
                 vaya_change={ vaya_change }
+                allParty={ allParty }
                 differnce_amount={ differnce_amount }
                 edit_disable={ edit_disable }
                 save="Update"
@@ -515,12 +516,23 @@ export async function getServerSideProps({ query }) {
             })
         })
     const resdata = await res.json()
-
+    const res_allparty = await fetch(`${process.env.API}Party/allparty`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: "ok"
+            })
+        })
+    const allParty = await res_allparty.json()
     return {
         props: {
             "resdata": resdata,
             "id": query.id,
             "api": process.env.API,
+            "allParty": allParty,
             "sell": sell
         }
     }

@@ -57,6 +57,7 @@ const Sell = (props) => {
                   <div className={ `column two ${Sell_Style.purchase_filds}` }>
                      <label>Invoice</label>
                      <input
+                        disabled
                         value={ props.sell_data.invoice_number }
                         onChange={ props.sell_change }
                         name='invoice_number'

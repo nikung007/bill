@@ -138,7 +138,7 @@ const Allpurchase = ({ resdata, api }) => {
                                         <tr key={ index }>
                                             <td>{ ele.p_id }</td>
                                             <td>{ ele.party_name }</td>
-                                            <td>{ ele.invoice_date.split("T")[0] }</td>
+                                            <td>{ ele.invoice_date.split("T")[0].split("-").reverse().join("-") }</td>
                                             <td>{ ele.total_carat }</td>
                                             <td>{ ele.final_amount }</td>
 

@@ -229,12 +229,12 @@ const Out_standing = ({ api, sell, purchase }) => {
                                     return (
                                         <tr key={ index }>
                                             <td>{ ele.id }</td>
-                                            <td>{ ele.invoicedate.split("T")[0] }</td>
+                                            <td>{ ele.invoicedate.split("T")[0].split("-").reverse().join("-") }</td>
                                             <td>{ ele.partyname }</td>
                                             <td>{ ele.carat }</td>
                                             <td>{ ele.outstandingamount }</td>
                                             <td>{ ele.terms }</td>
-                                            <td>{ ele.duedate.split("T")[0] }</td>
+                                            <td>{ ele.duedate.split("T")[0].split("-").reverse().join("-") }</td>
                                             <td>{ ele.dueday }</td>
                                             <td>{ ele.remark }</td>
                                         </tr>

@@ -32,7 +32,7 @@ const Uchina_pay_rec = (props) => {
                                                 <tr key={ index }>
                                                     <td>{ ele.u_id }</td>
                                                     <td>{ ele.partyname }</td>
-                                                    <td>{ ele.tdate.split("T")[0] }</td>
+                                                    <td>{ ele.tdate.split("T")[0].split("-").reverse().join("-") }</td>
                                                     <td>{ ele.transactiontype }</td>
                                                     <td>{ ele.receive_amount }</td>
                                                     <td>{ ele.bankname }</td>
@@ -237,7 +237,7 @@ const Uchina_pay_rec = (props) => {
                                         <tr>
                                             <td>{ props.invoice_selected.u_id }</td>
                                             <td>{ props.invoice_selected.partyname }</td>
-                                            <td>{ props.invoice_selected.tdate.split("T")[0] }</td>
+                                            <td>{ props.invoice_selected.tdate.split("T")[0].split("-").reverse().join("-") }</td>
                                             <td>{ props.invoice_selected.transactiontype }</td>
                                             <td>{ props.invoice_selected.receive_amount }</td>
                                             <td>{ props.invoice_selected.bankname }</td>
@@ -428,7 +428,7 @@ const Uchina_pay_rec = (props) => {
                                             <tr key={ index }>
                                                 <td>{ ele.all_id }</td>
                                                 <td>{ ele.partyname }</td>
-                                                <td>{ ele.tdate.split("T")[0] }</td>
+                                                <td>{ ele.tdate.split("T")[0].split("-").reverse().join("-") }</td>
                                                 <td>{ ele.amount }</td>
                                             </tr>
                                         )

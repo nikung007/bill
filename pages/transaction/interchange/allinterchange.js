@@ -70,7 +70,7 @@ const Allpay_rec = ({ resdata, api }) => {
                                     return (
                                         <tr key={ index }>
                                             <td>{ ele.id }</td>
-                                            <td>{ ele.tdate.split("T")[0] }</td>
+                                            <td>{ ele.tdate.split("T")[0].split("-").reverse().join("-") }</td>
                                             <td>{ ele.paybankname }</td>
                                             <td>{ ele.payamount }</td>
                                             <td>{ ele.recbankname }</td>

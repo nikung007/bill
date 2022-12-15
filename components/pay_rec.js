@@ -27,7 +27,7 @@ const Pay_rec = (props) => {
                                             return (
                                                 <tr key={ index }>
                                                     <td>{ ele.s_p_id }</td>
-                                                    <td>{ ele.invoice_date.split("T")[0] }</td>
+                                                    <td>{ ele.invoice_date.split("T")[0].split("-").reverse().join("-") }</td>
                                                     <td>{ ele.total_carat }</td>
                                                     <td>{ ele.final_amount }</td>
                                                     <td>{ ele.receive_amount }</td>
@@ -164,7 +164,7 @@ const Pay_rec = (props) => {
                                     <tbody>
                                         <tr>
                                             <td>{ props.invoice_selected.s_p_id }</td>
-                                            <td>{ props.invoice_selected.invoice_date.split("T")[0] }</td>
+                                            <td>{ props.invoice_selected.invoice_date.split("T")[0].split("-").reverse().join("-") }</td>
                                             <td>{ props.invoice_selected.total_carat }</td>
                                             <td>{ props.invoice_selected.final_amount }</td>
                                             <td>{ props.invoice_selected.receive_amount }</td>
@@ -337,7 +337,7 @@ const Pay_rec = (props) => {
                                             <tr key={ index }>
                                                 <td>{ ele.id }</td>
                                                 <td>{ ele.partyname }</td>
-                                                <td>{ ele.tdate.split("T")[0] }</td>
+                                                <td>{ ele.tdate.split("T")[0].split("-").reverse().join("-") }</td>
                                                 <td>{ ele.invoice_amount }</td>
                                                 <td>{ ele.carat }</td>
                                                 <td>{ ele.amount }</td>

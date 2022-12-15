@@ -134,7 +134,7 @@ const All_uchina = ({ api }) => {
                                                 <tr key={ index }>
                                                     <td>{ ele.u_id }</td>
                                                     <td>{ ele.partyname }</td>
-                                                    <td>{ ele.tdate.split("T")[0] }</td>
+                                                    <td>{ ele.tdate.split("T")[0].split("-").reverse().join("-") }</td>
                                                     <td>{ ele.transactiontype }</td>
                                                     <td>{ ele.receive_amount }</td>
                                                     <td>{ ele.bankname }</td>

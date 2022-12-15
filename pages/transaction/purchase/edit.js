@@ -13,7 +13,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
 
     const [purchase_data, setPurchase_data] = useState({
         id: resdata.purchase.p_id,
-        invoice_number: resdata.purchase.p_id,
+        invoice_number: resdata.purchase.invoice_no,
         extra: resdata.purchase.extra,
         type: resdata.purchase.type,
         artical: resdata.purchase.artical,
@@ -149,8 +149,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
 
 
     const all_purchase_data = {
-        // p_id: purchase_data.id,
-        invoice_no: parseInt(purchase_data.invoice_number),
+        invoice_no: purchase_data.invoice_number,
         extra: purchase_data.extra,
         type: purchase_data.type,
         artical: purchase_data.artical,

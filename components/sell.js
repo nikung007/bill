@@ -54,18 +54,17 @@ const Sell = (props) => {
             <div className={ `card ${Sell_Style.purchase_heading}` }>
                <h4>{ props.name } Form Sell</h4>
                <article>
-                  <div className={ `column two ${Sell_Style.purchase_filds}` }>
+                  <div className={ `column three ${Sell_Style.purchase_filds}` }>
                      <label>Invoice</label>
                      <input
-                        disabled
                         value={ props.sell_data.invoice_number }
                         onChange={ props.sell_change }
                         name='invoice_number'
                         type="text" />
                   </div>
-                  <div className={ `column five` }>
+                  <div className={ `column four` }>
                      <div className={ `${Sell_Style.purchase_filds}` }>
-                        <label style={ { width: "50%" } }>Party Name</label>
+                        <label style={ { width: "70%" } }>Party Name</label>
                         <select
                            value={ props.sell_data.party_name }
                            onChange={ props.sell_change }

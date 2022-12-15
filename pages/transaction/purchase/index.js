@@ -11,7 +11,7 @@ const Index = ({ resdata, api }) => {
 
     const [purchase_data, setPurchase_data] = useState({
         id: resdata.p_id,
-        invoice_number: resdata.p_id,
+        invoice_number: "",
         extra: "",
         type: "",
         artical: "",
@@ -147,7 +147,7 @@ const Index = ({ resdata, api }) => {
 
     const all_purchase_data = {
         p_id: purchase_data.id,
-        invoice_no: parseInt(purchase_data.id),
+        invoice_no: purchase_data.invoice_number,
         extra: purchase_data.extra,
         type: purchase_data.type,
         artical: purchase_data.artical,

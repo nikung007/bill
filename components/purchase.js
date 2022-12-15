@@ -10,18 +10,17 @@ const Purchase = (props) => {
             <div className={ `card ${Purchase_Style.purchase_heading}` }>
                 <h4> { props.name } Purchase Form</h4>
                 <article>
-                    <div className={ `column two ${Purchase_Style.purchase_filds}` }>
+                    <div className={ `column three ${Purchase_Style.purchase_filds}` }>
                         <label>Invoice</label>
                         <input
-                            disabled
                             name='invoice_number'
                             onChange={ props.change_purchese }
                             value={ props.purchase_data.invoice_number }
                             type="text" />
                     </div>
-                    <div className={ `column five` }>
+                    <div className={ `column four` }>
                         <div className={ `${Purchase_Style.purchase_filds}` }>
-                            <label style={ { width: "50%" } }>Party Name</label>
+                            <label style={ { width: "70%" } }>Party Name</label>
                             <select
                                 value={ props.purchase_data.party_name }
                                 style={ { width: "160%" } }

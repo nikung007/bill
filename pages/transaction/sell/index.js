@@ -5,7 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const Index = ({ sell, api, allParty }) => {
 
     const [sell_data, setSell_data] = useState({
-        invoice_number: sell.s_id,
+        invoice_number: "",
         party_name: "",
         invoice_date: new Date().toISOString().split('T')[0],
         terms: 0,
@@ -311,7 +311,7 @@ const Index = ({ sell, api, allParty }) => {
     //======================================Data-Stutur=====================================Start
     const datas = {
         s_id: parseInt(sell.s_id),
-        invoice_no: "A1",
+        invoice_no: sell_data.invoice_number,
         extra: get_lot.extra,
         type: get_lot.type,
         artical: get_lot.artical,
@@ -344,7 +344,7 @@ const Index = ({ sell, api, allParty }) => {
             sub_s_id: index + 1,
             s_id: sell.s_id,
             sub_p_id: ele.sub_p_id,
-            invoice_number: sell.s_id,
+            invoice_no: ele.invoice_no,
             extra: get_lot.extra,
             type: get_lot.type,
             artical: get_lot.artical,

@@ -60,7 +60,7 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
 
     const in_date = resdata.selldata.invoice_date.split("T")[0];
     const [sell_data, setSell_data] = useState({
-        invoice_number: resdata.selldata.s_id,
+        invoice_number: resdata.selldata.invoice_no,
         party_name: resdata.selldata.party_name,
         invoice_date: in_date,
         terms: resdata.selldata.terms,
@@ -347,7 +347,7 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
     //======================================Data-Stutur=====================================Start
     const datas = {
         s_id: parseInt(resdata.selldata.s_id),
-        invoice_no: "A1",
+        invoice_no: sell_data.invoice_number,
         extra: get_lot.extra,
         type: get_lot.type,
         artical: get_lot.artical,
@@ -381,7 +381,7 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
         sub_s_id: index + 1,
         s_id: resdata.selldata.s_id,
         sub_p_id: ele.sub_p_id,
-        invoice_no: "A1",
+        invoice_no: ele.invoice_no,
         extra: get_lot.extra,
         type: get_lot.type,
         artical: get_lot.artical,

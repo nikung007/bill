@@ -67,8 +67,8 @@ const Add_master = (props) => {
                                 onChange={ props.party_change }
                                 name='party_type'>
                                 <option value="">SELECT PARTY TYPE</option>
-                                <option value="BUYER">BUYER</option>
-                                <option value="SELLER">SELLER</option>
+                                <option value="BUYER">PURCHASE</option>
+                                <option value="SELLER">SELL</option>
                                 <option value="EXTRA">EXTRA</option>
                             </select>
                         </div>

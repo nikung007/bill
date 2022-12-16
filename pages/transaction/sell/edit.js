@@ -48,14 +48,14 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
 
     useEffect(() => {
         setNew_Amount(Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100)
-        setDiffernce_amount(Math.round((new_Amount - total_amount_now) * 100) / 100)
+        setDiffernce_amount(Math.round((total_final_now - total_amount_now) * 100) / 100)
         setNew_sell_price(Math.round((new_Amount / total_carat_now) * 100) / 100)
     }, [total_final_now][difference])
 
 
-    useEffect(() => {
-        setDiffernce_amount(Math.round(((new_Amount - total_amount_now) + difference.add_difference - difference.minus_difference) * 100) / 100)
-    }, [difference])
+    // useEffect(() => {
+    //     setDiffernce_amount(Math.round(((new_Amount - total_amount_now) + difference.add_difference - difference.minus_difference) * 100) / 100)
+    // }, [difference])
 
 
     const in_date = resdata.selldata.invoice_date.split("T")[0];

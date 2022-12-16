@@ -5,6 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const Index = ({ sell, api, allParty }) => {
 
     const [sell_data, setSell_data] = useState({
+        id: sell.s_id,
         invoice_number: "",
         party_name: "",
         invoice_date: new Date().toISOString().split('T')[0],

@@ -52,7 +52,12 @@ const Sell = (props) => {
          }
          <section>
             <div className={ `card ${Sell_Style.purchase_heading}` }>
-               <h4>{ props.name } Form Sell</h4>
+               <div className={ `${Sell_Style.purchase_heading_id}` }>
+                  <label>RecId - { props.sell_data.id }</label>
+                  <h4>{ props.name } Form Sell</h4>
+                  <div></div>
+               </div>
+
                <article>
                   <div className={ `column three ${Sell_Style.purchase_filds}` }>
                      <label>Invoice</label>

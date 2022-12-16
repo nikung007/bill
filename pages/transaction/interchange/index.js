@@ -28,11 +28,11 @@ const Index = ({ api, bank, bank_name }) => {
             const rate = bank.exRate[0].diramexrate;
             const pay_b = interchange.pay_bank.split('-')[1];
             setInterchange_error({ ...interchange_error, [e.target.name]: false })
-            if (val == "DIRAM" && pay_b == "DOLLAR") {
+            if (val == "AED" && pay_b == "USD") {
                 setInterchange({ ...interchange, rec_bank: e.target.value, rec_amount: Math.round(((Math.round((interchange.pay_amount) * 100) / 100) * rate) * 100) / 100 })
-            } else if (val == "DOLLAR" && pay_b == "DIRAM") {
+            } else if (val == "USD" && pay_b == "AED") {
                 setInterchange({ ...interchange, rec_bank: e.target.value, rec_amount: Math.round(((Math.round((interchange.pay_amount) * 100) / 100) / rate) * 100) / 100 })
-            } else if (val == "DIRAM" && pay_b == "DIRAM" || val == "DOLLAR" && pay_b == "DOLLAR" || val == "" && pay_b == "") {
+            } else if (val == "AED" && pay_b == "AED" || val == "USD" && pay_b == "USD" || val == "" && pay_b == "") {
                 setInterchange({ ...interchange, rec_bank: e.target.value, rec_amount: Math.round((interchange.pay_amount) * 100) / 100 })
             } else {
                 setInterchange({ ...interchange, rec_bank: e.target.value })
@@ -42,11 +42,11 @@ const Index = ({ api, bank, bank_name }) => {
             const rate = bank.exRate[0].diramexrate;
             const rec_b = interchange.rec_bank.split('-')[1];
             setInterchange_error({ ...interchange_error, [e.target.name]: false })
-            if (val == "DIRAM" && rec_b == "DOLLAR") {
+            if (val == "AED" && rec_b == "USD") {
                 setInterchange({ ...interchange, pay_bank: e.target.value, rec_amount: Math.round(((Math.round((interchange.rec_bank) * 100) / 100) * rate) * 100) / 100 })
-            } else if (val == "DOLLAR" && rec_b == "DIRAM") {
+            } else if (val == "USD" && rec_b == "AED") {
                 setInterchange({ ...interchange, pay_bank: e.target.value, rec_amount: Math.round(((Math.round((interchange.rec_bank) * 100) / 100) / rate) * 100) / 100 })
-            } else if (val == "DIRAM" && rec_b == "DIRAM" || val == "DOLLAR" && rec_b == "DOLLAR" || val == "" && rec_b == "") {
+            } else if (val == "AED" && rec_b == "AED" || val == "USD" && rec_b == "USD" || val == "" && rec_b == "") {
                 setInterchange({ ...interchange, pay_bank: e.target.value, rec_amount: Math.round((interchange.rec_bank) * 100) / 100 })
             } else {
                 setInterchange({ ...interchange, pay_bank: e.target.value })
@@ -56,11 +56,11 @@ const Index = ({ api, bank, bank_name }) => {
             const rate = bank.exRate[0].diramexrate;
             const rec_b = interchange.pay_bank.split('-')[1];
             setInterchange_error({ ...interchange_error, [e.target.name]: false })
-            if (val == "DIRAM" && rec_b == "DOLLAR") {
+            if (val == "AED" && rec_b == "USD") {
                 setInterchange({ ...interchange, pay_amount: e.target.value, rec_amount: Math.round(((Math.round((e.target.value) * 100) / 100) * rate) * 100) / 100 })
-            } else if (val == "DOLLAR" && rec_b == "DIRAM") {
+            } else if (val == "USD" && rec_b == "AED") {
                 setInterchange({ ...interchange, pay_amount: e.target.value, rec_amount: Math.round(((Math.round((e.target.value) * 100) / 100) / rate) * 100) / 100 })
-            } else if (val == "DIRAM" && rec_b == "DIRAM" || val == "DOLLAR" && rec_b == "DOLLAR" || val == "" && rec_b == "") {
+            } else if (val == "AED" && rec_b == "AED" || val == "USD" && rec_b == "USD" || val == "" && rec_b == "") {
                 setInterchange({ ...interchange, pay_amount: e.target.value, rec_amount: Math.round((e.target.value) * 100) / 100 })
             } else {
                 setInterchange({ ...interchange, pay_amount: e.target.value })

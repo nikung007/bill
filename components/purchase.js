@@ -8,7 +8,11 @@ const Purchase = (props) => {
     return (
         <section>
             <div className={ `card ${Purchase_Style.purchase_heading}` }>
-                <h4> { props.name } Purchase Form</h4>
+                <div className={ `${Purchase_Style.purchase_heading_id}` }>
+                    <label>RecId - { props.purchase_data.id }</label>
+                    <h4> { props.name } Purchase Form</h4>
+                    <div></div>
+                </div>
                 <article>
                     <div className={ `column three ${Purchase_Style.purchase_filds}` }>
                         <label>Invoice</label>

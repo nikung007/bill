@@ -328,6 +328,7 @@ const Pay_rec = (props) => {
                                     <th>Invoice $</th>
                                     <th>Carat</th>
                                     <th>Pay/Rec Amount</th>
+                                    <th>Active</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -341,6 +342,9 @@ const Pay_rec = (props) => {
                                                 <td>{ ele.invoice_amount }</td>
                                                 <td>{ ele.carat }</td>
                                                 <td>{ ele.amount }</td>
+                                                <td>
+                                                    <button className='warning' onClick={ () => props.delete_part(ele.id, ele.p_s_id) }>Delete</button>
+                                                </td>
                                             </tr>
                                         )
                                     })
@@ -349,7 +353,7 @@ const Pay_rec = (props) => {
                         </table>
                     </article>
                     <div className={ `${Pay_Rec_Style.delete_invoice}` }>
-                        <button onClick={ props.click_delte } className='warning'>Delete</button>
+                        {/* <button onClick={ props.click_delte } className='warning'>Delete</button> */ }
                     </div>
                 </div>
             </section>

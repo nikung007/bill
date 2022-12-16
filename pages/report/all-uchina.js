@@ -17,7 +17,13 @@ const All_uchina = ({ api }) => {
         setAllUchina({ ...allUchina, [e.target.name]: e.target.value })
         setError_allUchina({ ...error_allUchina, [e.target.name]: false })
     }
-
+    const all_party = (e) => {
+        if (e.target.checked == true) {
+            setAllUchina({ ...allUchina, party_name: "all" })
+        } else {
+            setAllUchina({ ...allUchina, party_name: "" })
+        }
+    }
     const [all_data, setAll_data] = useState([])
     useEffect(() => {
         if (allUchina.alluchinapayrec != "") {
@@ -100,9 +106,13 @@ const All_uchina = ({ api }) => {
                                         )
                                     })
                                 }
+                                <option value="all">All</option>
                             </select>
                         </div>
                         { error_allUchina.party_name ? <label style={ { color: "red", marginLeft: "110px", position: "absolute" } }>Plasese select</label> : null }
+                    </div>
+                    <div className={ `${All_Uchina.show_button_pyrec}` }>
+                        <label><input type="checkbox" onChange={ all_party } /> All party</label>
                     </div>
                     <div className={ `${All_Uchina.show_button_pyrec}` }>
                         <button

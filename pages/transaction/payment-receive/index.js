@@ -258,53 +258,53 @@ const Index = (
 
     }
 
-    const click_delte = async () => {
-        if (payrec_data.length != 0) {
-            const del = payrec_data[0].p_s_id;
-            const res = await fetch(`${api}Payrec/Delete`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ "delete_data_id": del })
-                })
-            const res_lot = await res.json()
+    // const click_delte = async () => {
+    //     if (payrec_data.length != 0) {
+    //         const del = payrec_data[0].p_s_id;
+    //         const res = await fetch(`${api}Payrec/Delete`,
+    //             {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 },
+    //                 body: JSON.stringify({ "delete_data_id": del })
+    //             })
+    //         const res_lot = await res.json()
 
-            if (res_lot == "Record Delete") {
-                setPayrec_data([])
-                setParty_rec({
-                    extra: "",
-                    type: "",
-                    artical: "",
-                    party_name: "",
-                    transition: "",
-                })
-                setTransationtype("")
-                setPart_list([])
-                setAll_invoice([])
-                setShow_invoice(false)
-                setInvoice_selected({
-                    check: false,
-                    s_p_id: "",
-                    invoice_date: "",
-                    total_carat: "",
-                    final_amount: "",
-                    receive_amount: "",
-                    outstanding_amount: "",
-                    extra: "",
-                    type: "",
-                    artical: "",
-                })
-                setTrans_data({
-                    tdate: "",
-                    bank: "",
-                    tamount: "",
-                })
-                setO_amount(0)
-            }
-        }
-    }
+    //         if (res_lot == "Record Delete") {
+    //             setPayrec_data([])
+    //             setParty_rec({
+    //                 extra: "",
+    //                 type: "",
+    //                 artical: "",
+    //                 party_name: "",
+    //                 transition: "",
+    //             })
+    //             setTransationtype("")
+    //             setPart_list([])
+    //             setAll_invoice([])
+    //             setShow_invoice(false)
+    //             setInvoice_selected({
+    //                 check: false,
+    //                 s_p_id: "",
+    //                 invoice_date: "",
+    //                 total_carat: "",
+    //                 final_amount: "",
+    //                 receive_amount: "",
+    //                 outstanding_amount: "",
+    //                 extra: "",
+    //                 type: "",
+    //                 artical: "",
+    //             })
+    //             setTrans_data({
+    //                 tdate: "",
+    //                 bank: "",
+    //                 tamount: "",
+    //             })
+    //             setO_amount(0)
+    //         }
+    //     }
+    // }
 
     const data =
     {
@@ -410,6 +410,46 @@ const Index = (
         }
     }
 
+    const delete_part = async (e, n) => {
+        console.log(n);
+        console.log(e);
+        const res = await fetch(`${api}Payrec/Delete`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ delete_data_id: n, record_id: e })
+            })
+        const res_lot = await res.json();
+
+        if (res_lot == "Record Delete") {
+            toast.success(res_lot, {
+                style: {
+                    padding: '16px',
+                    color: 'black',
+                    fontWeight: "700",
+                    fontSize: "22px"
+                },
+                iconTheme: {
+                    primary: 'green',
+                    secondary: '#ffffff',
+                },
+            });
+            const invoice = all_invoice.find(id => id.s_p_id == n);
+            const res_lot_up = await fetch(`${api}Payrec/Getselectedinvoice`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ "p_s_id": invoice.s_p_id })
+                })
+            const res_set = await res_lot_up.json()
+            setInvoice_selected(invoice);
+            setPayrec_data(res_set)
+        }
+    }
     return (
         <div>
             <Toaster position="top-center" reverseOrder={ false } />
@@ -433,9 +473,9 @@ const Index = (
                 error_tdata={ error_tdata }
                 error_bank={ error_bank }
                 o_amount={ o_amount }
-                click_delte={ click_delte }
                 payrec_data={ payrec_data }
                 save_data={ save_data }
+                delete_part={ delete_part }
             />
         </div>
     )

@@ -47,6 +47,9 @@ function MyApp({ Component, pageProps }) {
             }
         }
     }
+    const close_menu = () => {
+        setLogin(0);
+    }
     return (
         <div>
             {
@@ -60,7 +63,7 @@ function MyApp({ Component, pageProps }) {
                     />
                     :
                     <div>
-                        <Slider />
+                        <Slider close_menu={ close_menu } />
                         <Component { ...pageProps } />
                     </div>
             }

@@ -2,11 +2,8 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import style from '../styles/silder.module.css'
 
-const Slider = () => {
-    const [arco, setArco] = useState("")
-    const arco_Change = (e) => {
-        setArco(e)
-    }
+const Slider = (props) => {
+
     return (
         <div className={ `${style.main_nav}` }>
             <div className={ `${style.bg_dark}` }>
@@ -93,6 +90,7 @@ const Slider = () => {
                             </li>
                         </ul>
                     </nav>
+                    <button onClick={ props.close_menu } className='warning' style={ { margin: "5px 10px 0 0", height: "40px" } }>Log Out</button>
                 </div>
             </div>
         </div>

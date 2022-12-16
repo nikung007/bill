@@ -42,3 +42,13 @@
 .lot_save_cansal button {
     margin: 0 30px;
 }
+
+.purchase_heading_id {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.purchase_heading_id label {
+    margin-left: 10px;
+}

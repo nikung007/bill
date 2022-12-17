@@ -6,8 +6,10 @@ import Sell from '../../../components/sell';
 const Edit = ({ resdata, sell, api, id, allParty }) => {
 
     const router = useRouter()
+
     const edit_disable = true;
-    const [new_sell_lot, setNew_sell_lot] = useState([])
+
+    const [new_sell_lot, setNew_sell_lot] = useState([]);
     useEffect(() => {
         setNew_sell_lot(resdata.sellsubdata.map((ok) => ({
             amount: ok.amount,
@@ -26,7 +28,7 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
             sell_lot: ok.sell_lot,
             type: ok.type,
         })))
-    }, [])
+    }, []);
 
     const [total_carat_now, setTotal_carat_now] = useState()
     const [total_amount_now, setTotal_amount_now] = useState()

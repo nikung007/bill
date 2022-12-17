@@ -23,13 +23,15 @@ const Out_standing = ({ api, sell, purchase }) => {
         party_name: false,
         fromdate: false,
         todate: false,
-    })
+    });
+    const [party_list, setParty_list] = useState([]);
+    const [all_data, setAll_data] = useState([]);
 
-    const [party_list, setParty_list] = useState([])
     const outStandChange = (e) => {
         setOutStand({ ...outStand, [e.target.name]: e.target.value })
         setError_payrec({ ...error_payrec, [e.target.name]: false })
     }
+
     const data = {
         extra: outStand.extra,
         type: outStand.type,
@@ -39,7 +41,7 @@ const Out_standing = ({ api, sell, purchase }) => {
         fromdate: outStand.fromdate,
         todate: outStand.todate,
     }
-    const [all_data, setAll_data] = useState([])
+
     const show_data = async () => {
         if (error_payrec.artical == false &&
             error_payrec.extra == false &&

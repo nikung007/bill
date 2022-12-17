@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Pay_rec from '../../../components/pay_rec'
-import Error from '../../../components/error'
 import toast, { Toaster } from 'react-hot-toast';
 
 const Index = (
@@ -13,25 +12,63 @@ const Index = (
         artical: "",
         party_name: "",
         transition: "",
-    })
-    const [transationtype, setTransationtype] = useState("")
-
+    });
+    const [transationtype, setTransationtype] = useState("");
     const [error_payrec, setError_payrec] = useState({
         extra: false,
         type: false,
         artical: false,
         party_name: false,
         transition: false
-    })
+    });
+    const [part_list, setPart_list] = useState([]);
+    const [show_data, setShow_data] = useState(false);
+    const [all_invoice, setAll_invoice] = useState([]);
+    const [show_invoice, setShow_invoice] = useState(false);
+    const [invoice_selected, setInvoice_selected] = useState({
+        check: false,
+        s_p_id: "",
+        invoice_date: "",
+        total_carat: "",
+        final_amount: "",
+        receive_amount: "",
+        outstanding_amount: "",
+        extra: "",
+        type: "",
+        artical: "",
+        vai_1: "",
+        vai_1_amount: "",
+        vai_2: "",
+        vai_2_amount: "",
+        vai_3: "",
+        vai_3_amount: "",
+        vai_4: "",
+        vai_4_amount: "",
+    });
+    const [payrec_data, setPayrec_data] = useState([]);
+    const [trans_data, setTrans_data] = useState({
+        tdate: "",
+        bankName: "",
+        tamount: "",
+    });
+    const [bank, setBank] = useState(0)
+    const [error_tdata, setError_tdata] = useState({
+        tdate: false,
+        bank: false,
+        tamount: false,
+    });
+    const [error_bank, setError_bank] = useState({
+        o_error: false,
+        b_error: false,
+    });
+    const [o_amount, setO_amount] = useState(0);
+    const [pop_delete, setpop_delete] = useState(false);
+    const [del_id, setDel_id] = useState("");
 
     const party_rec_change = (e) => {
         setParty_rec({ ...party_rec, [e.target.name]: e.target.value })
         setError_payrec({ ...error_payrec, [e.target.name]: false })
     }
-    const [part_list, setPart_list] = useState([])
-
-    const [show_data, setShow_data] = useState(false)
-    const [all_invoice, setAll_invoice] = useState([])
 
     const click_show = async () => {
         if (party_rec.extra == "") {
@@ -126,30 +163,6 @@ const Index = (
         }
     }, [party_rec])
 
-    const [show_invoice, setShow_invoice] = useState(false)
-    const [invoice_selected, setInvoice_selected] = useState({
-        check: false,
-        s_p_id: "",
-        invoice_date: "",
-        total_carat: "",
-        final_amount: "",
-        receive_amount: "",
-        outstanding_amount: "",
-        extra: "",
-        type: "",
-        artical: "",
-        vai_1: "",
-        vai_1_amount: "",
-        vai_2: "",
-        vai_2_amount: "",
-        vai_3: "",
-        vai_3_amount: "",
-        vai_4: "",
-        vai_4_amount: "",
-    })
-
-    const [payrec_data, setPayrec_data] = useState([])
-
     const radio_value = async (e, sub_p) => {
         const invoice = all_invoice.find(id => id.s_p_id == sub_p);
 
@@ -170,25 +183,6 @@ const Index = (
             setInvoice_selected(invoice);
         }
     }
-
-    const [trans_data, setTrans_data] = useState({
-        tdate: "",
-        bankName: "",
-        tamount: "",
-    })
-    const [bank, setBank] = useState(0)
-    const [error_tdata, setError_tdata] = useState({
-        tdate: false,
-        bank: false,
-        tamount: false,
-    })
-
-    const [error_bank, setError_bank] = useState({
-        o_error: false,
-        b_error: false,
-    })
-
-    const [o_amount, setO_amount] = useState(0)
 
     const trans_change = (e) => {
         if (e.target.name == "tdate") {
@@ -258,56 +252,7 @@ const Index = (
 
     }
 
-    // const click_delte = async () => {
-    //     if (payrec_data.length != 0) {
-    //         const del = payrec_data[0].p_s_id;
-    //         const res = await fetch(`${api}Payrec/Delete`,
-    //             {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json'
-    //                 },
-    //                 body: JSON.stringify({ "delete_data_id": del })
-    //             })
-    //         const res_lot = await res.json()
-
-    //         if (res_lot == "Record Delete") {
-    //             setPayrec_data([])
-    //             setParty_rec({
-    //                 extra: "",
-    //                 type: "",
-    //                 artical: "",
-    //                 party_name: "",
-    //                 transition: "",
-    //             })
-    //             setTransationtype("")
-    //             setPart_list([])
-    //             setAll_invoice([])
-    //             setShow_invoice(false)
-    //             setInvoice_selected({
-    //                 check: false,
-    //                 s_p_id: "",
-    //                 invoice_date: "",
-    //                 total_carat: "",
-    //                 final_amount: "",
-    //                 receive_amount: "",
-    //                 outstanding_amount: "",
-    //                 extra: "",
-    //                 type: "",
-    //                 artical: "",
-    //             })
-    //             setTrans_data({
-    //                 tdate: "",
-    //                 bank: "",
-    //                 tamount: "",
-    //             })
-    //             setO_amount(0)
-    //         }
-    //     }
-    // }
-
-    const data =
-    {
+    const data = {
         extra: party_rec.extra,
         type: party_rec.type,
         artical: party_rec.artical,
@@ -411,8 +356,7 @@ const Index = (
     }
 
     const delete_part = async (e, n) => {
-        console.log(n);
-        console.log(e);
+        setpop_delete(false)
         const res = await fetch(`${api}Payrec/Delete`,
             {
                 method: 'POST',
@@ -450,6 +394,17 @@ const Index = (
             setPayrec_data(res_set)
         }
     }
+
+    const delete_data = (e) => {
+        setpop_delete(true);
+        setDel_id(e);
+    }
+
+    const close_del = () => {
+        setpop_delete(false);
+        setDel_id("");
+    }
+
     return (
         <div>
             <Toaster position="top-center" reverseOrder={ false } />
@@ -476,6 +431,10 @@ const Index = (
                 payrec_data={ payrec_data }
                 save_data={ save_data }
                 delete_part={ delete_part }
+                pop_delete={ pop_delete }
+                del_id={ del_id }
+                delete_data={ delete_data }
+                close_del={ close_del }
             />
         </div>
     )

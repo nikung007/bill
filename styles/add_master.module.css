@@ -13,3 +13,26 @@
 .add_all_fild label {
     width: 40%;
 }
+
+.delete_main {
+    position: relative;
+}
+
+.delete {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 15;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+}
+
+.delete h1 {
+    color: white;
+    text-align: center;
+}
+
+.delete_button {
+    display: flex;
+    justify-content: space-around;
+}

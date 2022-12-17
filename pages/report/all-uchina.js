@@ -5,18 +5,19 @@ const All_uchina = ({ api }) => {
     const [allUchina, setAllUchina] = useState({
         alluchinapayrec: "",
         party_name: "",
-    })
-
+    });
     const [part_list, setPart_list] = useState([])
     const [error_allUchina, setError_allUchina] = useState({
         alluchinapayrec: false,
         party_name: false,
-    })
+    });
+    const [all_data, setAll_data] = useState([]);
 
     const allUchinaChange = (e) => {
         setAllUchina({ ...allUchina, [e.target.name]: e.target.value })
         setError_allUchina({ ...error_allUchina, [e.target.name]: false })
     }
+
     const all_party = (e) => {
         if (e.target.checked == true) {
             setAllUchina({ ...allUchina, party_name: "all" })
@@ -24,7 +25,7 @@ const All_uchina = ({ api }) => {
             setAllUchina({ ...allUchina, party_name: "" })
         }
     }
-    const [all_data, setAll_data] = useState([])
+
     useEffect(() => {
         if (allUchina.alluchinapayrec != "") {
             async function fetchMyAPI() {
@@ -52,23 +53,20 @@ const All_uchina = ({ api }) => {
         } else if (allUchina.party_name == null || allUchina.party_name == "") {
             setError_allUchina({ ...error_allUchina, party_name: true })
         } else {
-
-        }
-        const res = await fetch(`${api}Report/Getselecteddetail`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    uchina_Type: allUchina.alluchinapayrec,
-                    party_name: allUchina.party_name,
+            const res = await fetch(`${api}Report/Getselecteddetail`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        uchina_Type: allUchina.alluchinapayrec,
+                        party_name: allUchina.party_name,
+                    })
                 })
-            })
-
-        const res_lot = await res.json()
-        setAll_data(res_lot)
-
+            const res_lot = await res.json()
+            setAll_data(res_lot)
+        }
     }
 
     return (

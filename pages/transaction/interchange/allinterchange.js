@@ -1,15 +1,15 @@
 import Link from 'next/link'
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useState } from 'react'
-
+import Add_Master_Style from '../../../styles/add_master.module.css'
 const Allpay_rec = ({ resdata, api }) => {
 
-    const [all_pay_rec, setAll_pay_rec] = useState(resdata)
-
-
+    const [all_pay_rec, setAll_pay_rec] = useState(resdata);
+    const [pop_delete, setpop_delete] = useState(false);
+    const [del_id, setDel_id] = useState("");
 
     const click_delete = async (e) => {
-
+        setpop_delete(false)
         const res_del = await fetch(`${api}Banktransfer/Delete`,
             {
                 method: 'POST',
@@ -38,8 +38,33 @@ const Allpay_rec = ({ resdata, api }) => {
         }
     }
 
+    const delete_data = (e) => {
+        setpop_delete(true);
+        setDel_id(e);
+    }
+
+    const close_del = () => {
+        setpop_delete(false);
+        setDel_id("");
+    }
+
     return (
-        <div style={ { width: "70%", margin: "auto" } }>
+        <div style={ { width: "70%", margin: "auto" } } className={ `${Add_Master_Style.delete_main}` }>
+            {
+                pop_delete ?
+                    <div className={ `${Add_Master_Style.delete}` }>
+                        <h1>Are you sure delete ?</h1>
+                        <div className={ `${Add_Master_Style.delete_button}` }>
+                            <button className='secondary' onClick={ close_del }>
+                                Cancel
+                            </button>
+                            <button className='warning' onClick={ () => click_delete(del_id) }>
+                                Conform
+                            </button>
+                        </div>
+                    </div>
+                    : null
+            }
             <Toaster position="top-center" reverseOrder={ false } />
             <section>
                 <div style={ { width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" } }>
@@ -77,7 +102,7 @@ const Allpay_rec = ({ resdata, api }) => {
                                             <td>{ ele.recamount }</td>
                                             <td>
                                                 <button
-                                                    onClick={ () => click_delete(ele.id) }
+                                                    onClick={ () => delete_data(ele.id) }
                                                     className='warning'>
                                                     Delete
                                                 </button>

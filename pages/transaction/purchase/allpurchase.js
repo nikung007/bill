@@ -3,11 +3,13 @@ import Link from 'next/link';
 import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/router'
-
+import Add_Master_Style from '../../../styles/add_master.module.css'
 const Allpurchase = ({ resdata, api }) => {
     const router = useRouter()
 
     const [all_purchase, setAll_purchase] = useState(resdata);
+    const [pop_delete, setpop_delete] = useState(false);
+    const [del_id, setDel_id] = useState("");
 
     const search_change = (e) => {
         const searchingData = [];
@@ -23,7 +25,7 @@ const Allpurchase = ({ resdata, api }) => {
     }
 
     const click_delete = async (e) => {
-
+        setpop_delete(false)
         const res_del = await fetch(`${api}Purchase/Delete`,
             {
                 method: 'POST',
@@ -65,8 +67,6 @@ const Allpurchase = ({ resdata, api }) => {
         }
     }
 
-
-
     const click_edit = async (e) => {
         const res = await fetch(`${api}Purchase/Edit`,
             {
@@ -98,8 +98,33 @@ const Allpurchase = ({ resdata, api }) => {
         }
     }
 
+    const delete_data = (e) => {
+        setpop_delete(true);
+        setDel_id(e);
+    }
+
+    const close_del = () => {
+        setpop_delete(false);
+        setDel_id("");
+    }
+
     return (
-        <div>
+        <div className={ `${Add_Master_Style.delete_main}` }>
+            {
+                pop_delete ?
+                    <div className={ `${Add_Master_Style.delete}` }>
+                        <h1>Are you sure delete ?</h1>
+                        <div className={ `${Add_Master_Style.delete_button}` }>
+                            <button className='secondary' onClick={ close_del }>
+                                Cancel
+                            </button>
+                            <button className='warning' onClick={ () => click_delete(del_id) }>
+                                Conform
+                            </button>
+                        </div>
+                    </div>
+                    : null
+            }
             <Toaster position="top-center" reverseOrder={ false } />
             <section>
                 <div style={ { display: "flex", alignItems: "center", width: "100%" } }>
@@ -146,7 +171,7 @@ const Allpurchase = ({ resdata, api }) => {
 
                                             <td><button
                                                 className='warning'
-                                                onClick={ () => click_delete(ele.p_id) }>Delete</button></td>
+                                                onClick={ () => delete_data(ele.p_id) }>Delete</button></td>
                                         </tr>
                                     )
                                 })

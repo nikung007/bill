@@ -8,24 +8,41 @@ const Index = ({ api, res_lot, bank_name }) => {
         party_name: "",
         transition: "",
         alluchinapayrec: "",
-    })
-    const [transationtype, setTransationtype] = useState("")
+    });
+    const [transationtype, setTransationtype] = useState("");
 
     const [error_payrec, setError_payrec] = useState({
         party_name: false,
         transition: false
-    })
-    const [part_list, setPart_list] = useState(res_lot)
-
+    });
+    const [part_list, setPart_list] = useState(res_lot);
     const party_rec_change = (e) => {
         setParty_rec({ ...party_rec, [e.target.name]: e.target.value })
         setError_payrec({ ...error_payrec, [e.target.name]: false })
 
-    }
-
-
-    const [show_data, setShow_data] = useState(false)
-    const [all_invoice, setAll_invoice] = useState([])
+    };
+    const [show_data, setShow_data] = useState(false);
+    const [all_invoice, setAll_invoice] = useState([]);
+    const [payrec_data, setPayrec_data] = useState([]);
+    const [show_invoice, setShow_invoice] = useState(false);
+    const [invoice_selected, setInvoice_selected] = useState({});
+    const [trans_data, setTrans_data] = useState({
+        tdate: new Date().toISOString().split('T')[0],
+        bankName: "",
+        tamount: "",
+    });
+    const [bank, setBank] = useState(0)
+    const [error_tdata, setError_tdata] = useState({
+        tdate: false,
+        bank: false,
+        tamount: false,
+    });
+    const [error_bank, setError_bank] = useState({
+        o_error: false,
+        b_error: false,
+    });
+    const [o_amount, setO_amount] = useState(0);
+    const [pop_delete, setpop_delete] = useState(false);
 
     const click_show = async () => {
         if (party_rec.transition == "") {
@@ -52,7 +69,6 @@ const Index = ({ api, res_lot, bank_name }) => {
         }
     }
 
-    const [payrec_data, setPayrec_data] = useState([])
     useEffect(() => {
         setShow_invoice(false)
         setPayrec_data([])
@@ -62,10 +78,6 @@ const Index = ({ api, res_lot, bank_name }) => {
             setTransationtype("Receive")
         }
     }, [party_rec])
-
-    const [show_invoice, setShow_invoice] = useState(false)
-    const [invoice_selected, setInvoice_selected] = useState({})
-
 
     const radio_value = async (e, sub_p) => {
         const invoice = all_invoice.find(id => id.u_id == sub_p);
@@ -96,25 +108,6 @@ const Index = ({ api, res_lot, bank_name }) => {
 
         }
     }
-
-    const [trans_data, setTrans_data] = useState({
-        tdate: new Date().toISOString().split('T')[0],
-        bankName: "",
-        tamount: "",
-    })
-    const [bank, setBank] = useState(0)
-    const [error_tdata, setError_tdata] = useState({
-        tdate: false,
-        bank: false,
-        tamount: false,
-    })
-
-    const [error_bank, setError_bank] = useState({
-        o_error: false,
-        b_error: false,
-    })
-
-    const [o_amount, setO_amount] = useState(0)
 
     const trans_change = (e) => {
         if (e.target.name == "tdate") {
@@ -213,6 +206,7 @@ const Index = ({ api, res_lot, bank_name }) => {
     }
 
     const click_delte = async () => {
+        setpop_delete(false)
         if (payrec_data.length != 0) {
             const del = payrec_data[0].u_id;
             const res = await fetch(`${api}Alluchinapayrec/Delete`,
@@ -254,9 +248,7 @@ const Index = ({ api, res_lot, bank_name }) => {
         }
     }
 
-
-    const data =
-    {
+    const data = {
         tdate: trans_data.tdate,
         partyname: party_rec.party_name,
         transactiontype: transationtype,
@@ -335,6 +327,14 @@ const Index = ({ api, res_lot, bank_name }) => {
         }
     }
 
+    const delete_data = (e) => {
+        setpop_delete(true);
+    }
+
+    const close_del = () => {
+        setpop_delete(false);
+    }
+
     return (
         <div>
             <Toaster position="top-center" reverseOrder={ false } />
@@ -361,6 +361,9 @@ const Index = ({ api, res_lot, bank_name }) => {
                 click_delte={ click_delte }
                 payrec_data={ payrec_data }
                 save_data={ save_data }
+                pop_delete={ pop_delete }
+                delete_data={ delete_data }
+                close_del={ close_del }
             />
         </div>
     )

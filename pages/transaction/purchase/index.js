@@ -7,8 +7,7 @@ const Index = ({ resdata, api }) => {
 
 
     const router = useRouter();
-    const [lot_list, setLot_list] = useState([])
-
+    const [lot_list, setLot_list] = useState([]);
     const [purchase_data, setPurchase_data] = useState({
         id: resdata.p_id,
         invoice_number: "",
@@ -19,7 +18,31 @@ const Index = ({ resdata, api }) => {
         invoice_date: "",
         terms: "",
         remark: "",
-    })
+    });
+    const [error, setError] = useState({
+        error_extra: false,
+        error_type: false,
+        error_artical: false,
+        error_party_name: false,
+        error_invoice_date: false,
+        error_terms: false,
+        error_all: false,
+    });
+    const [lot_obj, setLot_obj] = useState({
+        lot_carat: "",
+        lot_price: "",
+    });
+    const [error_lot, setError_lot] = useState({ error_lot_carat: false, error_lot_price: false, });
+    const [new_edit, setNew_edit] = useState({
+        new_carat: "",
+        new_price: "",
+    });
+    const [disable_diff, setDisable_diff] = useState({ add_diff: false, min_diff: false });
+    const [difference, setDifference] = useState({
+        add_difference: "",
+        minus_difference: "",
+    });
+    const [set_d, setSet_d] = useState(false);
 
     var days = purchase_data.terms;
     var new_date = new Date(purchase_data.invoice_date);
@@ -32,26 +55,11 @@ const Index = ({ resdata, api }) => {
     if (day.length < 2) { day = '0' + day; }
     const due_date_now = `${year}-${month}-${day}`
 
-    const [error, setError] = useState({
-        error_extra: false,
-        error_type: false,
-        error_artical: false,
-        error_party_name: false,
-        error_invoice_date: false,
-        error_terms: false,
-        error_all: false,
-    })
-
     const change_purchese = (e) => {
         setPurchase_data({ ...purchase_data, [e.target.name]: e.target.value })
         setError({ ...error, [`error_${e.target.name}`]: false })
     }
 
-    const [lot_obj, setLot_obj] = useState({
-        lot_carat: "",
-        lot_price: "",
-    })
-    const [error_lot, setError_lot] = useState({ error_lot_carat: false, error_lot_price: false, })
     const set_lot = (e) => {
         setLot_obj({ ...lot_obj, [e.target.name]: e.target.value })
         setError_lot({ ...error_lot, [`error_${e.target.name}`]: false })
@@ -77,11 +85,6 @@ const Index = ({ resdata, api }) => {
         }
     }
 
-    const [new_edit, setNew_edit] = useState({
-        new_carat: "",
-        new_price: "",
-    })
-
     const edit_lot = (e) => {
         const newEditData = lot_list.map(obj => {
             if (obj.lot_id == e) {
@@ -96,7 +99,6 @@ const Index = ({ resdata, api }) => {
     const set_edit_lot = (e, val) => {
         setNew_edit({ ...new_edit, [val]: Math.round(e.target.value * 100) / 100 })
     }
-
 
     const delete_lot = (e) => { setLot_list(lot_list.filter((remove) => remove.lot_id != e)) };
 
@@ -119,12 +121,6 @@ const Index = ({ resdata, api }) => {
     const total_carat_now = lot_list.reduce((totalLot, allCarat) => totalLot + Math.round(allCarat.carat * 100) / 100, 0);
     const total_amount_now = lot_list.reduce((totalLot, allAmount) => totalLot + Math.round(allAmount.amount * 100) / 100, 0);
 
-    const [disable_diff, setDisable_diff] = useState({ add_diff: false, min_diff: false })
-    const [difference, setDifference] = useState({
-        add_difference: "",
-        minus_difference: "",
-    })
-    const [set_d, setSet_d] = useState(false)
     const set_difference = (e) => {
         setDifference({ ...difference, [e.target.name]: Math.round(e.target.value * 100) / 100 })
         setSet_d(true)
@@ -143,7 +139,6 @@ const Index = ({ resdata, api }) => {
     }, [difference])
 
     let final_amount_now = Math.round((total_amount_now + Math.round(difference.add_difference * 100) / 100 - Math.round(difference.minus_difference * 100) / 100) * 100) / 100
-
 
     const all_purchase_data = {
         p_id: purchase_data.id,
@@ -180,7 +175,6 @@ const Index = ({ resdata, api }) => {
             sell_lot: false,
         })),
     }
-
 
     const save_purchase = async (e) => {
         if (purchase_data.party_name == "") {
@@ -252,7 +246,6 @@ const Index = ({ resdata, api }) => {
             }
         }
     }
-
 
     return (
         <div>

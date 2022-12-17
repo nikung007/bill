@@ -5,17 +5,22 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Kharchamaster = ({ api, party_all }) => {
 
-    const [party_list, setParty_list] = useState(party_all || [])
-
+    const [party_list, setParty_list] = useState(party_all || []);
     const [party_master, setParty_master] = useState({
         id: party_list.length + 1,
         group_name: "",
         party_name: "",
-    })
+    });
+    const [all_list, setAll_list] = useState(false);
+    const [kharcha_list, setKharcha_list] = useState(party_all);
+    const [edit, setEdit] = useState(false)
+    const [pop_delete, setpop_delete] = useState(false);
+    const [del_id, setDel_id] = useState("")
+
     const party_change = (e) => {
         setParty_master({ ...party_master, [e.target.name]: e.target.value })
     }
-    const [all_list, setAll_list] = useState(false)
+
     const click_show_list = async () => {
         const res = await fetch(`${api}Kharch/Getkharch`,
             {
@@ -29,6 +34,7 @@ const Kharchamaster = ({ api, party_all }) => {
         setParty_list(par)
         setAll_list(true)
     }
+
     const close_list = () => {
         setAll_list(false)
     }
@@ -40,8 +46,6 @@ const Kharchamaster = ({ api, party_all }) => {
         is_delete: false,
     }
 
-
-    const [kharcha_list, setKharcha_list] = useState(party_all);
     const search_change = (e) => {
         const searchingData = [];
         if (e.target.value) {
@@ -54,9 +58,6 @@ const Kharchamaster = ({ api, party_all }) => {
         }
         setKharcha_list(searchingData);
     }
-
-
-    const [edit, setEdit] = useState(false)
 
     const save_data = async () => {
         if (edit == false) {
@@ -152,6 +153,7 @@ const Kharchamaster = ({ api, party_all }) => {
     }
 
     const delete_data = async (e) => {
+        setpop_delete(false)
         const res = await fetch(`${api}Kharch/Delete`,
             {
                 method: 'POST',
@@ -179,8 +181,6 @@ const Kharchamaster = ({ api, party_all }) => {
         }
     }
 
-
-
     const edit_data = async (e) => {
         setAll_list(false)
         setEdit(true)
@@ -200,6 +200,17 @@ const Kharchamaster = ({ api, party_all }) => {
             party_name: resdata.kharcha_name,
         })
     }
+
+    const delete_data_confom = (e) => {
+        setpop_delete(true);
+        setDel_id(e);
+    }
+
+    const close_del = () => {
+        setpop_delete(false);
+        setDel_id("");
+    }
+
     return (
         <div>
             <h1>Kharcha Master</h1>
@@ -216,6 +227,10 @@ const Kharchamaster = ({ api, party_all }) => {
                 edit_data={ edit_data }
                 edit={ edit }
                 search_change={ search_change }
+                pop_delete={ pop_delete }
+                del_id={ del_id }
+                delete_data_confom={ delete_data_confom }
+                close_del={ close_del }
             />
         </div>
     )

@@ -3,7 +3,22 @@ import React from 'react'
 import Pay_Rec_Style from '../styles/paymentReceive.module.css'
 const Pay_rec = (props) => {
     return (
-        <div>
+        <div className={ `${Pay_Rec_Style.delete_main}` }>
+            {
+                props.pop_delete ?
+                    <div className={ `${Pay_Rec_Style.delete}` }>
+                        <h1>Are you sure delete ?</h1>
+                        <div className={ `${Pay_Rec_Style.delete_button}` }>
+                            <button className='secondary' onClick={ props.close_del }>
+                                Cancel
+                            </button>
+                            <button className='warning' onClick={ () => props.delete_part(props.del_id) }>
+                                Conform
+                            </button>
+                        </div>
+                    </div>
+                    : null
+            }
             {
                 props.show_data ?
                     <div className={ `${Pay_Rec_Style.sell_list}` }>
@@ -343,7 +358,7 @@ const Pay_rec = (props) => {
                                                 <td>{ ele.carat }</td>
                                                 <td>{ ele.amount }</td>
                                                 <td>
-                                                    <button className='warning' onClick={ () => props.delete_part(ele.id, ele.p_s_id) }>Delete</button>
+                                                    <button className='warning' onClick={ () => props.delete_data(ele.id, ele.p_s_id) }>Delete</button>
                                                 </td>
                                             </tr>
                                         )

@@ -4,8 +4,25 @@ import Add_Master_Style from '../styles/add_master.module.css'
 
 const Add_master = (props) => {
 
+    // console.log(del_id);
+
     return (
-        <section>
+        <section className={ `${Add_Master_Style.delete_main}` }>
+            {
+                props.pop_delete ?
+                    <div className={ `${Add_Master_Style.delete}` }>
+                        <h1>Are you sure delete ?</h1>
+                        <div className={ `${Add_Master_Style.delete_button}` }>
+                            <button className='secondary' onClick={ props.close_del }>
+                                Cancel
+                            </button>
+                            <button className='warning' onClick={ () => props.delete_party(props.del_id) }>
+                                Conform
+                            </button>
+                        </div>
+                    </div>
+                    : null
+            }
             {
                 props.all_list ?
                     <div style={ { width: "75%", margin: "auto" } } className='card'>
@@ -20,7 +37,7 @@ const Add_master = (props) => {
                                     <th>Id</th>
                                     <th>Party type</th>
                                     <th>Party name</th>
-                                    <th style={ { textAlign: "center" } } >Action</th>
+                                    <th colSpan={ 2 } style={ { textAlign: "center" } } >Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,7 +49,7 @@ const Add_master = (props) => {
                                                 <td>{ ele.party_name }</td>
                                                 <td>{ ele.party_type }</td>
                                                 <td style={ { padding: "0" } }>
-                                                    <button onClick={ () => props.delete_party(ele.party_id) } className='warning'>Delete</button>
+                                                    <button onClick={ () => props.delete_data(ele.party_id) } className='warning'>Delete</button>
                                                 </td>
                                                 <td style={ { padding: "10px" } }>
                                                     <button>Edit</button>

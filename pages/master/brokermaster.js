@@ -7,11 +7,11 @@ const Brokermaster = () => {
         id: "",
         party_type: "",
         party_name: "",
-    })
+    });
+    const [all_list, setAll_list] = useState(false);
     const party_change = (e) => {
         setParty_master({ ...party_master, [e.target.name]: e.target.value })
     }
-    const [all_list, setAll_list] = useState(false)
     const click_show_list = () => {
         setAll_list(true)
     }

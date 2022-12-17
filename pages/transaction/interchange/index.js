@@ -12,15 +12,14 @@ const Index = ({ api, bank, bank_name }) => {
         pay_amount: "",
         rec_amount: "",
         remark: "",
-    })
-
+    });
     const [interchange_error, setInterchange_error] = useState({
         date_today: false,
         pay_bank: false,
         rec_bank: false,
         pay_amount: false,
         remark: false,
-    })
+    });
 
     const interchange_change = (e) => {
         if (e.target.name == "rec_bank") {
@@ -79,6 +78,7 @@ const Index = ({ api, bank, bank_name }) => {
         recamount: interchange.rec_amount,
         remark: interchange.remark,
     }
+
     const save_data = async () => {
         if (interchange.date_today == "") {
             setInterchange_error({ ...interchange_error, date_today: true })

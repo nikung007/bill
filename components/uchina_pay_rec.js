@@ -4,7 +4,22 @@ import Pay_Rec_Style from '../styles/paymentReceive.module.css'
 
 const Uchina_pay_rec = (props) => {
     return (
-        <div>
+        <div className={ `${Pay_Rec_Style.delete_main}` }>
+            {
+                props.pop_delete ?
+                    <div className={ `${Pay_Rec_Style.delete}` }>
+                        <h1>Are you sure delete ?</h1>
+                        <div className={ `${Pay_Rec_Style.delete_button}` }>
+                            <button className='secondary' onClick={ props.close_del }>
+                                Cancel
+                            </button>
+                            <button className='warning' onClick={ () => props.click_delte() }>
+                                Conform
+                            </button>
+                        </div>
+                    </div>
+                    : null
+            }
             {
                 props.show_data == true && props.party_rec.alluchinapayrec == "guchina" ?
                     <div className={ `${Pay_Rec_Style.sell_list}` }>
@@ -438,7 +453,7 @@ const Uchina_pay_rec = (props) => {
                         </table>
                     </article>
                     <div className={ `${Pay_Rec_Style.delete_invoice}` }>
-                        <button onClick={ props.click_delte } className='warning'>All Delete</button>
+                        <button onClick={ props.delete_data } className='warning'>All Delete</button>
                     </div>
                 </div>
             </section>

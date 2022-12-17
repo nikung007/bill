@@ -1,10 +1,12 @@
 import Link from 'next/link'
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useState } from 'react'
-
+import Add_Master_Style from '../../../styles/add_master.module.css'
 const Alluchina = ({ u_list, api }) => {
 
-    const [list, setList] = useState(u_list)
+    const [list, setList] = useState(u_list);
+    const [pop_delete, setpop_delete] = useState(false);
+    const [del_id, setDel_id] = useState("");
 
     const search_change = (e) => {
         const searchingData = [];
@@ -20,6 +22,7 @@ const Alluchina = ({ u_list, api }) => {
     }
 
     const click_delete = async (e) => {
+        setpop_delete(false)
         const res_del = await fetch(`${api}Uchina/Delete`,
             {
                 method: 'POST',
@@ -48,8 +51,34 @@ const Alluchina = ({ u_list, api }) => {
             setList(list.filter(item => item.u_id !== e));
         }
     }
+
+    const delete_data = (e) => {
+        setpop_delete(true);
+        setDel_id(e);
+    }
+
+    const close_del = () => {
+        setpop_delete(false);
+        setDel_id("");
+    }
+
     return (
-        <div style={ { width: "70%", margin: "auto" } }>
+        <div style={ { width: "70%", margin: "auto" } } className={ `${Add_Master_Style.delete_main}` }>
+            {
+                pop_delete ?
+                    <div className={ `${Add_Master_Style.delete}` }>
+                        <h1>Are you sure delete ?</h1>
+                        <div className={ `${Add_Master_Style.delete_button}` }>
+                            <button className='secondary' onClick={ close_del }>
+                                Cancel
+                            </button>
+                            <button className='warning' onClick={ () => click_delete(del_id) }>
+                                Conform
+                            </button>
+                        </div>
+                    </div>
+                    : null
+            }
             <Toaster position="top-center" reverseOrder={ false } />
             <section>
                 <div style={ { width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" } }>
@@ -89,7 +118,7 @@ const Alluchina = ({ u_list, api }) => {
                                             <td>{ ele.transactiontype }</td>
                                             <td>
                                                 <button
-                                                    onClick={ () => click_delete(ele.u_id) }
+                                                    onClick={ () => delete_data(ele.u_id) }
                                                     className='warning'>
                                                     Delete
                                                 </button>

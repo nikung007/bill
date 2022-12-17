@@ -8,12 +8,16 @@ const Partymaster = ({ party, api, party_all }) => {
         id: party.party_id,
         party_type: "",
         party_name: "",
-    })
+    });
+    const [all_list, setAll_list] = useState(false);
+    const [party_list, setParty_list] = useState(party_all);
+    const [pop_delete, setpop_delete] = useState(false);
+    const [del_id, setDel_id] = useState("");
+
     const party_change = (e) => {
         setParty_master({ ...party_master, [e.target.name]: e.target.value })
     }
-    const [all_list, setAll_list] = useState(false)
-    const [party_list, setParty_list] = useState(party_all);
+
     const click_show_list = async () => {
         setAll_list(true)
         const res_all_data = await fetch(`${api}Party/Getallparty`,
@@ -29,6 +33,7 @@ const Partymaster = ({ party, api, party_all }) => {
         const party_all = await res_all_data.json()
         setParty_list(party_all)
     }
+
     const close_list = () => {
         setAll_list(false)
     }
@@ -46,14 +51,13 @@ const Partymaster = ({ party, api, party_all }) => {
         setParty_list(searchingData);
     }
 
-
-
     const data = {
         party_id: party_master.id,
         party_type: party_master.party_type,
         party_name: party_master.party_name,
         is_delete: false,
     }
+
     const save_data = async () => {
         if (party_master.party_type != "" && party_master.party_name != "") {
             const res = await fetch(`${api}Party/Add`,
@@ -99,6 +103,7 @@ const Partymaster = ({ party, api, party_all }) => {
     }
 
     const delete_party = async (e) => {
+        setpop_delete(false)
         const res = await fetch(`${api}Party/Delete`,
             {
                 method: 'POST',
@@ -139,6 +144,17 @@ const Partymaster = ({ party, api, party_all }) => {
             });
         }
     }
+
+    const delete_data = (e) => {
+        setpop_delete(true);
+        setDel_id(e);
+    }
+
+    const close_del = () => {
+        setpop_delete(false);
+        setDel_id("");
+    }
+
     return (
         <div>
             <h1>Party master</h1>
@@ -153,6 +169,10 @@ const Partymaster = ({ party, api, party_all }) => {
                 party_all={ party_list }
                 search_change={ search_change }
                 delete_party={ delete_party }
+                pop_delete={ pop_delete }
+                del_id={ del_id }
+                delete_data={ delete_data }
+                close_del={ close_del }
             />
         </div>
     )

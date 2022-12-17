@@ -10,7 +10,6 @@ const Edit = ({ id, resdata, party_list, api }) => {
 
 
     const in_date = resdata.purchase.invoice_date.split("T")[0];
-
     const [purchase_data, setPurchase_data] = useState({
         id: resdata.purchase.p_id,
         invoice_number: resdata.purchase.invoice_no,
@@ -21,7 +20,31 @@ const Edit = ({ id, resdata, party_list, api }) => {
         invoice_date: in_date,
         terms: resdata.purchase.terms,
         remark: resdata.purchase.remark,
-    })
+    });
+    const [error, setError] = useState({
+        error_extra: false,
+        error_type: false,
+        error_artical: false,
+        error_party_name: false,
+        error_invoice_date: false,
+        error_terms: false,
+        error_all: false,
+    });
+    const [lot_obj, setLot_obj] = useState({
+        lot_carat: "",
+        lot_price: "",
+    });
+    const [error_lot, setError_lot] = useState({ error_lot_carat: false, error_lot_price: false, });
+    const [new_edit, setNew_edit] = useState({
+        new_carat: "",
+        new_price: "",
+    });
+    const [disable_diff, setDisable_diff] = useState({ add_diff: false, min_diff: false });
+    const [difference, setDifference] = useState({
+        add_difference: resdata.purchase.plus,
+        minus_difference: resdata.purchase.minus,
+    });
+    const [set_d, setSet_d] = useState(false);
 
     var days = purchase_data.terms;
     var new_date = new Date(purchase_data.invoice_date);
@@ -34,26 +57,11 @@ const Edit = ({ id, resdata, party_list, api }) => {
     if (day.length < 2) { day = '0' + day; }
     const due_date_now = `${year}-${month}-${day}`
 
-    const [error, setError] = useState({
-        error_extra: false,
-        error_type: false,
-        error_artical: false,
-        error_party_name: false,
-        error_invoice_date: false,
-        error_terms: false,
-        error_all: false,
-    })
-
     const change_purchese = (e) => {
         setPurchase_data({ ...purchase_data, [e.target.name]: e.target.value })
         setError({ ...error, [`error_${e.target.name}`]: false })
     }
 
-    const [lot_obj, setLot_obj] = useState({
-        lot_carat: "",
-        lot_price: "",
-    })
-    const [error_lot, setError_lot] = useState({ error_lot_carat: false, error_lot_price: false, })
     const set_lot = (e) => {
         setLot_obj({ ...lot_obj, [e.target.name]: e.target.value })
         setError_lot({ ...error_lot, [`error_${e.target.name}`]: false })
@@ -78,11 +86,6 @@ const Edit = ({ id, resdata, party_list, api }) => {
             setLot_obj({ ...lot_obj, lot_carat: "", lot_price: "", })
         }
     }
-
-    const [new_edit, setNew_edit] = useState({
-        new_carat: "",
-        new_price: "",
-    })
 
     const edit_lot = (e) => {
         const newEditData = lot_list.map(obj => {
@@ -118,20 +121,14 @@ const Edit = ({ id, resdata, party_list, api }) => {
         setLot_list(newEditData);
     }
 
-
     const total_carat_now = lot_list.reduce((totalLot, allCarat) => totalLot + Math.round(allCarat.carat * 100) / 100, 0);
     const total_amount_now = lot_list.reduce((totalLot, allAmount) => totalLot + Math.round(allAmount.amount * 100) / 100, 0);
 
-    const [disable_diff, setDisable_diff] = useState({ add_diff: false, min_diff: false })
-    const [difference, setDifference] = useState({
-        add_difference: resdata.purchase.plus,
-        minus_difference: resdata.purchase.minus,
-    })
-    const [set_d, setSet_d] = useState(false)
     const set_difference = (e) => {
         setDifference({ ...difference, [e.target.name]: Math.round(e.target.value * 100) / 100 })
         setSet_d(true)
     }
+
     useEffect(() => {
         if (set_d == true) {
             if ((difference.add_difference == "" || difference.add_difference == "NaN") && (difference.minus_difference == "" || difference.minus_difference == "NaN")) {
@@ -146,7 +143,6 @@ const Edit = ({ id, resdata, party_list, api }) => {
     }, [difference])
 
     let final_amount_now = Math.round(total_amount_now * 100) / 100 + Math.round(difference.add_difference * 100) / 100 - Math.round(difference.minus_difference * 100) / 100
-
 
     const all_purchase_data = {
         invoice_no: purchase_data.invoice_number,
@@ -167,6 +163,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
         outstanding_amount: final_amount_now,
         is_delete: false,
     }
+
     const data_lot = lot_list.map((ele, index) => ({
         sub_p_id: ele.sub_p_id,
         p_id: purchase_data.invoice_number,
@@ -230,6 +227,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
         }
 
     }
+
     return (
         <div>
             <Toaster position="top-center" reverseOrder={ false } />

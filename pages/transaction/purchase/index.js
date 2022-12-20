@@ -4,8 +4,6 @@ import { useRouter } from "next/router";
 import toast, { Toaster } from 'react-hot-toast';
 
 const Index = ({ resdata, api }) => {
-
-
     const router = useRouter();
     const [lot_list, setLot_list] = useState([]);
     const [purchase_data, setPurchase_data] = useState({
@@ -161,7 +159,7 @@ const Index = ({ resdata, api }) => {
         is_delete: false,
         data: lot_list.map((ele, index) => ({
             sub_p_id: index + 1,
-            p_id: purchase_data.invoice_number,
+            p_id: purchase_data.id,
             invoice_no: purchase_data.invoice_number,
             extra: purchase_data.extra,
             type: purchase_data.type,

@@ -225,28 +225,36 @@ const Index = ({ sell, api, allParty }) => {
     }
 
     const [total_carat_now, setTotal_carat_now] = useState()
+    const [new_carat_total, setNew_carat_total] = useState()
     const [total_amount_now, setTotal_amount_now] = useState()
     const [total_final_now, setTotal_final_now] = useState()
     const [differnce_amount, setDiffernce_amount] = useState()
     const [new_sell_price, setNew_sell_price] = useState()
 
     useEffect(() => {
-        setTotal_carat_now(new_sell_lot.reduce((totalLot, allCarat) => Math.round((totalLot + allCarat.carat) * 100) / 100, 0))
+        setNew_carat_total(new_sell_lot.reduce((totalLot, allCarat) => Math.round((totalLot + allCarat.carat) * 100) / 100, 0))
         setTotal_amount_now(new_sell_lot.reduce((totalLot, allAmount) => Math.round((totalLot + allAmount.amount) * 100) / 100, 0))
         setTotal_final_now(new_sell_lot.reduce((totalLot, allAmount) => Math.round((totalLot + allAmount.new_amount) * 100) / 100, 0))
     }, [new_sell_lot])
+
+    const [diff, setDiff] = useState({
+        add_carat: 0,
+        min_carat: 0
+    })
+    const newCarat = (e) => {
+        setDiff({ ...diff, [e.target.name]: e.target.value })
+    }
+
+    useEffect(() => {
+        setTotal_carat_now(Math.round((new_carat_total + Math.round(diff.add_carat * 100) / 100 - Math.round(diff.min_carat * 100) / 100) * 100) / 100);
+    }, [all_lot_data][diff])
 
 
     useEffect(() => {
         setNew_Amount(Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100)
         setDiffernce_amount(Math.round((total_final_now - total_amount_now) * 100) / 100)
-        setNew_sell_price(Math.round((new_Amount / total_carat_now) * 100) / 100)
+        setNew_sell_price(Math.round((new_Amount / new_carat_total) * 100) / 100)
     }, [total_final_now][difference])
-
-
-    // useEffect(() => {
-    //     setDiffernce_amount(Math.round(((new_Amount - total_amount_now)) * 100) / 100)
-    // }, [difference])
 
     const persent_change = (e) => {
         setPersent(e.target.value)
@@ -303,6 +311,8 @@ const Index = ({ sell, api, allParty }) => {
         setLot_show(true)
         setShow_lot(false)
         setNew_Amount(Math.round(total_final_now * 100) / 100)
+        setTotal_carat_now(new_sell_lot.reduce((totalLot, allCarat) => Math.round((totalLot + allCarat.carat) * 100) / 100, 0))
+        setNew_carat_total(new_sell_lot.reduce((totalLot, allCarat) => Math.round((totalLot + allCarat.carat) * 100) / 100, 0))
     }
 
     const click_cansal = () => {
@@ -324,6 +334,8 @@ const Index = ({ sell, api, allParty }) => {
         total_amount: total_amount_now,
         final_amount: new_Amount,
         receive_amount: 0,
+        add_carat: diff.add_carat,
+        less_carat: diff.min_carat,
         outstanding_amount: new_Amount,
         sell_carat: total_carat_now,
         sell_price: new_sell_price,
@@ -477,6 +489,9 @@ const Index = ({ sell, api, allParty }) => {
                 vaya_change={ vaya_change }
                 differnce_amount={ differnce_amount }
                 edit_disable={ edit_disable }
+                diff={ diff }
+                newCarat={ newCarat }
+                new_carat_total={ new_carat_total }
                 save="Save"
             />
         </div>
@@ -496,6 +511,7 @@ export async function getServerSideProps() {
             })
         })
     const sell = await res.json()
+
     const res_allparty = await fetch(`${process.env.API}Party/allparty`,
         {
             method: 'POST',

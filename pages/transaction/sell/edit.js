@@ -31,6 +31,7 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
     }, []);
 
     const [total_carat_now, setTotal_carat_now] = useState()
+    const [new_carat_total, setNew_carat_total] = useState()
     const [total_amount_now, setTotal_amount_now] = useState()
     const [total_final_now, setTotal_final_now] = useState()
     const [new_Amount, setNew_Amount] = useState(resdata.selldata.sell_invoice)
@@ -40,25 +41,30 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
         add_difference: resdata.selldata.plus,
         minus_difference: resdata.selldata.minus,
     })
-
+    const [all_lot_data, setAll_lot_data] = useState([])
     useEffect(() => {
-        setTotal_carat_now(new_sell_lot.reduce((totalLot, allCarat) => Math.round((totalLot + allCarat.carat) * 100) / 100, 0))
+        setNew_carat_total(new_sell_lot.reduce((totalLot, allCarat) => Math.round((totalLot + allCarat.carat) * 100) / 100, 0))
         setTotal_amount_now(new_sell_lot.reduce((totalLot, allAmount) => Math.round((totalLot + allAmount.amount) * 100) / 100, 0))
         setTotal_final_now(new_sell_lot.reduce((totalLot, allAmount) => Math.round((totalLot + allAmount.new_amount) * 100) / 100, 0))
     }, [new_sell_lot])
 
+    const [diff, setDiff] = useState({
+        add_carat: resdata.selldata.add_carat,
+        min_carat: resdata.selldata.less_carat
+    })
+    const newCarat = (e) => {
+        setDiff({ ...diff, [e.target.name]: e.target.value })
+    }
+
+    useEffect(() => {
+        setTotal_carat_now(Math.round((new_carat_total + Math.round(diff.add_carat * 100) / 100 - Math.round(diff.min_carat * 100) / 100) * 100) / 100);
+    }, [all_lot_data][diff])
 
     useEffect(() => {
         setNew_Amount(Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100)
         setDiffernce_amount(Math.round((total_final_now - total_amount_now) * 100) / 100)
         setNew_sell_price(Math.round((new_Amount / total_carat_now) * 100) / 100)
     }, [total_final_now][difference])
-
-
-    // useEffect(() => {
-    //     setDiffernce_amount(Math.round(((new_Amount - total_amount_now) + difference.add_difference - difference.minus_difference) * 100) / 100)
-    // }, [difference])
-
 
     const in_date = resdata.selldata.invoice_date.split("T")[0];
     const [sell_data, setSell_data] = useState({
@@ -85,7 +91,6 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
         show_sell: false
     })
     const [show_button, setShow_button] = useState(true)
-    const [all_lot_data, setAll_lot_data] = useState([])
 
     const [show_lot, setShow_lot] = useState(false)
     const [lot_show, setLot_show] = useState(true)
@@ -340,6 +345,8 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
         setLot_show(true)
         setShow_lot(false)
         setNew_Amount(Math.round(total_final_now * 100) / 100)
+        setTotal_carat_now(new_sell_lot.reduce((totalLot, allCarat) => Math.round((totalLot + allCarat.carat) * 100) / 100, 0))
+        setNew_carat_total(new_sell_lot.reduce((totalLot, allCarat) => Math.round((totalLot + allCarat.carat) * 100) / 100, 0))
     }
 
     const click_cansal = () => {
@@ -365,6 +372,8 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
         sell_carat: total_carat_now,
         sell_price: new_sell_price,
         sell_invoice: new_Amount,
+        add_carat: diff.add_carat,
+        less_carat: diff.min_carat,
         sell_differnt_amount: Math.round(differnce_amount * 100) / 100,
         plus: Math.round(difference.add_difference * 100) / 100,
         minus: Math.round(difference.minus_difference * 100) / 100,
@@ -485,6 +494,9 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
                 allParty={ allParty }
                 differnce_amount={ differnce_amount }
                 edit_disable={ edit_disable }
+                diff={ diff }
+                newCarat={ newCarat }
+                new_carat_total={ new_carat_total }
                 save="Update"
             />
         </div>
@@ -518,6 +530,7 @@ export async function getServerSideProps({ query }) {
             })
         })
     const resdata = await res.json()
+
     const res_allparty = await fetch(`${process.env.API}Party/allparty`,
         {
             method: 'POST',

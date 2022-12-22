@@ -6,7 +6,7 @@
 .purchase_filds {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .purchase_filds input {

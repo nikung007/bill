@@ -264,25 +264,41 @@ const Sell = (props) => {
                </article>
                <hr />
                <article style={ { marginTop: "20px" } } className={ `${Sell_Style.purchase_artical_total}` }>
-                  <div className={ `column four ${Sell_Style.purchase_filds}` }>
-                     <label>Total Carat</label>
+                  <div className={ `column three ${Sell_Style.purchase_filds}` }>
+                     <label style={ { width: "55%" } }>Total Carat</label>
                      <input
-                        defaultValue={ props.total_carat_now }
+                        value={ props.total_carat_now }
                         disabled
                         type="number" />
                   </div>
-                  <div className={ `column four ${Sell_Style.purchase_filds}` }>
-                     <label>Total Amount</label>
+                  <div className={ `column three ${Sell_Style.purchase_filds}` }>
+                     <label style={ { width: "80%" } }>Total Amount</label>
                      <input
-                        defaultValue={ props.total_amount_now }
+                        value={ props.total_amount_now }
                         disabled
                         type="number" />
                   </div>
-                  <div className={ `column four ${Sell_Style.purchase_filds}` }>
-                     <label style={ { width: "80%" } }>Total Final Amount</label>
+                  <div className={ `column three ${Sell_Style.purchase_filds}` }>
+                     <label style={ { width: "80%" } }>Final Amount</label>
                      <input
-                        defaultValue={ props.total_final_now }
+                        value={ props.total_final_now }
                         disabled
+                        type="number" />
+                  </div>
+                  <div className={ `column two ${Sell_Style.purchase_filds}` }>
+                     <label>Add Carat</label>
+                     <input
+                        name='add_carat'
+                        onChange={ props.newCarat }
+                        value={ props.diff.add_carat }
+                        type="number" />
+                  </div>
+                  <div className={ `column two ${Sell_Style.purchase_filds}` }>
+                     <label>Minus Carat</label>
+                     <input
+                        name='min_carat'
+                        onChange={ props.newCarat }
+                        value={ props.diff.min_carat }
                         type="number" />
                   </div>
                </article>
@@ -406,8 +422,9 @@ const Sell = (props) => {
                      <label>Carat</label>
                      <input
                         disabled
-                        defaultValue={ props.total_carat_now }
-                        type="number" />
+                        value={ props.new_carat_total }
+                        // value={ props.total_carat_now }
+                        type="text" />
                   </div>
                   <div className={ `column four ${Sell_Style.purchase_filds}` }>
                      <label>Price</label>

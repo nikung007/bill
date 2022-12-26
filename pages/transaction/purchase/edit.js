@@ -6,9 +6,12 @@ import toast, { Toaster } from 'react-hot-toast';
 const Edit = ({ id, resdata, party_list, api }) => {
     const router = useRouter()
 
-    const [lot_list, setLot_list] = useState(resdata.subpurchase)
-
-
+    const [lot_list, setLot_list] = useState(resdata.subpurchase.map((ok) => ({
+        carat: ok.carat,
+        amount: ok.price,
+        price: ok.amount,
+    })))
+    const edit_ooo = true;
     const in_date = resdata.purchase.invoice_date.split("T")[0];
     const [purchase_data, setPurchase_data] = useState({
         id: resdata.purchase.p_id,
@@ -86,8 +89,9 @@ const Edit = ({ id, resdata, party_list, api }) => {
             setLot_obj({ ...lot_obj, lot_carat: "", lot_price: "", })
         }
     }
-
+    console.log(lot_list);
     const edit_lot = (e) => {
+
         const newEditData = lot_list.map(obj => {
             if (obj.lot_id == e) {
                 setNew_edit({ ...new_edit, new_carat: Math.round(obj.carat * 100) / 100, new_price: Math.round(obj.price * 100) / 100 })
@@ -113,7 +117,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
                     edit_disable: false,
                     carat: new_edit.new_carat,
                     price: new_edit.new_price,
-                    amount: Math.round((new_edit.new_price / new_edit.new_carat) * 100) / 100
+                    amount: new_edit.new_price / new_edit.new_carat,
                 };
             }
             return obj;
@@ -142,7 +146,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
         }
     }, [difference])
 
-    let final_amount_now = Math.round(total_amount_now * 100) / 100 + Math.round(difference.add_difference * 100) / 100 - Math.round(difference.minus_difference * 100) / 100
+    let final_amount_now = ((Math.round(total_amount_now * 100) / 100 + Math.round(difference.add_difference * 100) / 100 - Math.round(difference.minus_difference * 100) / 100) * 100)
 
     const all_purchase_data = {
         invoice_no: purchase_data.invoice_number,
@@ -256,6 +260,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
                 set_difference={ set_difference }
                 save_purchase={ save_purchase }
                 save="Update"
+                edit_ooo={ edit_ooo }
             />
         </div>
     )

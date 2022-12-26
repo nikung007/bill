@@ -69,7 +69,7 @@ const Index = ({ sell, api, allParty }) => {
         setGet_lot({ ...get_lot, [e.target.name]: e.target.value })
         setError_get_lot({ ...error_get_lot, [e.target.name]: false })
     }
-
+    const edit_ooo = false;
     var days = sell_data.terms;
     var new_date = new Date(sell_data.invoice_date);
     new_date.setDate(new_date.getDate() + parseInt(days));
@@ -100,6 +100,7 @@ const Index = ({ sell, api, allParty }) => {
                         })
                     })
                 const res_lot = await res.json()
+                console.log(res_lot);
                 setAll_lot_data(res_lot.map((ok) => ({
                     check: false,
                     amount: ok.amount,
@@ -501,6 +502,7 @@ const Index = ({ sell, api, allParty }) => {
                 new_carat_total={ new_carat_total }
                 fix_set={ fix_set }
                 save="Save"
+                edit_ooo={ edit_ooo }
             />
         </div>
     )

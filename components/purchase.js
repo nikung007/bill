@@ -136,18 +136,18 @@ const Purchase = (props) => {
                                 <div className={ `column three ${Purchase_Style.purchase_filds}` }>
                                     <label>Price</label>
                                     <input
-                                        name='price'
-                                        onChange={ (e) => props.set_edit_lot(e, "new_price") }
-                                        disabled={ ele.edit_disable ? null : "disabled" }
-                                        value={ ele.edit_disable ? props.new_edit.new_price : ele.price }
+                                        disabled
+                                        value={ ele.edit_disable ? parseFloat(props.new_edit.new_price / props.new_edit.new_carat).toFixed(2) : ele.amount }
                                         placeholder='Carat Price'
                                         type="number" />
                                 </div>
                                 <div className={ `column three ${Purchase_Style.purchase_filds}` }>
                                     <label>Amount</label>
                                     <input
-                                        disabled
-                                        value={ ele.edit_disable ? parseFloat(props.new_edit.new_carat * props.new_edit.new_price).toFixed(2) : ele.amount }
+                                        disabled={ ele.edit_disable ? null : "disabled" }
+                                        onChange={ (e) => props.set_edit_lot(e, "new_price") }
+                                        name='price'
+                                        value={ ele.edit_disable ? props.new_edit.new_price : ele.price }
                                         placeholder='Total Amount'
                                         type="number" />
                                     {
@@ -184,9 +184,9 @@ const Purchase = (props) => {
                         <div className={ `${Purchase_Style.purchase_filds}` }>
                             <label>Price</label>
                             <input
-                                name='lot_price'
-                                value={ props.lot_obj.lot_price }
-                                onChange={ props.set_lot }
+                                disabled
+                                value={ parseFloat(props.lot_obj.lot_price / props.lot_obj.lot_carat).toFixed(2) }
+                                onChange={ props.change_purchese }
                                 placeholder='Carat Price'
                                 type="number" />
                         </div>
@@ -195,9 +195,9 @@ const Purchase = (props) => {
                     <div className={ `column three ${Purchase_Style.purchase_filds}` }>
                         <label>Amount</label>
                         <input
-                            disabled
-                            value={ parseFloat(props.lot_obj.lot_carat * props.lot_obj.lot_price).toFixed(2) }
-                            onChange={ props.change_purchese }
+                            value={ props.lot_obj.lot_price }
+                            name='lot_price'
+                            onChange={ props.set_lot }
                             placeholder='Total Amount'
                             type="number" />
                         <i onClick={ props.add_lot } className="icon-add-section"></i>

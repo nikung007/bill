@@ -3,6 +3,7 @@ import React from 'react'
 import Sell_Style from '../styles/sell.module.css'
 
 const Sell = (props) => {
+
    return (
       <div>
          {
@@ -180,6 +181,14 @@ const Sell = (props) => {
                            type="number" />
                         <span className="append">%</span>
                      </div>
+                  </div>
+                  <div className={ `column three ${Sell_Style.purchase_filds}` }>
+                     <label style={ { width: "50%" } }>Fix Amount</label>
+                     <input
+                        name='fix amount'
+                        value={ props.fix }
+                        onChange={ props.fix_set }
+                        type="number" />
                   </div>
                   <div className={ `column three ${Sell_Style.purchase_filds}` }>
                      <label style={ { width: "40%" } }>Due Date</label>

@@ -81,7 +81,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
                     party_name: purchase_data.party_name,
                     carat: Math.round(lot_obj.lot_carat * 100) / 100,
                     price: Math.round(lot_obj.lot_price * 100) / 100,
-                    amount: Math.round(lot_obj.lot_carat * lot_obj.lot_price * 100) / 100
+                    amount: Math.round((lot_obj.lot_price / lot_obj.lot_carat) * 100) / 100
                 }]);
             setLot_obj({ ...lot_obj, lot_carat: "", lot_price: "", })
         }
@@ -113,7 +113,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
                     edit_disable: false,
                     carat: new_edit.new_carat,
                     price: new_edit.new_price,
-                    amount: Math.round(new_edit.new_carat * new_edit.new_price * 100) / 100
+                    amount: Math.round((new_edit.new_price / new_edit.new_carat) * 100) / 100
                 };
             }
             return obj;
@@ -122,7 +122,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
     }
 
     const total_carat_now = lot_list.reduce((totalLot, allCarat) => totalLot + Math.round(allCarat.carat * 100) / 100, 0);
-    const total_amount_now = lot_list.reduce((totalLot, allAmount) => totalLot + Math.round(allAmount.amount * 100) / 100, 0);
+    const total_amount_now = lot_list.reduce((totalLot, allAmount) => totalLot + Math.round(allAmount.price * 100) / 100, 0);
 
     const set_difference = (e) => {
         setDifference({ ...difference, [e.target.name]: Math.round(e.target.value * 100) / 100 })
@@ -166,7 +166,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
 
     const data_lot = lot_list.map((ele, index) => ({
         sub_p_id: ele.sub_p_id,
-        p_id: purchase_data.invoice_number,
+        p_id: purchase_data.id,
         invoice_no: purchase_data.invoice_number,
         extra: purchase_data.extra,
         type: purchase_data.type,
@@ -203,7 +203,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        id: id,
+                        id: parseInt(id),
                         lot_data: data_lot,
                         purchase_data: all_purchase_data
                     })

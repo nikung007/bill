@@ -61,9 +61,9 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
     }, [all_lot_data][diff])
 
     useEffect(() => {
-        setNew_Amount(Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100)
-        setDiffernce_amount(Math.round((total_final_now - total_amount_now) * 100) / 100)
-        setNew_sell_price(Math.round((new_Amount / total_carat_now) * 100) / 100)
+        setNew_Amount((Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100) + Math.round(fix * 100) / 100)
+        setDiffernce_amount(Math.round(((total_final_now - total_amount_now) * 100) / 100) + (Math.round(fix * 100) / 100) + (Math.round((difference.add_difference - difference.minus_difference) * 100) / 100))
+        setNew_sell_price(Math.round((new_Amount / new_carat_total) * 100) / 100)
     }, [total_final_now][difference])
 
     const in_date = resdata.selldata.invoice_date.split("T")[0];
@@ -186,6 +186,12 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
             setShow_lot(true)
         }
     }
+
+    const [fix, setFix] = useState(resdata.sellsubdata[0].addfixamount)
+    const fix_set = (e) => {
+        setFix(e.target.value)
+    }
+
 
     const checkbox_value = (e, sub_p) => {
         const ok = all_lot_data.find(id => id.sub_p_id == sub_p)
@@ -373,6 +379,7 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
         sell_price: new_sell_price,
         sell_invoice: new_Amount,
         add_carat: diff.add_carat,
+        add_fixamount: Math.round(fix * 100) / 100,
         less_carat: diff.min_carat,
         sell_differnt_amount: Math.round(differnce_amount * 100) / 100,
         plus: Math.round(difference.add_difference * 100) / 100,
@@ -396,6 +403,7 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
         extra: get_lot.extra,
         type: get_lot.type,
         artical: get_lot.artical,
+        add_fixamount: Math.round(fix * 100) / 100,
         party_name: sell_data.party_name,
         lot_id: ele.lot_id,
         carat: ele.carat,
@@ -477,6 +485,7 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
                 checkbox_value={ checkbox_value }
                 new_sell_lot={ new_sell_lot }
                 lot_show={ lot_show }
+                fix={ fix }
                 remove_lot={ remove_lot }
                 total_carat_now={ total_carat_now }
                 total_final_now={ total_final_now }
@@ -490,6 +499,7 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
                 disable_diff={ disable_diff }
                 set_difference={ set_difference }
                 vaya={ vaya }
+                fix_set={ fix_set }
                 vaya_change={ vaya_change }
                 allParty={ allParty }
                 differnce_amount={ differnce_amount }
@@ -518,7 +528,6 @@ export async function getServerSideProps({ query }) {
             })
         })
     const sell = await res_sell.json()
-
     const res = await fetch(`${process.env.API}Sell/Edit`,
         {
             method: 'POST',

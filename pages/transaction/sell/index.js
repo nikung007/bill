@@ -100,7 +100,6 @@ const Index = ({ sell, api, allParty }) => {
                         })
                     })
                 const res_lot = await res.json()
-
                 setAll_lot_data(res_lot.map((ok) => ({
                     check: false,
                     amount: ok.amount,
@@ -135,6 +134,11 @@ const Index = ({ sell, api, allParty }) => {
         } else {
             setShow_lot(true)
         }
+    }
+
+    const [fix, setFix] = useState(0)
+    const fix_set = (e) => {
+        setFix(e.target.value)
     }
 
     const checkbox_value = (e, sub_p) => {
@@ -251,8 +255,8 @@ const Index = ({ sell, api, allParty }) => {
 
 
     useEffect(() => {
-        setNew_Amount(Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100)
-        setDiffernce_amount(Math.round((total_final_now - total_amount_now) * 100) / 100)
+        setNew_Amount((Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100) + Math.round(fix * 100) / 100)
+        setDiffernce_amount(Math.round(((total_final_now - total_amount_now) * 100) / 100) + (Math.round(fix * 100) / 100) + (Math.round((difference.add_difference - difference.minus_difference) * 100) / 100))
         setNew_sell_price(Math.round((new_Amount / new_carat_total) * 100) / 100)
     }, [total_final_now][difference])
 
@@ -344,6 +348,7 @@ const Index = ({ sell, api, allParty }) => {
         plus: Math.round(difference.add_difference * 100) / 100,
         minus: Math.round(difference.minus_difference * 100) / 100,
         is_delete: false,
+        add_fixamount: Math.round(fix * 100) / 100,
         remark: sell_data.remark,
         vai_1: vaya.vaya1_name,
         vai_1_amount: Math.round(vaya.vaya1_value * 100) / 100,
@@ -362,6 +367,7 @@ const Index = ({ sell, api, allParty }) => {
             type: get_lot.type,
             artical: get_lot.artical,
             party_name: sell_data.party_name,
+            add_fixamount: Math.round(fix * 100) / 100,
             lot_id: ele.lot_id,
             carat: ele.carat,
             price: ele.price,
@@ -473,6 +479,7 @@ const Index = ({ sell, api, allParty }) => {
                 checkbox_value={ checkbox_value }
                 new_sell_lot={ new_sell_lot }
                 lot_show={ lot_show }
+                fix={ fix }
                 remove_lot={ remove_lot }
                 total_carat_now={ total_carat_now }
                 total_final_now={ total_final_now }
@@ -492,6 +499,7 @@ const Index = ({ sell, api, allParty }) => {
                 diff={ diff }
                 newCarat={ newCarat }
                 new_carat_total={ new_carat_total }
+                fix_set={ fix_set }
                 save="Save"
             />
         </div>

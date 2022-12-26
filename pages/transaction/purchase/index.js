@@ -77,7 +77,7 @@ const Index = ({ resdata, api }) => {
                     party_name: purchase_data.party_name,
                     carat: Math.round(lot_obj.lot_carat * 100) / 100,
                     price: Math.round(lot_obj.lot_price * 100) / 100,
-                    amount: Math.round(lot_obj.lot_carat * lot_obj.lot_price * 100) / 100
+                    amount: Math.round((lot_obj.lot_price / lot_obj.lot_carat) * 100) / 100
                 }]);
             setLot_obj({ ...lot_obj, lot_carat: "", lot_price: "", })
         }
@@ -108,7 +108,7 @@ const Index = ({ resdata, api }) => {
                     edit_disable: false,
                     carat: new_edit.new_carat,
                     price: new_edit.new_price,
-                    amount: Math.round(new_edit.new_carat * new_edit.new_price * 100) / 100
+                    amount: Math.round((new_edit.new_price / new_edit.new_carat) * 100) / 100
                 };
             }
             return obj;
@@ -117,7 +117,7 @@ const Index = ({ resdata, api }) => {
     }
 
     const total_carat_now = lot_list.reduce((totalLot, allCarat) => totalLot + Math.round(allCarat.carat * 100) / 100, 0);
-    const total_amount_now = lot_list.reduce((totalLot, allAmount) => totalLot + Math.round(allAmount.amount * 100) / 100, 0);
+    const total_amount_now = lot_list.reduce((totalLot, allAmount) => totalLot + Math.round(allAmount.price * 100) / 100, 0);
 
     const set_difference = (e) => {
         setDifference({ ...difference, [e.target.name]: Math.round(e.target.value * 100) / 100 })

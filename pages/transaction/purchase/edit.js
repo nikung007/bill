@@ -6,7 +6,21 @@ import toast, { Toaster } from 'react-hot-toast';
 const Edit = ({ id, resdata, party_list, api }) => {
     const router = useRouter()
 
-    const [lot_list, setLot_list] = useState(resdata.subpurchase)
+    const [lot_list, setLot_list] = useState(resdata.subpurchase.map((ok) => ({
+        sub_p_id: ok.sub_p_id,
+        p_id: ok.p_id,
+        invoice_no: ok.invoice_no,
+        extra: ok.extra,
+        type: ok.type,
+        artical: ok.artical,
+        party_name: ok.party_name,
+        lot_id: ok.lot_id,
+        carat: ok.carat,
+        price: ok.amount,
+        amount: ok.price,
+        sell_lot: ok.sell_lot,
+        is_delete: ok.is_delete
+    })))
 
     const edit_ooo = true;
     const in_date = resdata.purchase.invoice_date.split("T")[0];
@@ -86,7 +100,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
             setLot_obj({ ...lot_obj, lot_carat: "", lot_price: "", })
         }
     }
-    console.log(lot_list);
+
     const edit_lot = (e) => {
 
         const newEditData = lot_list.map(obj => {
@@ -174,12 +188,12 @@ const Edit = ({ id, resdata, party_list, api }) => {
         party_name: purchase_data.party_name,
         lot_id: index + 1,
         carat: Math.round(ele.carat * 100) / 100,
-        price: ele.price,
-        amount: Math.round(ele.amount * 100) / 100,
+        price: ele.amount,
+        amount: Math.round(ele.price * 100) / 100,
         is_delete: false,
         sell_lot: false,
     }))
-    console.log(data_lot);
+
 
     const save_purchase = async () => {
         if (purchase_data.party_name == "") {
@@ -291,7 +305,6 @@ export async function getServerSideProps({ query }) {
         })
     const resdata = await res.json()
 
-    console.log(resdata);
 
     return {
         props: {

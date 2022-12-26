@@ -100,7 +100,7 @@ const Index = ({ sell, api, allParty }) => {
                         })
                     })
                 const res_lot = await res.json()
-                console.log(res_lot);
+
                 setAll_lot_data(res_lot.map((ok) => ({
                     check: false,
                     amount: ok.amount,

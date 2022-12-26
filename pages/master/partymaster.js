@@ -114,7 +114,7 @@ const Partymaster = ({ party, api, party_all }) => {
                 body: JSON.stringify({ delete_data_id: e })
             })
         const resdata = await res.json()
-        console.log(resdata);
+
         if (resdata == "Record Delete SuccesfullY") {
             toast.success(resdata, {
                 style: {

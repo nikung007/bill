@@ -47,7 +47,7 @@ export async function getServerSideProps({ query }) {
       }
     })
   const data = await res.json()
-  console.log(data);
+
   return {
     props: {
       "data": data

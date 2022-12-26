@@ -6,11 +6,8 @@ import toast, { Toaster } from 'react-hot-toast';
 const Edit = ({ id, resdata, party_list, api }) => {
     const router = useRouter()
 
-    const [lot_list, setLot_list] = useState(resdata.subpurchase.map((ok) => ({
-        carat: ok.carat,
-        amount: ok.price,
-        price: ok.amount,
-    })))
+    const [lot_list, setLot_list] = useState(resdata.subpurchase)
+
     const edit_ooo = true;
     const in_date = resdata.purchase.invoice_date.split("T")[0];
     const [purchase_data, setPurchase_data] = useState({
@@ -146,7 +143,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
         }
     }, [difference])
 
-    let final_amount_now = ((Math.round(total_amount_now * 100) / 100 + Math.round(difference.add_difference * 100) / 100 - Math.round(difference.minus_difference * 100) / 100) * 100)
+    let final_amount_now = Math.round((Math.round(total_amount_now * 100) / 100 + Math.round(difference.add_difference * 100) / 100 - Math.round(difference.minus_difference * 100) / 100) * 100) / 100
 
     const all_purchase_data = {
         invoice_no: purchase_data.invoice_number,
@@ -167,7 +164,6 @@ const Edit = ({ id, resdata, party_list, api }) => {
         outstanding_amount: final_amount_now,
         is_delete: false,
     }
-
     const data_lot = lot_list.map((ele, index) => ({
         sub_p_id: ele.sub_p_id,
         p_id: purchase_data.id,
@@ -183,6 +179,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
         is_delete: false,
         sell_lot: false,
     }))
+    console.log(data_lot);
 
     const save_purchase = async () => {
         if (purchase_data.party_name == "") {
@@ -294,7 +291,7 @@ export async function getServerSideProps({ query }) {
         })
     const resdata = await res.json()
 
-
+    console.log(resdata);
 
     return {
         props: {

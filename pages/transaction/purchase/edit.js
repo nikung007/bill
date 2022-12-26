@@ -17,7 +17,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
         lot_id: ok.lot_id,
         carat: ok.carat,
         price: ok.amount,
-        amount: ok.price,
+        amount: Math.round(ok.price * 100) / 100,
         sell_lot: ok.sell_lot,
         is_delete: ok.is_delete
     })))
@@ -128,7 +128,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
                     edit_disable: false,
                     carat: new_edit.new_carat,
                     price: new_edit.new_price,
-                    amount: new_edit.new_price / new_edit.new_carat,
+                    amount: Math.round((new_edit.new_price / new_edit.new_carat) * 100) / 100,
                 };
             }
             return obj;
@@ -188,7 +188,7 @@ const Edit = ({ id, resdata, party_list, api }) => {
         party_name: purchase_data.party_name,
         lot_id: index + 1,
         carat: Math.round(ele.carat * 100) / 100,
-        price: ele.amount,
+        price: Math.round(ele.amount * 100) / 100,
         amount: Math.round(ele.price * 100) / 100,
         is_delete: false,
         sell_lot: false,

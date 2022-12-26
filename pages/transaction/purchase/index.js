@@ -148,7 +148,7 @@ const Index = ({ resdata, api }) => {
         invoice_date: purchase_data.invoice_date,
         terms: parseInt(purchase_data.terms),
         due_date: due_date_now,
-        total_carat: total_carat_now,
+        total_carat: Math.round(total_carat_now * 100) / 100,
         total_amount: total_amount_now,
         plus: Math.round(difference.add_difference * 100) / 100,
         minus: Math.round(difference.minus_difference * 100) / 100,

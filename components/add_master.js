@@ -52,7 +52,7 @@ const Add_master = (props) => {
                                                     <button onClick={ () => props.delete_data(ele.party_id) } className='warning'>Delete</button>
                                                 </td>
                                                 <td style={ { padding: "10px" } }>
-                                                    <button>Edit</button>
+                                                    <button onClick={ () => props.edit_data(ele.party_id) }>Edit</button>
                                                 </td>
                                             </tr>
                                         )

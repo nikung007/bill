@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import Add_master from '../../components/add_master'
 
 const Partymaster = ({ party, api, party_all }) => {
+
+
 
     const [party_master, setParty_master] = useState({
         id: party.party_id,
@@ -13,7 +15,7 @@ const Partymaster = ({ party, api, party_all }) => {
     const [party_list, setParty_list] = useState(party_all);
     const [pop_delete, setpop_delete] = useState(false);
     const [del_id, setDel_id] = useState("");
-
+    const [edit, setEdit] = useState(false)
     const party_change = (e) => {
         setParty_master({ ...party_master, [e.target.name]: e.target.value })
     }
@@ -59,45 +61,104 @@ const Partymaster = ({ party, api, party_all }) => {
     }
 
     const save_data = async () => {
-        if (party_master.party_type != "" && party_master.party_name != "") {
-            const res = await fetch(`${api}Party/Add`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ ...data })
-                })
-            const resdata = await res.json()
-            if (resdata == "Party Add Successfully") {
-                toast.success(resdata, {
-                    style: {
-                        padding: '16px',
-                        color: 'black',
-                        fontWeight: "700",
-                        fontSize: "22px"
-                    },
-                    iconTheme: {
-                        primary: 'green',
-                        secondary: '#ffffff',
-                    },
-                });
-                const res = await fetch(`${api}Party/Getpartyid`,
+        if (edit == false) {
+            if (party_master.party_type != "" && party_master.party_name != "") {
+                const res = await fetch(`${api}Party/Add`,
                     {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({
-                            store_url: "ok"
-                        })
+                        body: JSON.stringify({ ...data })
                     })
-                const party_new = await res.json()
-                setParty_master({
-                    id: party_new.party_id,
-                    party_type: "",
-                    party_name: "",
-                })
+                const resdata = await res.json()
+                if (resdata == "Party Add Successfully") {
+                    toast.success(resdata, {
+                        style: {
+                            padding: '16px',
+                            color: 'black',
+                            fontWeight: "700",
+                            fontSize: "22px"
+                        },
+                        iconTheme: {
+                            primary: 'green',
+                            secondary: '#ffffff',
+                        },
+                    });
+                    const res = await fetch(`${api}Party/Getpartyid`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                store_url: "ok"
+                            })
+                        })
+                    const party_new = await res.json()
+                    setParty_master({
+                        id: party_new.party_id,
+                        party_type: "",
+                        party_name: "",
+                    })
+                } else {
+                    toast.success(resdata, {
+                        style: {
+                            padding: '16px',
+                            color: 'black',
+                            fontWeight: "700",
+                            fontSize: "22px"
+                        },
+                        iconTheme: {
+                            primary: 'green',
+                            secondary: '#ffffff',
+                        },
+                    });
+                }
+            }
+        } else {
+            if (party_master.party_type != "" && party_master.party_name != "") {
+                const res = await fetch(`${api}Party/Update`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ...data })
+                    })
+                const resdata = await res.json()
+                console.log(resdata);
+
+                if (resdata == "Record Upadte") {
+                    toast.success(resdata, {
+                        style: {
+                            padding: '16px',
+                            color: 'black',
+                            fontWeight: "700",
+                            fontSize: "22px"
+                        },
+                        iconTheme: {
+                            primary: 'green',
+                            secondary: '#ffffff',
+                        },
+                    });
+                    const res = await fetch(`${api}Party/Getpartyid`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                store_url: "ok"
+                            })
+                        })
+                    const party_new = await res.json()
+                    setParty_master({
+                        id: party_new.party_id,
+                        party_type: "",
+                        party_name: "",
+                    })
+                }
             }
         }
     }
@@ -155,6 +216,27 @@ const Partymaster = ({ party, api, party_all }) => {
         setDel_id("");
     }
 
+    const edit_data = async (e) => {
+        setAll_list(false)
+        setEdit(true)
+        const res = await fetch(`${api}Party/Edit`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: e })
+            })
+        const resdata = await res.json()
+
+        setParty_master({
+            ...party_master,
+            id: resdata.party_id,
+            party_type: resdata.party_type,
+            party_name: resdata.party_name,
+        })
+
+    }
     return (
         <div>
             <h1>Party master</h1>
@@ -173,6 +255,7 @@ const Partymaster = ({ party, api, party_all }) => {
                 del_id={ del_id }
                 delete_data={ delete_data }
                 close_del={ close_del }
+                edit_data={ edit_data }
             />
         </div>
     )

@@ -5,6 +5,8 @@ import Out_Style from '../../styles/outStanding.module.css'
 
 const Out_standing = ({ api, sell, purchase }) => {
 
+    const [show, setShow] = useState(false)
+
     const [outStand, setOutStand] = useState({
         extra: "",
         type: "",
@@ -60,7 +62,9 @@ const Out_standing = ({ api, sell, purchase }) => {
                     body: JSON.stringify({ ...data })
                 })
             const res_lot = await res.json()
-            setAll_data(res_lot)
+            setShow(true)
+            setAll_data(res_lot);
+
         }
     }
 
@@ -79,7 +83,7 @@ const Out_standing = ({ api, sell, purchase }) => {
     }, [outStand])
 
     return (
-        <section>
+        <section style={ { maxWidth: "1280px" } }>
             <div className={ `card ${Out_Style.pay_rec_heading}` }>
                 <h4>  Out Standing Form</h4>
                 <article>
@@ -210,45 +214,73 @@ const Out_standing = ({ api, sell, purchase }) => {
                         </label>
                     </div>
                 </article>
-                <article>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Invoice Date</th>
-                                <th>Party Name</th>
-                                <th>Carat</th>
-                                <th>Outstading</th>
-                                <th>Teams</th>
-                                <th>Due Date</th>
-                                <th>Due Days</th>
-                                <th>Remark</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                all_data.map((ele, index) => {
-                                    return (
-                                        <tr key={ index }>
-                                            <td>{ ele.id }</td>
-                                            <td>{ ele.invoicedate.split("T")[0].split("-").reverse().join("-") }</td>
-                                            <td>{ ele.partyname }</td>
-                                            <td>{ ele.carat }</td>
-                                            <td>{ ele.outstandingamount }</td>
-                                            <td>{ ele.terms }</td>
-                                            <td>{ ele.duedate.split("T")[0].split("-").reverse().join("-") }</td>
-                                            <td>{ ele.dueday }</td>
-                                            <td>{ ele.remark }</td>
-                                        </tr>
-                                    )
-                                })
-                            }
+                { show ?
+                    <article>
+                        <table className='results'>
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Invoice Date</th>
+                                    <th>Party Name</th>
+                                    <th>Carat</th>
+                                    <th>FinalAmount</th>
+                                    <th>Amount</th>
+                                    <th>Outstading</th>
+                                    <th>Teams</th>
+                                    <th>Due Date</th>
+                                    <th>Due Days</th>
+                                    <th>Remark</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    all_data.map((ele, index) => {
+                                        return (
+                                            <tr key={ index }>
+                                                <td>{ ele.id }</td>
+                                                <td>{ ele.invoicedate.split("T")[0].split("-").reverse().join("-") }</td>
+                                                <td>{ ele.partyname }</td>
+                                                <td>{ ele.carat }</td>
+                                                <td>{ ele.finalamount }</td>
+                                                <td>{ ele.recpayamount }</td>
+                                                <td>{ ele.outstandingamount }</td>
+                                                <td>{ ele.terms }</td>
+                                                <td>{ ele.duedate.split("T")[0].split("-").reverse().join("-") }</td>
+                                                <td>{ ele.dueday }</td>
+                                                <td>{ ele.remark }</td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                                <hr />
+                                <tr>
+                                    <td style={ { borderTop: "1px solid black" } }></td>
+                                    <td style={ { borderTop: "1px solid black" } }></td>
+                                    <td style={ { borderTop: "1px solid black" } }></td>
+                                    <td style={ { borderTop: "1px solid black" } }>
+                                        { (all_data.reduce((totalLot, allCarat) => totalLot + allCarat.carat, 0)).toFixed(2) }
+                                    </td>
+                                    <td style={ { borderTop: "1px solid black" } }>
+                                        { (all_data.reduce((totalLot, allCarat) => totalLot + allCarat.finalamount, 0)).toFixed(2) }
+                                    </td>
+                                    <td style={ { borderTop: "1px solid black" } }>
+                                        { (all_data.reduce((totalLot, allCarat) => totalLot + allCarat.recpayamount, 0)).toFixed(2) }
+                                    </td>
+                                    <td style={ { borderTop: "1px solid black" } }>
+                                        { (all_data.reduce((totalLot, allCarat) => totalLot + allCarat.outstandingamount, 0)).toFixed(2) }
+                                    </td>
+                                    <td style={ { borderTop: "1px solid black" } }></td>
+                                    <td style={ { borderTop: "1px solid black" } }></td>
+                                    <td style={ { borderTop: "1px solid black" } }></td>
+                                    <td style={ { borderTop: "1px solid black" } }></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </article>
+                    : null }
 
-                        </tbody>
-                    </table>
-                </article>
             </div>
-        </section>
+        </section >
     )
 }
 

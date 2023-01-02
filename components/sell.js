@@ -11,6 +11,11 @@ const Sell = (props) => {
                <div className={ `${Sell_Style.sell_list}` }>
                   <article>
                      <h2 style={ { color: "white" } }>Lot List</h2>
+                     <input
+                        onChange={ props.search_change }
+                        placeholder='Search Purchase Party Name'
+                        style={ { minHeight: "3.6rem", width: "80%", margin: "8px auto" } }
+                        type="search" />
                      <table style={ { width: "80%", margin: "auto" } }>
                         <thead>
                            <tr>
@@ -175,7 +180,8 @@ const Sell = (props) => {
                      <label>New persentage</label>
                      <div className='input-group'>
                         <input
-                           disabled={ props.lot_show ? null : "disabled" }
+                           // disabled={ props.lot_show ? null : "disabled" }
+                           disabled
                            value={ props.persent }
                            onChange={ props.persent_change }
                            type="number" />
@@ -185,6 +191,7 @@ const Sell = (props) => {
                   <div className={ `column three ${Sell_Style.purchase_filds}` }>
                      <label style={ { width: "50%" } }>Fix Amount</label>
                      <input
+                        disabled
                         name='fix amount'
                         value={ props.fix }
                         onChange={ props.fix_set }
@@ -446,7 +453,7 @@ const Sell = (props) => {
                   <div className={ `column four ${Sell_Style.purchase_filds}` }>
                      <label>Sell Amount</label>
                      <input
-                        disabled
+                        // disabled
                         value={ props.new_Amount }
                         onChange={ props.set_new_amount }
                         type="number" />

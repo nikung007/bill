@@ -30,11 +30,12 @@ const Index = ({ sell, api, allParty }) => {
     })
     const [show_button, setShow_button] = useState(true)
     const [all_lot_data, setAll_lot_data] = useState([])
+    const [all_lot_serch, setall_lot_serch] = useState([])
     const [new_sell_lot, setNew_sell_lot] = useState([])
     const [show_lot, setShow_lot] = useState(false)
     const [lot_show, setLot_show] = useState(false)
     const [new_Amount, setNew_Amount] = useState("")
-    const [persent, setPersent] = useState("")
+    const [persent, setPersent] = useState(0)
     const [disable_diff, setDisable_diff] = useState({
         add_diff: false,
         min_diff: false
@@ -102,6 +103,22 @@ const Index = ({ sell, api, allParty }) => {
                 const res_lot = await res.json()
 
                 setAll_lot_data(res_lot.map((ok) => ({
+                    check: false,
+                    amount: ok.amount,
+                    artical: ok.artical,
+                    carat: ok.carat,
+                    extra: ok.extra,
+                    invoice_no: ok.invoice_no,
+                    is_delete: ok.is_delete,
+                    lot_id: ok.lot_id,
+                    p_id: ok.p_id,
+                    party_name: ok.party_name,
+                    price: ok.price,
+                    sell_lot: ok.sell_lot,
+                    sub_p_id: ok.sub_p_id,
+                    type: ok.type
+                })))
+                setall_lot_serch(res_lot.map((ok) => ({
                     check: false,
                     amount: ok.amount,
                     artical: ok.artical,
@@ -256,10 +273,15 @@ const Index = ({ sell, api, allParty }) => {
 
 
     useEffect(() => {
-        setNew_Amount((Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100) + Math.round(fix * 100) / 100)
-        setDiffernce_amount(Math.round(((total_final_now - total_amount_now) * 100) / 100) + (Math.round(fix * 100) / 100) + (Math.round((difference.add_difference - difference.minus_difference) * 100) / 100))
+        // setNew_Amount((Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100) + Math.round(fix * 100) / 100)
+        setDiffernce_amount(Math.round(((new_Amount - total_final_now) * 100) / 100) + (Math.round((difference.add_difference - difference.minus_difference) * 100) / 100))
         setNew_sell_price(Math.round((new_Amount / total_carat_now) * 100) / 100)
-    }, [total_final_now][difference])
+    }, [new_Amount][difference])
+    // useEffect(() => {
+    //     setNew_Amount((Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100) + Math.round(fix * 100) / 100)
+    //     setDiffernce_amount(Math.round(((total_final_now - total_amount_now) * 100) / 100) + (Math.round(fix * 100) / 100) + (Math.round((difference.add_difference - difference.minus_difference) * 100) / 100))
+    //     setNew_sell_price(Math.round((new_Amount / total_carat_now) * 100) / 100)
+    // }, [total_final_now][difference])
 
     const persent_change = (e) => {
         setPersent(e.target.value)
@@ -322,6 +344,19 @@ const Index = ({ sell, api, allParty }) => {
 
     const click_cansal = () => {
         setShow_lot(false)
+    }
+
+    const search_change = (e) => {
+        const searchingData = [];
+        if (e.target.value) {
+            const data = all_lot_data.filter((item) => {
+                return Object.values(item?.party_name.toLowerCase()).join("").includes(e.target.value.toLowerCase());
+            });
+            data.map((dataItem) => searchingData.push(dataItem));
+        } else {
+            all_lot_serch.map((dataItem) => searchingData.push(dataItem));
+        }
+        setAll_lot_data(searchingData);
     }
 
     //======================================Data-Stutur=====================================Start
@@ -503,6 +538,7 @@ const Index = ({ sell, api, allParty }) => {
                 fix_set={ fix_set }
                 save="Save"
                 edit_ooo={ edit_ooo }
+                search_change={ search_change }
             />
         </div>
     )

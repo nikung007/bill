@@ -42,6 +42,7 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
         minus_difference: resdata.selldata.minus,
     })
     const [all_lot_data, setAll_lot_data] = useState([])
+    const [all_lot_serch, setall_lot_serch] = useState([])
     useEffect(() => {
         setNew_carat_total(new_sell_lot.reduce((totalLot, allCarat) => Math.round((totalLot + allCarat.carat) * 100) / 100, 0))
         setTotal_amount_now(new_sell_lot.reduce((totalLot, allAmount) => Math.round((totalLot + allAmount.amount) * 100) / 100, 0))
@@ -61,10 +62,15 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
     }, [all_lot_data][diff])
 
     useEffect(() => {
-        setNew_Amount((Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100) + Math.round(fix * 100) / 100)
-        setDiffernce_amount(Math.round(((total_final_now - total_amount_now) * 100) / 100) + (Math.round(fix * 100) / 100) + (Math.round((difference.add_difference - difference.minus_difference) * 100) / 100))
-        setNew_sell_price(Math.round((new_Amount / new_carat_total) * 100) / 100)
-    }, [total_final_now][difference])
+        // setNew_Amount((Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100) + Math.round(fix * 100) / 100)
+        setDiffernce_amount(Math.round(((new_Amount - total_final_now) * 100) / 100) + (Math.round((difference.add_difference - difference.minus_difference) * 100) / 100))
+        setNew_sell_price(Math.round((new_Amount / total_carat_now) * 100) / 100)
+    }, [new_Amount][difference])
+    // useEffect(() => {
+    //     setNew_Amount((Math.round((total_final_now + difference.add_difference - difference.minus_difference) * 100) / 100) + Math.round(fix * 100) / 100)
+    //     setDiffernce_amount(Math.round(((total_final_now - total_amount_now) * 100) / 100) + (Math.round(fix * 100) / 100) + (Math.round((difference.add_difference - difference.minus_difference) * 100) / 100))
+    //     setNew_sell_price(Math.round((new_Amount / total_carat_now) * 100) / 100)
+    // }, [total_final_now][difference])
 
     const in_date = resdata.selldata.invoice_date.split("T")[0];
     const [sell_data, setSell_data] = useState({
@@ -153,6 +159,22 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
                     })
                 const res_lot = await res.json()
                 setAll_lot_data(res_lot.map((ok) => ({
+                    check: false,
+                    amount: ok.amount,
+                    artical: ok.artical,
+                    carat: ok.carat,
+                    extra: ok.extra,
+                    invoice_no: ok.invoice_no,
+                    is_delete: ok.is_delete,
+                    lot_id: ok.lot_id,
+                    p_id: ok.p_id,
+                    party_name: ok.party_name,
+                    price: ok.price,
+                    sell_lot: ok.sell_lot,
+                    sub_p_id: ok.sub_p_id,
+                    type: ok.type
+                })))
+                setall_lot_serch(res_lot.map((ok) => ({
                     check: false,
                     amount: ok.amount,
                     artical: ok.artical,
@@ -359,6 +381,19 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
         setShow_lot(false)
     }
 
+    const search_change = (e) => {
+        const searchingData = [];
+        if (e.target.value) {
+            const data = all_lot_data.filter((item) => {
+                return Object.values(item?.party_name.toLowerCase()).join("").includes(e.target.value.toLowerCase());
+            });
+            data.map((dataItem) => searchingData.push(dataItem));
+        } else {
+            all_lot_serch.map((dataItem) => searchingData.push(dataItem));
+        }
+        setAll_lot_data(searchingData);
+    }
+
     //======================================Data-Stutur=====================================Start
     const datas = {
         s_id: parseInt(resdata.selldata.s_id),
@@ -508,6 +543,7 @@ const Edit = ({ resdata, sell, api, id, allParty }) => {
                 newCarat={ newCarat }
                 new_carat_total={ new_carat_total }
                 save="Update"
+                search_change={ search_change }
             />
         </div>
     )

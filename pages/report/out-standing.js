@@ -28,6 +28,7 @@ const Out_standing = ({ api, sell, purchase }) => {
     });
     const [party_list, setParty_list] = useState([]);
     const [all_data, setAll_data] = useState([]);
+    const [sing_invoice, setsing_invoice] = useState(false);
 
     const outStandChange = (e) => {
         setOutStand({ ...outStand, [e.target.name]: e.target.value })
@@ -68,6 +69,54 @@ const Out_standing = ({ api, sell, purchase }) => {
         }
     }
 
+    const show_all_invoice = async (e) => {
+        if (e.target.checked == true) {
+            if (error_payrec.artical == false &&
+                error_payrec.extra == false &&
+                error_payrec.fromdate == false &&
+                error_payrec.party_name == false &&
+                error_payrec.todate == false &&
+                error_payrec.transtiontype == false &&
+                error_payrec.type == false) {
+
+                const res = await fetch(`${api}Report/Getdueinvoicedetail`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ...data })
+                    })
+                const res_lot = await res.json()
+                setShow(true)
+                setAll_data(res_lot);
+
+            }
+        } else {
+            if (error_payrec.artical == false &&
+                error_payrec.extra == false &&
+                error_payrec.fromdate == false &&
+                error_payrec.party_name == false &&
+                error_payrec.todate == false &&
+                error_payrec.transtiontype == false &&
+                error_payrec.type == false) {
+
+                const res = await fetch(`${api}Report/Getdueinvoicedetail`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ...data })
+                    })
+                const res_lot = await res.json()
+                setShow(true)
+                setAll_data(res_lot);
+
+            }
+        }
+    }
+
     const checkbox_change = (e) => {
         if (e.target.checked == true) {
             setOutStand({ ...outStand, party_name: "all" })
@@ -82,8 +131,24 @@ const Out_standing = ({ api, sell, purchase }) => {
         }
     }, [outStand])
 
+    const show_invoice = (e) => {
+        setsing_invoice(true)
+    }
+
+    const close_show = () => {
+        setsing_invoice(false)
+    }
+
     return (
-        <section style={ { maxWidth: "1280px" } }>
+        <section style={ { maxWidth: "1280px", position: "relative" } }>
+            { sing_invoice ?
+                <div className={ `${Out_Style.sell_list}` }>
+                    <div>
+
+                    </div>
+                    <button onClick={ close_show } className='warning'>Close</button>
+                </div>
+                : null }
             <div className={ `card ${Out_Style.pay_rec_heading}` }>
                 <h4>  Out Standing Form</h4>
                 <article>
@@ -213,6 +278,15 @@ const Out_standing = ({ api, sell, purchase }) => {
                                 type="checkbox" />
                         </label>
                     </div>
+                    <div className={ `column two` }>
+                        <label>
+                            All Invoices
+                            <input
+                                // onChange={ show_all_invoice }
+                                style={ { marginLeft: "15px" } }
+                                type="checkbox" />
+                        </label>
+                    </div>
                 </article>
                 { show ?
                     <article>
@@ -229,7 +303,7 @@ const Out_standing = ({ api, sell, purchase }) => {
                                     <th>Teams</th>
                                     <th>Due Date</th>
                                     <th>Due Days</th>
-                                    <th>Remark</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -247,7 +321,7 @@ const Out_standing = ({ api, sell, purchase }) => {
                                                 <td>{ ele.terms }</td>
                                                 <td>{ ele.duedate.split("T")[0].split("-").reverse().join("-") }</td>
                                                 <td>{ ele.dueday }</td>
-                                                <td>{ ele.remark }</td>
+                                                <td><button className='warning' onClick={ () => show_invoice(ele.id) }>Show</button></td>
                                             </tr>
                                         )
                                     })

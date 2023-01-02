@@ -108,6 +108,33 @@ const Allpurchase = ({ resdata, api }) => {
         setDel_id("");
     }
 
+    const check_all_invoice = async (e) => {
+        if (e.target.checked == true) {
+            // const res_all = await fetch(`${api}Purchase/Delete`,
+            //     {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify({
+            //             delete_data_id: e
+            //         })
+            //     })
+            // const resnew = await res_all.json()
+            // setAll_purchase(resnew);
+        } else {
+            // const res = await fetch(`${api}Purchase/Getlist`,
+            //     {
+            //         method: 'GET',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         }
+            //     })
+            // const resdata = await res.json()
+            // setAll_purchase(resdata);
+        }
+    }
+
     return (
         <div className={ `${Add_Master_Style.delete_main}` }>
             {
@@ -139,6 +166,10 @@ const Allpurchase = ({ resdata, api }) => {
                             placeholder='Search Purchase Party Name'
                             style={ { minHeight: "3.6rem" } }
                             type="search" />
+                    </div>
+                    <div className={ `${Add_Master_Style.all_invoice}` }>
+                        <input onChange={ check_all_invoice } type="checkbox" />
+                        <label>All invoice</label>
                     </div>
                 </div>
             </section>

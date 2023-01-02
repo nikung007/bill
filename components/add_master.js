@@ -26,11 +26,14 @@ const Add_master = (props) => {
             {
                 props.all_list ?
                     <div style={ { width: "75%", margin: "auto" } } className='card'>
-                        <input
-                            onChange={ props.search_change }
-                            placeholder='Search Purchase Party Name'
-                            style={ { minHeight: "3.6rem" } }
-                            type="search" />
+                        <div style={ { display: "flex" } }>
+                            <button style={ { width: "125px", marginRight: "10px" } } onClick={ props.close_list }>New Master</button>
+                            <input
+                                onChange={ props.search_change }
+                                placeholder='Search Purchase Party Name'
+                                style={ { minHeight: "3.6rem" } }
+                                type="search" />
+                        </div>
                         <table>
                             <thead>
                                 <tr>

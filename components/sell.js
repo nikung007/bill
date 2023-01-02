@@ -276,7 +276,8 @@ const Sell = (props) => {
                   <div className={ `column three ${Sell_Style.purchase_filds}` }>
                      <label style={ { width: "55%" } }>Total Carat</label>
                      <input
-                        value={ props.total_carat_now }
+                        // value={ props.total_carat_now }
+                        value={ props.new_carat_total }
                         disabled
                         type="number" />
                   </div>
@@ -431,8 +432,8 @@ const Sell = (props) => {
                      <label>Carat</label>
                      <input
                         disabled
-                        value={ props.new_carat_total }
-                        // value={ props.total_carat_now }
+                        // value={ props.new_carat_total }
+                        value={ props.total_carat_now }
                         type="text" />
                   </div>
                   <div className={ `column four ${Sell_Style.purchase_filds}` }>

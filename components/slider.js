@@ -66,6 +66,11 @@ const Slider = (props) => {
                                             All-Uchina-pay-rec
                                         </Link>
                                     </li>
+                                    <li>
+                                        <Link href="/transaction/kharacha">
+                                            Kharacha
+                                        </Link>
+                                    </li>
                                 </ul>
                             </li>
                             <li>

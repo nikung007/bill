@@ -351,6 +351,7 @@ const Index = (
                     tamount: "",
                 })
                 setO_amount(0)
+                setBank(0)
             }
         }
     }

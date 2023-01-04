@@ -488,6 +488,10 @@ const Index = ({ sell, api, allParty }) => {
                     add_difference: "",
                     minus_difference: "",
                 })
+                setDiff({
+                    add_carat: 0,
+                    min_carat: 0
+                })
             }
         }
     }

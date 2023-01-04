@@ -227,7 +227,7 @@ const Pay_rec = (props) => {
                             <div className={ `${Pay_Rec_Style.purchase_filds}` }>
                                 <label>Bank Balance</label>
                                 <input
-                                    value={ props.bank }
+                                    value={ Math.round(props.bank * 100) / 100 }
                                     disabled
                                     type="text" />
                             </div>

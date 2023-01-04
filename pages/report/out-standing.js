@@ -298,7 +298,7 @@ const Out_standing = ({ api, sell, purchase }) => {
                                     <th>Party Name</th>
                                     <th>Carat</th>
                                     <th>FinalAmount</th>
-                                    <th>Amount</th>
+                                    <th>PayRecAmount</th>
                                     <th>Outstading</th>
                                     <th>Teams</th>
                                     <th>Due Date</th>

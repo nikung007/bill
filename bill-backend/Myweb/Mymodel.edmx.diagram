@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="09f203bbf45f4423b482b0edf8fd98ba" Name="Diagram1" ZoomLevel="68">
+        <EntityTypeShape EntityType="DiamAccountModel.demo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiamAccountModel.purchase" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiamAccountModel.subpurchase" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiamAccountModel.partymst" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.sell" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.subsell" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.kharchamst" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.bankbalance" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.banktransfer" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.exrate" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.paymentreceive_" Width="1.5" PointX="9.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.uchina" Width="1.5" PointX="9.375" PointY="8.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.uchinapayrec" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.temptbl" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.tradinguchina" Width="1.5" PointX="11.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.tokentbl" Width="1.5" PointX="11.375" PointY="8.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.jwttokentbl" Width="1.5" PointX="11.375" PointY="11.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.usermst" Width="1.5" PointX="7.375" PointY="12.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.alluchinapayrec" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.viauchina" Width="1.5" PointX="13.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DiamAccountModel.stockloss" Width="1.5" PointX="13.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

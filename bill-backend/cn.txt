@@ -1,0 +1,3 @@
+  <connectionStrings>
+    <add name="DiamAccountEntities" connectionString="metadata=res://*/Mymodel.csdl|res://*/Mymodel.ssdl|res://*/Mymodel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=workstation id=DiamAccountEntities.mssql.somee.com;packet size=4096;user id=dobob777_SQLLogin_1;pwd=oeye8yqi14;data source=DiamAccountEntities.mssql.somee.com;persist security info=False;initial catalog=DiamAccountEntities;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+  </connectionStrings>

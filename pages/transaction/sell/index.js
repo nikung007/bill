@@ -465,6 +465,7 @@ const Index = ({ sell, api, allParty }) => {
                     })
                 const sell_reset = await res_reset.json()
                 setSell_data({
+                    id: sell_reset.s_id,
                     invoice_number: sell_reset.s_id,
                     party_name: "",
                     invoice_date: new Date().toISOString().split('T')[0],

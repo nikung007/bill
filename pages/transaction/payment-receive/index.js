@@ -12,6 +12,7 @@ const Index = (
         artical: "",
         party_name: "",
         transition: "",
+        out_zero: "F"
     });
     const [transationtype, setTransationtype] = useState("");
     const [error_payrec, setError_payrec] = useState({
@@ -66,8 +67,16 @@ const Index = (
     const [del_id, setDel_id] = useState("");
 
     const party_rec_change = (e) => {
-        setParty_rec({ ...party_rec, [e.target.name]: e.target.value })
-        setError_payrec({ ...error_payrec, [e.target.name]: false })
+        if (e.target.name == "out_zero") {
+            if (e.target.checked == true) {
+                setParty_rec({ ...party_rec, out_zero: "T" })
+            } else {
+                setParty_rec({ ...party_rec, out_zero: "F" })
+            }
+        } else {
+            setParty_rec({ ...party_rec, [e.target.name]: e.target.value })
+            setError_payrec({ ...error_payrec, [e.target.name]: false })
+        }
     }
 
     const click_show = async () => {
@@ -83,85 +92,78 @@ const Index = (
             setError_payrec({ ...error_payrec, party_name: true })
         } else {
             setShow_data(true)
+            if (party_rec.transition === "buy") {
+                setTransationtype("Payment")
+                const res = await fetch(`${api}Payrec/Getinvoiceist`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ...party_rec })
+                    })
+                const res_lot = await res.json()
+
+                setAll_invoice(res_lot.map((ok) => ({
+                    check: false,
+                    s_p_id: ok.p_id,
+                    invoice_date: ok.invoice_date,
+                    total_carat: ok.total_carat,
+                    final_amount: ok.final_amount,
+                    receive_amount: ok.receive_amount,
+                    outstanding_amount: ok.outstanding_amount,
+                    extra: ok.extra,
+                    type: ok.type,
+                    artical: ok.artical,
+                })))
+            } else if (party_rec.transition === "sell") {
+                setTransationtype("Receive")
+                const res = await fetch(`${api}Payrec/Getinvoiceist`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ...party_rec })
+                    })
+                const res_lot = await res.json()
+
+                setAll_invoice(res_lot.map((ok) => ({
+                    check: false,
+                    s_p_id: ok.s_id,
+                    invoice_date: ok.invoice_date,
+                    total_carat: ok.total_carat,
+                    final_amount: ok.sell_invoice,
+                    receive_amount: ok.receive_amount,
+                    outstanding_amount: ok.outstanding_amount,
+                    sell_differnt_amount: ok.sell_differnt_amount,
+                    extra: ok.extra,
+                    type: ok.type,
+                    artical: ok.artical,
+                    vai_1: ok.vai_1,
+                    vai_1_amount: ok.vai_1_amount,
+                    vai_2: ok.vai_2,
+                    vai_2_amount: ok.vai_2_amount,
+                    vai_3: ok.vai_3,
+                    vai_3_amount: ok.vai_3_amount,
+                    vai_4: ok.vai_4,
+                    vai_4_amount: ok.vai_4_amount,
+                })))
+
+
+            }
         }
     }
 
     useEffect(() => {
         if (party_rec.transition === "buy") {
-            setTransationtype("Payment")
             setPart_list(purchase)
-            if (party_rec.artical != "" && party_rec.extra != "" && party_rec.party_name != "" && party_rec.transition != "" && party_rec.type != "") {
-
-                async function fetchMyAPI() {
-                    const res = await fetch(`${api}Payrec/Getinvoiceist`,
-                        {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ ...party_rec })
-                        })
-                    const res_lot = await res.json()
-
-                    setAll_invoice(res_lot.map((ok) => ({
-                        check: false,
-                        s_p_id: ok.p_id,
-                        invoice_date: ok.invoice_date,
-                        total_carat: ok.total_carat,
-                        final_amount: ok.final_amount,
-                        receive_amount: ok.receive_amount,
-                        outstanding_amount: ok.outstanding_amount,
-                        extra: ok.extra,
-                        type: ok.type,
-                        artical: ok.artical,
-                    })))
-                }
-
-                fetchMyAPI()
-            }
         } else if (party_rec.transition === "sell") {
-            setTransationtype("Receive")
             setPart_list(sell)
-            if (party_rec.artical != "" && party_rec.extra != "" && party_rec.party_name != "" && party_rec.transition != "" && party_rec.type != "") {
-
-                async function fetchMyAPI() {
-                    const res = await fetch(`${api}Payrec/Getinvoiceist`,
-                        {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ ...party_rec })
-                        })
-                    const res_lot = await res.json()
-
-                    setAll_invoice(res_lot.map((ok) => ({
-                        check: false,
-                        s_p_id: ok.s_id,
-                        invoice_date: ok.invoice_date,
-                        total_carat: ok.total_carat,
-                        final_amount: ok.sell_invoice,
-                        receive_amount: ok.receive_amount,
-                        outstanding_amount: ok.outstanding_amount,
-                        sell_differnt_amount: ok.sell_differnt_amount,
-                        extra: ok.extra,
-                        type: ok.type,
-                        artical: ok.artical,
-                        vai_1: ok.vai_1,
-                        vai_1_amount: ok.vai_1_amount,
-                        vai_2: ok.vai_2,
-                        vai_2_amount: ok.vai_2_amount,
-                        vai_3: ok.vai_3,
-                        vai_3_amount: ok.vai_3_amount,
-                        vai_4: ok.vai_4,
-                        vai_4_amount: ok.vai_4_amount,
-                    })))
-                }
-
-                fetchMyAPI()
-            }
         }
+
     }, [party_rec])
+
 
     const radio_value = async (e, sub_p) => {
         const invoice = all_invoice.find(id => id.s_p_id == sub_p);
@@ -395,15 +397,18 @@ const Index = (
             setPayrec_data(res_set)
         }
     }
+    const [o_del, setO_del] = useState();
 
-    const delete_data = (e) => {
+    const delete_data = (e, n) => {
         setpop_delete(true);
         setDel_id(e);
+        setO_del(n);
     }
 
     const close_del = () => {
         setpop_delete(false);
         setDel_id("");
+        setO_del("");
     }
 
     return (
@@ -436,6 +441,7 @@ const Index = (
                 del_id={ del_id }
                 delete_data={ delete_data }
                 close_del={ close_del }
+                o_del={ o_del }
             />
         </div>
     )

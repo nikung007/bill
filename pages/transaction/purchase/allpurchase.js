@@ -110,28 +110,31 @@ const Allpurchase = ({ resdata, api }) => {
 
     const check_all_invoice = async (e) => {
         if (e.target.checked == true) {
-            // const res_all = await fetch(`${api}Purchase/Delete`,
-            //     {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify({
-            //             delete_data_id: e
-            //         })
-            //     })
-            // const resnew = await res_all.json()
-            // setAll_purchase(resnew);
+            const res = await fetch(`${api}Purchase/Getlist`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        delete_data_id: "e"
+                    })
+                })
+            const resnew = await res.json()
+            setAll_purchase(resnew);
         } else {
-            // const res = await fetch(`${api}Purchase/Getlist`,
-            //     {
-            //         method: 'GET',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         }
-            //     })
-            // const resdata = await res.json()
-            // setAll_purchase(resdata);
+            const res = await fetch(`${api}Purchase/Getfinallist`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        delete_data_id: "e"
+                    })
+                })
+            const resdata = await res.json()
+            setAll_purchase(resdata);
         }
     }
 
@@ -219,9 +222,9 @@ export default Allpurchase
 
 export async function getServerSideProps({ query }) {
 
-    const res = await fetch(`${process.env.API}Purchase/Getlist`,
+    const res = await fetch(`${process.env.API}Purchase/Getfinallist`,
         {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             }

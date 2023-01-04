@@ -34,6 +34,7 @@ const Out_standing = ({ api, sell, purchase }) => {
         setOutStand({ ...outStand, [e.target.name]: e.target.value })
         setError_payrec({ ...error_payrec, [e.target.name]: false })
     }
+    const [chbox_val, setChbox_val] = useState("F")
 
     const data = {
         extra: outStand.extra,
@@ -43,6 +44,7 @@ const Out_standing = ({ api, sell, purchase }) => {
         partyname: outStand.party_name,
         fromdate: outStand.fromdate,
         todate: outStand.todate,
+        chbox: chbox_val,
     }
 
     const show_data = async () => {
@@ -71,49 +73,9 @@ const Out_standing = ({ api, sell, purchase }) => {
 
     const show_all_invoice = async (e) => {
         if (e.target.checked == true) {
-            if (error_payrec.artical == false &&
-                error_payrec.extra == false &&
-                error_payrec.fromdate == false &&
-                error_payrec.party_name == false &&
-                error_payrec.todate == false &&
-                error_payrec.transtiontype == false &&
-                error_payrec.type == false) {
-
-                const res = await fetch(`${api}Report/Getdueinvoicedetail`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ ...data })
-                    })
-                const res_lot = await res.json()
-                setShow(true)
-                setAll_data(res_lot);
-
-            }
+            setChbox_val("T");
         } else {
-            if (error_payrec.artical == false &&
-                error_payrec.extra == false &&
-                error_payrec.fromdate == false &&
-                error_payrec.party_name == false &&
-                error_payrec.todate == false &&
-                error_payrec.transtiontype == false &&
-                error_payrec.type == false) {
-
-                const res = await fetch(`${api}Report/Getdueinvoicedetail`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ ...data })
-                    })
-                const res_lot = await res.json()
-                setShow(true)
-                setAll_data(res_lot);
-
-            }
+            setChbox_val("F");
         }
     }
 
@@ -131,8 +93,22 @@ const Out_standing = ({ api, sell, purchase }) => {
         }
     }, [outStand])
 
-    const show_invoice = (e) => {
+    const [show_one_invoice, setShow_one_invoice] = useState([]);
+    const [sub_show_one, setSub_show_one] = useState([])
+
+    const show_invoice = async (e) => {
         setsing_invoice(true)
+        const res = await fetch(`${api}Report/SelectinvoicefullDetail`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ttype: outStand.transtiontype, id: e })
+            })
+        const res_data = await res.json()
+        setShow_one_invoice(res_data.invoicedata)
+        setSub_show_one(res_data.transactiondata)
     }
 
     const close_show = () => {
@@ -143,10 +119,72 @@ const Out_standing = ({ api, sell, purchase }) => {
         <section style={ { maxWidth: "1280px", position: "relative" } }>
             { sing_invoice ?
                 <div className={ `${Out_Style.sell_list}` }>
-                    <div>
-
+                    <div className='card'>
+                        <h3>Invoice Details</h3>
+                        <table className='results'>
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Invoice Date</th>
+                                    <th>Party Name</th>
+                                    <th>Carat</th>
+                                    <th>FinalAmount</th>
+                                    <th>PayRecAmount</th>
+                                    <th>Outstading</th>
+                                    <th>Teams</th>
+                                    <th>Due Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    show_one_invoice.map((ele, index) => {
+                                        return (
+                                            <tr key={ index }>
+                                                <td>{ index + 1 }</td>
+                                                <td>{ ele.invoice_date.split("T")[0].split("-").reverse().join("-") }</td>
+                                                <td>{ ele.party_name }</td>
+                                                <td>{ ele.total_carat }</td>
+                                                <td>{ ele.total_amount }</td>
+                                                <td>{ ele.receive_amount }</td>
+                                                <td>{ ele.outstanding_amount }</td>
+                                                <td>{ ele.terms }</td>
+                                                <td>{ ele.due_date.split("T")[0].split("-").reverse().join("-") }</td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                        <hr style={ { margin: "15px 0 5px 0", border: "1px solid black", margin: "0 10px" } } />
+                        <div>
+                            <h3>Transtion Details</h3>
+                            <table className='results'>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        sub_show_one.map((ele, index) => {
+                                            return (
+                                                <tr key={ index }>
+                                                    <td>{ ele.id }</td>
+                                                    <td>{ ele.amount }</td>
+                                                    <td>{ ele.tdate.split("T")[0].split("-").reverse().join("-") }</td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style={ { display: "flex", justifyContent: "center" } }>
+                            <button onClick={ close_show } className='warning'>Close</button>
+                        </div>
                     </div>
-                    <button onClick={ close_show } className='warning'>Close</button>
                 </div>
                 : null }
             <div className={ `card ${Out_Style.pay_rec_heading}` }>
@@ -282,7 +320,7 @@ const Out_standing = ({ api, sell, purchase }) => {
                         <label>
                             All Invoices
                             <input
-                                // onChange={ show_all_invoice }
+                                onChange={ show_all_invoice }
                                 style={ { marginLeft: "15px" } }
                                 type="checkbox" />
                         </label>
@@ -354,7 +392,7 @@ const Out_standing = ({ api, sell, purchase }) => {
                     : null }
 
             </div>
-        </section >
+        </section>
     )
 }
 

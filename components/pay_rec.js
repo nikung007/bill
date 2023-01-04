@@ -12,7 +12,7 @@ const Pay_rec = (props) => {
                             <button className='secondary' onClick={ props.close_del }>
                                 Cancel
                             </button>
-                            <button className='warning' onClick={ () => props.delete_part(props.del_id) }>
+                            <button className='warning' onClick={ () => props.delete_part(props.del_id, props.o_del) }>
                                 Conform
                             </button>
                         </div>
@@ -160,6 +160,9 @@ const Pay_rec = (props) => {
                                 onClick={ props.click_show }
                                 className='warning'>Show Invoice List</button>
                         </div>
+                        <div className={ `${Pay_Rec_Style.show_button}` }>
+                            <label> <input name='out_zero' onChange={ props.party_rec_change } type="checkbox" /> Outstanding-0</label>
+                        </div>
                     </article>
                     <hr />
                     <article>
@@ -300,6 +303,7 @@ const Pay_rec = (props) => {
                         <div className={ `column three ${Pay_Rec_Style.button_submit}` }>
                             <div className={ `${Pay_Rec_Style.purchase_filds}` }>
                                 <button
+                                    disabled={ props.party_rec.out_zero == "F" ? null : "disabled" }
                                     onClick={ props.save_data }>Save</button>
                             </div>
                             <div className={ `${Pay_Rec_Style.purchase_filds}` }>

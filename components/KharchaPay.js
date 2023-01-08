@@ -33,12 +33,11 @@ const KharchaPay = (props) => {
 
                     </div>
                     <div className={ `${Style.add_all_fild}` }>
-                        <label>Party Name</label>
+                        <label>Kharcha Name</label>
                         <select
-                            name='partyname'
+                            name='kharchaname'
                             onChange={ props.kharcha_change }
-                            value={ props.kharcha.partyname }
-                        >
+                            value={ props.kharcha.kharchaname }>
                             <option value="">Select</option>
                             {
                                 props.party.map((ele, index) => {
@@ -60,6 +59,14 @@ const KharchaPay = (props) => {
                                 } }>Please Select Partname</span>
                                 : null
                         }
+
+                    </div>
+                    <div className={ `${Style.add_all_fild}` }>
+                        <label>Kharcha Group</label>
+                        <input
+                            disabled
+                            value={ props.kharcha_group }
+                            type="text" />
 
                     </div>
                     <div className={ `${Style.add_all_fild}` }>
@@ -115,7 +122,6 @@ const KharchaPay = (props) => {
                                 } }>Please Select Transtion Type</span>
                                 : null
                         }
-
                     </div>
                     <div className={ `${Style.add_all_fild}` }>
                         <label> Amount</label>
@@ -152,7 +158,7 @@ const KharchaPay = (props) => {
                         className={ `${Style.add_all_fild}` }>
                         <button
                             onClick={ props.save_data }
-                        >Save</button>
+                        >{ props.savename }</button>
                         <Link href="/transaction/kharacha/all-kharcha">
                             <button className='secondary'>All List</button>
                         </Link>

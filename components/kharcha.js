@@ -76,7 +76,7 @@ function Kharcha(props) {
                         </div>
 
                         <div className={ `${Add_Master_Style.add_all_fild}` }>
-                            <label>Khata name</label>
+                            <label>Kharcha name</label>
                             <input
                                 value={ props.party_master.party_name }
                                 placeholder='Enter a party name'

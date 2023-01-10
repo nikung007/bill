@@ -6,7 +6,7 @@ import Add_Master_Style from '../../../styles/add_master.module.css'
 
 
 const Allsell = ({ resdata, api }) => {
-
+    console.log("resdata", resdata);
     const router = useRouter()
 
     const [all_sell, setAll_sell] = useState(resdata);
@@ -143,6 +143,8 @@ const Allsell = ({ resdata, api }) => {
                                 <th>Party Name</th>
                                 <th>Invoice Date</th>
                                 <th>Total Carat</th>
+                                <th>AddCarat</th>
+                                <th>LessCarat</th>
                                 <th>Total Final Amount</th>
                                 <th colSpan="2" style={ { textAlign: "center" } }>Action</th>
                             </tr>
@@ -156,6 +158,8 @@ const Allsell = ({ resdata, api }) => {
                                             <td>{ ele.party_name }</td>
                                             <td>{ ele.invoice_date.split("T")[0].split("-").reverse().join("-") }</td>
                                             <td>{ ele.total_carat }</td>
+                                            <td>{ ele.add_carat }</td>
+                                            <td>{ ele.less_carat }</td>
                                             <td>{ ele.final_amount }</td>
 
                                             <td><button onClick={ () => click_edit(ele.s_id) } className='secondary'>Edit</button></td>
